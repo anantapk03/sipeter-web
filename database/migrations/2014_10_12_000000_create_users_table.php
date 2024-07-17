@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('imageUrl');
             $table->enum('level', ['Admin', 'Kepala Puskesmas', 'Petugas UKM']);
+            $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
         });
     }

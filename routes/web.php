@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\UserManagementController;
 use App\Http\Controllers\auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,13 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::get('admin', [AdminController::class, 'index'])->name('admin-dashboard');
+
+    // Management User
+    Route::get('management-users/{level}', [UserManagementController::class, 'index'])->name('admin-management-users');
+    Route::get('management-users/add/{level}', [UserManagementController::class, 'add'])->name('admin-add-management-users');
+    Route::post('management-users/store/{level}', [UserManagementController::class, 'store'])->name('admin-store-management-users');
+    Route::get('management-users/edit/{level}', [UserManagementController::class, 'edit'])->name('admin-edit-management-users');
+    
+
+
 });

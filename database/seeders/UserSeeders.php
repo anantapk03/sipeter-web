@@ -19,7 +19,8 @@ class UserSeeders extends Seeder
             'nip' => '001122334455667788',
             'password' => bcrypt('developers'),
             'level'=> "admin",
-            'imageUrl'=> "profile.png"
+            'imageUrl'=> "profile.png",
+            'status'=>'active'
         ]);
     }
 }
