@@ -65,8 +65,7 @@
                         })
                     }
                 </script>
-                <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD6LGlk68AW5PVb-qBRht9V7mYzaFmt9I&loading=async&callback=initMap" type="text/javascript"></script>
-                <!-- key maps:  AIzaSyCmmZzoXg5nFWktxbpb5l7K6fC21D5lhdA -->
+                <script async src="https://maps.googleapis.com/maps/api/js?key={{ config('GOOGLE_API_KEY_FREE') }}&loading=async&callback=initMap" type="text/javascript"></script>
             </div>
             <div class="card-footer">
                 <button class="btn btn-success" type="submit">Simpan</button>
