@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pemeriksaan_ibu_hamil', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('idDesa')->references('idDesa')->on('wilayah_kerja')->onDelete('cascade');
+            $table->foreignId('idDesa')->references('id')->on('wilayah_kerja')->onDelete('cascade');
             $table->integer('jumlahTerdaftar');
             $table->integer('jumlahPenerimaTableTambahDarahMinimal90');
             $table->integer('jumlahPenderitaAnemia');

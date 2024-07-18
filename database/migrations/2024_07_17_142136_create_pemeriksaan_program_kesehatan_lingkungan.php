@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pemeriksaan_program_kesehatan_lingkungan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('idPromKes')->references('idPromKes')->on('program_kesehatan_lingkungan');
+            $table->foreignId('idKesLing')->references('id')->on('program_kesehatan_lingkungan');
             $table->integer('jumlahPemeriksaan');
             $table->integer('jumlahResikoRendahSedang');
             $table->integer('jumlahResikoTinggiAmatTinggi');

@@ -9,8 +9,8 @@
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                         <span>
-                            Hizrian
-                            <span class="user-level">Administrator</span>
+                            {{ Auth()->user()->nama }}
+                            <span class="user-level">{{ Auth()->user()->level }}</span>
                             <span class="caret"></span>
                         </span>
                     </a>
@@ -82,7 +82,7 @@
                     </div>
                 </li>
                 <li class="nav-item ">
-                    <a  href="#" aria-expanded="false">
+                    <a  href="{{ route('desa.index') }}" aria-expanded="false">
                         <i class="fas fa-location-arrow"></i>
                         <p>Desa</p>
                     </a>

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             #$table->foreignId('idKesehatanUmumDesa')->constrained('kegiatan_kesehatan_umum_desa')->onDelete('cascade');
             #$table->foreignId('idDesa')->constrained('wilayah_kerja')->onDelete('cascade');
-            $table->foreignId('idDesa')->references('idDesa')->on('wilayah_kerja')->onDelete('cascade');
-            $table->foreignId('idKesehatanUmumDesa')->references('idKesehatanUmumDesa')->on('kegiatan_kesehatan_umum_desa')->onDelete('cascade');
+            $table->foreignId('idDesa')->references('id')->on('wilayah_kerja')->onDelete('cascade');
+            $table->foreignId('idKesehatanUmumDesa')->references('id')->on('kegiatan_kesehatan_umum_desa')->onDelete('cascade');
             $table->integer('jumlah');
             $table->timestamps();
         });

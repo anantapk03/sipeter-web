@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('data_ukbm', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('idDesa')->references('idDesa')->on('wilayah_kerja')->onDelete('cascade');
-            $table->foreignId('idJenisUkbm')->references('idJenisUkbm')->on('jenis_ukbm')->onDelete('cascade');
+            $table->foreignId('idDesa')->references('id')->on('wilayah_kerja')->onDelete('cascade');
+            $table->foreignId('idJenisUkbm')->references('id')->on('jenis_ukbm')->onDelete('cascade');
             $table->string('namaUkbm');
             $table->string('alamatUkbm');
             $table->string('sumberPembiayaan');
