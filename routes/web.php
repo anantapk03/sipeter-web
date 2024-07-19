@@ -32,8 +32,10 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::get('management-users/{level}', [UserManagementController::class, 'index'])->name('admin-management-users');
     Route::get('management-users/add/{level}', [UserManagementController::class, 'add'])->name('admin-add-management-users');
     Route::post('management-users/store/{level}', [UserManagementController::class, 'store'])->name('admin-store-management-users');
-    Route::get('management-users/edit/{level}', [UserManagementController::class, 'edit'])->name('admin-edit-management-users');
+    Route::get('management-users/edit/{level}/{id}', [UserManagementController::class, 'edit'])->name('admin-edit-management-users');
+    Route::post('management-users/update/{id}', [UserManagementController::class, 'update'])->name('admin-update-management-users');
+    Route::get('management-users/updatePassword/{id}', [UserManagementController::class, 'updatePassword'])->name('admin-updatePassword-management-users');
+    Route::get('management-users/delete/{id}', [UserManagementController::class, 'delete'])->name('admin-delete-management-users');
     
-
 
 });

@@ -32,7 +32,11 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$user->nama}}</td>
                             <td>
-                                {{$user->status}}
+                                @if ($user->status == "active")
+                                <span class="badge badge-success">{{$user->status}}</span>
+                                @else
+                                <span class="badge badge-danger">{{$user->status}}</span>
+                                @endif
                             </td>
                             <td>
                                 <a href="#" class="btn btn-sm btn-info" data-target="#exampleModalCenter{{$user->id}}" data-toggle="modal"> <i class="fas fa-info"></i> Info</a>
@@ -41,7 +45,7 @@
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h3 class="modal-title" id="exampleModalLongTitle">Data Struktur Jabatan</h3>
+                                        <h3 class="modal-title" id="exampleModalLongTitle">Data Pengguna</h3>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -79,14 +83,39 @@
                                         </div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <a href="#" class="btn btn-warning">Edit Data</a>
+                                        <a href="{{route('admin-edit-management-users', ['id'=>$user->id, 'level'=>$user->level])}}" class="btn btn-warning">Edit Data</a>
                                         </div>
                                     </div>
                                     </div>
                                 </div>
                                 {{-- Modal end --}}
-                                <a href="#" class="btn btn-sm btn-warning"> <i class="fas fa-edit"></i> Edit</a>
-                                <a href="#" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i> Hapus</a>
+                                <a href="{{route('admin-updatePassword-management-users', ['id'=>$user->id])}}" class="btn btn-sm btn-warning"><i class="fas fa-redo"></i> Password</a>
+                                <a href="#" data-href="{{route('admin-delete-management-users', ['id'=>$user->id])}}" data-name="{{$user->nama}}" class="btn btn-sm btn-danger" id="deleteConfirmation{{$user->id}}"><i class="fas fa-trash"></i> Hapus</a>
+                                {{-- JS DELETE CONFIRMATION --}}
+                                <script>
+                                    $("#deleteConfirmation"+{{$user->id}}).click(function () {
+                                        swal({
+                                            title: 'Peringatan!',
+                                            text: "Data "+$(this).data('name')+" Akan Dihapus",
+                                            type: 'warning',
+                                            buttons:{
+                                                confirm: {
+                                                    text: 'Hapus Data',
+                                                    className : 'btn btn-success',
+                                                },
+                                                cancel: {
+                                                    visible: true,
+                                                    text : 'Batalkan',
+                                                    className: 'btn btn-danger',
+                                                }
+                                            }
+                                        }).then((willConfirm) => {
+                                            if (willConfirm) {
+                                                window.location.href = $(this).data('href');
+                                            } 
+                                        });
+                                    });
+                                </script>
                             </td>
                         </tr>                        
                     @endforeach
