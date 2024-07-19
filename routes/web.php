@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\UserManagementController;
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\DesaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,5 +38,11 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::get('management-users/updatePassword/{id}', [UserManagementController::class, 'updatePassword'])->name('admin-updatePassword-management-users');
     Route::get('management-users/delete/{id}', [UserManagementController::class, 'delete'])->name('admin-delete-management-users');
     
-
+    // Management Desa
+    Route::get('management-desa', [DesaController::class, 'index'])->name('desa.index');
+    Route::get('management-desa/create', [DesaController::class, 'create'])->name('desa.create');
+    Route::post('management-desa/create', [DesaController::class, 'store'])->name('desa.store');
+    Route::get('management-desa/{id}', [DesaController::class, 'edit'])->name('desa.edit');
+    Route::post('management-desa/{id}', [DesaController::class, 'update'])->name('desa.update');
+    Route::delete('management-desa/{id}', [DesaController::class, 'destroy'])->name('desa.destroy');
 });

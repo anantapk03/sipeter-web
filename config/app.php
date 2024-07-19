@@ -126,6 +126,12 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'google_api_key' => env('GOOGLE_API_KEY', 'AIzaSyCD6LGlk68AW5PVb-qBRht9V7mYzaFmt9I'),
+    #'google_api_key_paid' => env('GOOGLE_API_KEY', 'AIzaSyCmmZzoXg5nFWktxbpb5l7K6fC21D5lhdA'),
+
+    
+    
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver

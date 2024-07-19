@@ -82,7 +82,7 @@
                     </div>
                 </li>
                 <li class="nav-item ">
-                    <a  href="#" aria-expanded="false">
+                    <a  href="{{ route('desa.index') }}" aria-expanded="false">
                         <i class="fas fa-location-arrow"></i>
                         <p>Desa</p>
                     </a>
