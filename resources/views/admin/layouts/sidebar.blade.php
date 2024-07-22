@@ -4,13 +4,13 @@
         <div class="sidebar-content">
             <div class="user">
                 <div class="avatar-sm float-left mr-2">
-                    <img src="{{ asset("layout_asset/assets/img/profile.jpg") }}" alt="..." class="avatar-img rounded-circle">
+                    <img src="{{ asset("storage/picture_profile/".auth()->user()->imageUrl) }}" alt="..." class="avatar-img rounded-circle">
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                         <span>
-                            {{ Auth()->user()->nama }}
-                            <span class="user-level">{{ Auth()->user()->level }}</span>
+                            {{auth()->user()->nama}}
+                            <span class="user-level">{{auth()->user()->level}}</span>
                             <span class="caret"></span>
                         </span>
                     </a>
@@ -69,12 +69,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="{{route('admin-management-users', ['level'=>'Kepala Puskesmas'])}}">
                                     <span class="sub-item">Kepala Puskesmas</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="{{route('admin-management-users', ['level'=>'Petugas UKM'])}}">
                                     <span class="sub-item">Petugas UKM</span>
                                 </a>
                             </li>
@@ -119,6 +119,12 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+                <li class="nav-item ">
+                    <a  href="{{route('logout')}}" aria-expanded="false">
+                        <i class="fas fa-power-off"></i>
+                        <p>Keluar</p>
+                    </a>
                 </li>
             </ul>
         </div>
