@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\UkmEssensialController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DesaController;
+use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\UserManagementController;
-use App\Http\Controllers\auth\AuthController;
-use App\Http\Controllers\DesaController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JenisPromosiKesehatanController;
+use App\Http\Controllers\KegiatanPromKesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +46,11 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::get('management-desa/{id}', [DesaController::class, 'edit'])->name('desa.edit');
     Route::post('management-desa/{id}', [DesaController::class, 'update'])->name('desa.update');
     Route::delete('management-desa/{id}', [DesaController::class, 'destroy'])->name('desa.destroy');
+
+    // Management Jenis Program
+    Route::get('ukm-essensial/divisi', [UkmEssensialController::class, 'index'])->name('ukm-essensial.index');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan', [UkmEssensialController::class, 'show'])->name('promkes.show');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan', [UkmEssensialController::class, 'showKegiatan'])->name('promkes.show.activity');
+    
+
 });

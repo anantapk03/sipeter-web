@@ -81,10 +81,16 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item">
                     <a  href="{{ route('desa.index') }}" aria-expanded="false">
                         <i class="fas fa-location-arrow"></i>
                         <p>Desa</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a  href="{{ route('desa.index') }}" aria-expanded="false">
+                        <i class="fas fa-pen"></i>
+                        <p>Akses Petugas UKM</p>
                     </a>
                 </li>
                 <li class="nav-section">
@@ -102,7 +108,7 @@
                     <div class="collapse" id="base2">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="#">
+                                <a href="{{ route('ukm-essensial.index') }}">
                                     <span class="sub-item">UKM Essensial</span>
                                 </a>
                             </li>

@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promosi_kesehatan_penyakit_menular', function (Blueprint $table) {
-            $table->id();
+        Schema::create('kegiatan_promosi_kesehatan_umum_desa', function (Blueprint $table) {
+            $table->id('id')->autoIncrement();
             $table->string('namaKegiatan');
             $table->text('deskripsiKegiatan');
-            $table->string('jumlahKegiatan');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('promosi_kesehatan_penyakit_menular');
+        Schema::dropIfExists('kegiatan_kesehatan_umum_desa');
     }
 };

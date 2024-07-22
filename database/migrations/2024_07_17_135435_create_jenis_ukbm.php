@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jenis_ukbm', function (Blueprint $table) {
             $table->id('id')->autoIncrement();
-            $table->string('jenisUkbm');
+            $table->string('jenisUkbm', 50);
             $table->timestamps();
         });
     }

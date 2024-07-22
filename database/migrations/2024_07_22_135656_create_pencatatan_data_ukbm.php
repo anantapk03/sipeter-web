@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('program_kesehatan_lingkungan', function (Blueprint $table) {
-            $table->id('id')->autoIncrement();
-            $table->string('namaProgram');
-            $table->integer('targetJumlahPemeriksaan');
+        Schema::create('pencatatan_data_ukbm', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('idDataUkbm')->references('id')->on('data_ukbm');
+            $table->string('deskripsi');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('program_kesehatan_lingkungan');
+        Schema::dropIfExists('pencatatan_data_ukbm');
     }
 };

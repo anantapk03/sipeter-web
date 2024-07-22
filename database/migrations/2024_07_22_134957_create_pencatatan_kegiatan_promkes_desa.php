@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promosi_kesehatan_penyakit_kia_dan_remaja', function (Blueprint $table) {
+        Schema::create('pencatatan_kegiatan_promkes_desa', function (Blueprint $table) {
             $table->id();
-            $table->string('namaKegiatan');
-            $table->text('deskripsiKegiatan');
-            $table->string('jumlahKegiatan');
+            $table->foreignId('idKegiatanPromKesDesa')->references('id')->on('kegiatan_promosi_kesehatan_umum_desa');
+            $table->foreignId('idDesa')->references('id')->on('wilayah_kerja');
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('promosi_kesehatan_penyakit_kia_dan_remaja');
+        Schema::dropIfExists('pencatatan_kegiatan_promkes_desa');
     }
 };
