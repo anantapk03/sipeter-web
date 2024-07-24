@@ -10,6 +10,8 @@ use App\Http\Controllers\UkmEssensialController;
 use App\Http\Controllers\KegiatanPromKesController;
 use App\Http\Controllers\admin\UserManagementController;
 use App\Http\Controllers\JenisPromosiKesehatanController;
+use App\Http\Controllers\ukm_promkes\KegiatanPromosiKesehatanUmumDesaController;
+use App\Http\Controllers\ukm_promkes\PencatatanKegiatanPromosiKesehatanUmumDesa;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,11 +53,6 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::post('management-desa/{id}', [DesaController::class, 'update'])->name('desa.update');
     Route::delete('management-desa/{id}', [DesaController::class, 'destroy'])->name('desa.destroy');
 
-    // Management Jenis Program
-    Route::get('ukm-essensial/divisi', [UkmEssensialController::class, 'index'])->name('ukm-essensial.index');
-    Route::get('ukm-essensial/divisi/promosi-kesehatan', [UkmEssensialController::class, 'show'])->name('promkes.show');
-    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan', [UkmEssensialController::class, 'showKegiatan'])->name('promkes.show.activity');
-
     // Management UKBM
     Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm', [UkbmController::class, 'index'])->name('ukbm.index');
     Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/jenis-ukbm/create', [UkbmController::class, 'addJenisUkbm'])->name('ukbm.jenis.create');
@@ -67,5 +64,20 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     // Management data UKBM
     Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/data-ukbm/create', [DataUkbmController::class, 'create'])->name('ukbm.data-ukbm.create');
     Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/data-ukbm/create', [DataUkbmController::class, 'store'])->name('ukbm.data-ukbm.store');
+
+    // Management Jenis Program
+    Route::get('ukm-essensial/divisi', [UkmEssensialController::class, 'index'])->name('ukm-essensial.index');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan', [UkmEssensialController::class, 'show'])->name('promkes.show');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan', [UkmEssensialController::class, 'showKegiatan'])->name('promkes.show.activity');
+    
+
+    Route::get('program-kegiatan-promkes-desa/index', [KegiatanPromosiKesehatanUmumDesaController::class, 'index'])->name('program-kegiatan-promkes-desa-index');
+    Route::get('program-kegiatan-promkes-desa/create', [KegiatanPromosiKesehatanUmumDesaController::class, 'create'])->name('program-kegiatan-promkes-desa-create');
+    Route::post('program-kegiatan-promkes-desa/store', [KegiatanPromosiKesehatanUmumDesaController::class, 'store'])->name('program-kegiatan-promkes-desa-store');
+    Route::get('program-kegiatan-promkes-desa/edit/{id}', [KegiatanPromosiKesehatanUmumDesaController::class, 'edit'])->name('program-kegiatan-promkes-desa-edit');
+    Route::post('program-kegiatan-promkes-desa/update/{id}', [KegiatanPromosiKesehatanUmumDesaController::class, 'update'])->name('program-kegiatan-promkes-desa-update');
+
+    // Pencatatan Kegiatan Promosi Kesehatan Umum Desa 
+    Route::get('pencatatan-program-kegiatan-promkes-desa/index/{id}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'index'])->name('pencatatan-program-kegiatan-promkes-desa-index');
 
 });
