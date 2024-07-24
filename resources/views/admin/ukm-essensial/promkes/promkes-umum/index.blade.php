@@ -38,7 +38,7 @@
                                     }
                                 </style>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-database"></i>  Info</a>
+                                    <a class="dropdown-item" href="{{route('program-kegiatan-promkes-desa-index')}}"><i class="fas fa-database"></i>  Info</a>
                                 </div>
                             </div>
                         </td>
