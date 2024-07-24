@@ -57,13 +57,14 @@
                                     }
                                 </style>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-database"></i>  Data Program</a>
+                                    <a class="dropdown-item" href="{{ route('ukbm.index') }}"><i class="fas fa-database"></i>  Info</a>
                                 </div>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <a href="{{ route('promkes.show') }}" class="btn btn-warning" style="margin-left: 1%">Kembali</a>
         </div>
     </div>
 </div>
