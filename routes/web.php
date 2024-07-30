@@ -102,4 +102,8 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     // Pencatatan Kegiatan Promosi Kesehatan Umum Desa 
     Route::get('pencatatan-program-kegiatan-promkes-desa/index/{id}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'index'])->name('pencatatan-program-kegiatan-promkes-desa-index');
 
+    Route::get('pencatatan-program-kegiatan-promkes-desa/create/{id}/{month}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'indexReport'])->name('pencatatan-program-kegiatan-promkes-desa-create');
+    Route::get('pencatatan-program-kegiatan-promkes-desa/createReport/{id}/{month}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'createReport'])->name('pencatatan-program-kegiatan-promkes-desa-createReport');
+    Route::post('pencatatan-program-kegiatan-promkes-desa/storeReport/{id}/{month}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'storeReport'])->name('pencatatan-program-kegiatan-promkes-desa-storeReport');
+
 });

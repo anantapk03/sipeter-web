@@ -79,3 +79,27 @@
         });
     });
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('#data-table-months').DataTable({
+            order: [],
+            lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+            columnDefs: [
+                {
+                    targets: 2, // Kolom aksi
+                    render: function(data, type, row) {
+                        if (data.includes('btn-success')) {
+                            return '1';
+                        } else {
+                            return '0';
+                        }
+                    },
+                    orderDataType: 'dom-text-numeric',
+                    type: 'num'
+                }
+            ],
+            order: [[2, 'desc']] // Mengurutkan berdasarkan kolom aksi secara descending
+        });
+    });
+</script>
