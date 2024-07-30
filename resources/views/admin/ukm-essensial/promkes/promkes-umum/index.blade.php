@@ -57,7 +57,7 @@
                                     }
                                 </style>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('ukbm.index') }}"><i class="fas fa-database"></i>  Info</a>
+                                    <a class="dropdown-item" href="{{ route('ukbm.data-ukbm.index') }}"><i class="fas fa-database"></i>  Info</a>
                                 </div>
                             </div>
                         </td>

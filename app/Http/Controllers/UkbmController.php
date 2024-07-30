@@ -9,14 +9,10 @@ use Illuminate\Support\Facades\DB;
 class UkbmController extends Controller
 {
     public function index(){
-        $data = JenisUkbm::all();
-        $dataUkbm = DB::table('data_ukbm')
-            ->leftJoin('wilayah_kerja', 'data_ukbm.idDesa', '=', 'wilayah_kerja.id')
-            ->leftJoin('jenis_ukbm', 'data_ukbm.idJenisUkbm', '=', 'jenis_ukbm.id')
-            ->select('wilayah_kerja.namaDesa', 'jenis_ukbm.jenisUkbm', 'data_ukbm.*')
-            ->get();
 
-        return view('admin.ukm-essensial.promkes.promkes-umum.ukbm.index', compact('data', 'dataUkbm'));
+        $data = JenisUkbm::all();
+        return view('admin.ukm-essensial.promkes.promkes-umum.ukbm.jenis-ukbm.index', compact('data'));
+
     }
 
     public function addJenisUkbm(){
@@ -28,7 +24,7 @@ class UkbmController extends Controller
             'jenisUkbm' => $request->jenisUkbm
         ]);
     
-        return redirect()->route('ukbm.index');
+        return redirect()->route('ukbm.jenis.index');
     }
 
     public function editJenisUkbm(string $id){
@@ -41,13 +37,13 @@ class UkbmController extends Controller
         $data->jenisUkbm = $request->jenisUkbm;
         $data->update();
 
-        return redirect()->route('ukbm.index');
+        return redirect()->route('ukbm.jenis.index');
     }
 
     public function deleteJenisUkbm(string $id){
         $data = JenisUkbm::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('ukbm.index');
+        return redirect()->route('ukbm.jenis.index');
     }
 }

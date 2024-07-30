@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pencatatan_data_ukbm', function (Blueprint $table) {
             $table->id();
             $table->foreignId('idDataUkbm')->references('id')->on('data_ukbm');
+            $table->foreignId('idPeriode')->references('id')->on('periode_pencatatan');
             $table->string('deskripsi');
             $table->timestamps();
         });
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pencatatan_data_ukbm');
+        Schema::dropIfExists('pencatatan_ukbm');
     }
 };

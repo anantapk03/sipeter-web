@@ -18,7 +18,7 @@
             </div>
             <div class="card-footer">
                 <button class="btn btn-success" type="submit">Simpan</button>
-                <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{ route('ukbm.index') }}">Kembali</a>
+                <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{ route('ukbm.jenis.index') }}">Kembali</a>
                 <script>
                     $("#backConfirmation").click(function () {
                         swal({

@@ -24,9 +24,15 @@
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="{{asset("layout_asset/examples/assets/css/demo.css")}}">
+	{{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
 
+	{{-- Search Selection Libs --}}
+	<link href="{{ asset("layout_asset/assets/dist/css/select2.min.css") }}" rel="stylesheet" />
+	
 	{{-- import JS file--}}
 	@include('admin.layouts.javascript')
+	<script src="{{ asset('layout_asset/assets/dist/js/select2.min.js') }}"></script>
+
 </head>
 <body>
 	<div class="wrapper">

@@ -2,23 +2,39 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3>Tambah Data Jenis UKBM</h3>
+            <h3>Tambah Pencatatan Data UKBM</h3>
         </div>
-        <form action="{{ route('ukbm.jenis.post') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('ukbm.pencatatan-ukbm.store', $bulan->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="inputJenisUkbm">Jenis UKBM</label>
-                            <input id="inputJenisUkbm" type="text" name="jenisUkbm" class="form-control" required placeholder="Masukan Jenis UKBM">
+                            <label for="selectUkbm">Data UKBM</label>
+                            <select class="js-example-basic-single form-control" name="dataUkbm" required>
+                                <option value="">Pilih</option>
+                                @foreach ($data as $item)
+                                    <option value="{{ $item->id}}">{{ $item->namaUkbm }}</option>
+                                @endforeach
+                            </select>
+                            <script>
+                                $(document).ready(function() {
+                                    $('.js-example-basic-single').select2();
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="inputDeskripsi">Deskripsi</label>
+                            <textarea id="inputDeskripsi" type="text" name="deskripsi" class="form-control" required placeholder="Masukan Keterangan"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
                 <button class="btn btn-success" type="submit">Simpan</button>
-                <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{ route('ukbm.jenis.index') }}">Kembali</a>
+                <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{ route('ukbm.pencatatan-ukbm.index', $item->id) }}">Kembali</a>
                 <script>
                     $("#backConfirmation").click(function () {
                         swal({
@@ -29,7 +45,7 @@
                                 cancel: {
                                     visible: true,
                                     text : 'Lanjutkan Mengisi Data',
-                                    className: 'btn btn-success',
+                                    className: 'btn btn-light',
                                 },
                                 confirm: {
                                     text: 'Iya',

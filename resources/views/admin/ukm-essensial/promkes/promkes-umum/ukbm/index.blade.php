@@ -3,74 +3,20 @@
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <h3>Data Jenis UKBM</h3>
-            <a class="btn btn-sm btn-success" href="{{ route('ukbm.jenis.create') }}"><i class="fas fa-plus" style="margin-right: 3%"></i>  Tambah</a>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table id="basic-datatables" class="display table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Kegiatan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Kegiatan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    @foreach ($data as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->jenisUkbm }}</td>
-                            <td>
-                                <a class="btn btn-sm btn-warning" href="{{ route('ukbm.jenis.edit', $item->id) }}"><i class="fas fa-edit" style="margin-right: 3%"></i>  Edit</a>
-                                <a href="#" data-href="{{ route('ukbm.jenis.delete', $item->id) }}" class="btn btn-sm btn-danger" style="margin-right: 3%" id="deleteConfirmation{{ $item->id }}"><i class="fas fa-trash"></i> Hapus</a>
-                                {{-- JS DELETE CONFIRMATION --}}
-                                <script>
-                                    $("#deleteConfirmation"+{{$item->id}}).click(function () {
-                                        swal({
-                                            title: 'Peringatan!',
-                                            text: "Kamu yakin mau hapus?",
-                                            type: 'warning',
-                                            buttons:{
-                                                confirm: {
-                                                    text: 'Hapus Data',
-                                                    className : 'btn btn-success',
-                                                },
-                                                cancel: {
-                                                    visible: true,
-                                                    text : 'Batalkan',
-                                                    className: 'btn btn-danger',
-                                                }
-                                            }
-                                        }).then((willConfirm) => {
-                                            if (willConfirm) {
-                                                window.location.href = $(this).data('href');
-                                            } 
-                                        });
-                                    });
-                                </script>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <a href="{{ route('promkes.show.activity') }}" class="btn btn-warning" style="margin-left: 1%">Kembali</a>
-        </div>
-    </div>
-</div>
-<div class="card">
-    <div class="card-header">
-        <div class="d-flex justify-content-between align-items-center">
             <h3>Data UKBM</h3>
-            <a class="btn btn-sm btn-success" href="{{ route('ukbm.data-ukbm.create') }}"><i class="fas fa-plus" style="margin-right: 3%"></i>  Tambah</a>
+            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" style="margin-left: 73%" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-list"></i> Menu
+            </button>
+            <style>
+                .dropdown-toggle::after {
+                    display: none;
+                }
+            </style>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('ukbm.jenis.index') }}"><i class="fas fa-database" style="margin-right: 5%"></i>Jenis UKBM</a>
+                <a class="dropdown-item" href="{{ route('ukbm.pencatatan-ukbm.report') }}"><i class="fas fa-database" style="margin-right: 5%"></i>Pencatatan UKBM</a>
+            </div>
+            <a class="btn btn-sm btn-success" href="{{ route('ukbm.data-ukbm.create') }}"><i class="fas fa-plus"></i>  Tambah</a>
         </div>
     </div>
     <div class="card-body">
@@ -82,6 +28,7 @@
                         <th>Nama Desa</th>
                         <th>Jenis UKBM</th>
                         <th>Nama UKBM</th>
+                        <th>Status</th>
                         {{-- <th>Alamat UKBM</th> --}}
                         <th>Aksi</th>
                     </tr>
@@ -92,6 +39,7 @@
                         <th>Nama Desa</th>
                         <th>Jenis UKBM</th>
                         <th>Nama UKBM</th>
+                        <th>Status</th>
                         {{-- <th>Alamat UKBM</th> --}}
                         <th>Aksi</th>
                     </tr>
@@ -103,6 +51,14 @@
                             <td>{{ $item->namaDesa }}</td>
                             <td>{{ $item->jenisUkbm }}</td>
                             <td>{{ $item->namaUkbm }}</td>
+                            <td>
+                                @if ($item->status == 'active')
+                                    <a href="{{ route('ukbm.data-ukbm.show', $item->id) }}" class="badge badge-success" name="btnActive"><i class="fas fa-toggle-on"></i>  Active</a>
+                                    @method('POST')
+                                @else
+                                    <a href="{{ route('ukbm.data-ukbm.show', $item->id) }}" class="badge badge-danger" name="btnInactive"><i class="fas fa-toggle-off"></i>  Inactive</a>
+                                @endif
+                            </td>
                             {{-- <td>{{ $item->alamatUkbm }}</td> --}}
                             <td>
                                 <div class="m-2">
@@ -153,7 +109,14 @@
                                                         <tr>
                                                             <th scope="col">Kegiatan UKBM</th>
                                                             <td>:</td>
-                                                            <td> {{$item->kegiatanUkbm}} </td>
+                                                            <td>
+                                                                @foreach (json_decode($item->kegiatanUkbm) as $items)
+                                                                <ul>
+                                                                    <li> {{$items}} </li>
+                                                                </ul>
+                                                                @endforeach
+                                                            </td>
+                                                            
                                                         </tr>
                                                         <tr>
                                                             <th scope="col">Jumlah Kader</th>
@@ -176,53 +139,14 @@
                                         </div>
                                     </div>
                                     <!-- End Modal Info -->
-
-                                    <a class="btn btn-sm btn-warning" href="#"><i class="fas fa-edit"></i>  Edit</a>
-                                    <a class="btn btn-sm btn-danger" href="#"><i class="fas fa-trash"></i>  Hapus</a>
+                                    <a class="btn btn-sm btn-warning" href="{{ route('ukbm.data-ukbm.edit', $item->id) }}"><i class="fas fa-edit"></i>  Edit</a>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        </div>
-    </div>
-</div>
-<div class="card">
-    <div class="card-header">
-        <div class="d-flex justify-content-between align-items-center">
-            <h3> Pencatatan Data UKBM</h3>
-            <a class="btn btn-sm btn-success" href="#"><i class="fas fa-plus" style="margin-right: 3%"></i>  Tambah</a>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table id="basic-datatables3" class="display table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Kegiatan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Kegiatan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Kegiatan Promosi Kesehatan di Desa</td>
-                        <td>
-                            <a class="btn btn-sm btn-warning" href="#"><i class="fas fa-edit" style="margin-right: 3%"></i>  Edit</a>
-                            <a class="btn btn-sm btn-danger" href="#"><i class="fas fa-trash" style="margin-right: 3%"></i>  Hapus</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <a href="{{ route('promkes.show.activity') }}" class="btn btn-warning" style="margin-left: 1%">Kembali</a>
         </div>
     </div>
 </div>

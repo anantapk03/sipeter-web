@@ -19,6 +19,7 @@ class DataUkbm extends Model
         'sumberPembiayaan',
         'kegiatanUkbm',
         'jumlahKader',
-        'jumlahKaderDilatih'
+        'jumlahKaderDilatih',
+        'status'
     ];
 }
