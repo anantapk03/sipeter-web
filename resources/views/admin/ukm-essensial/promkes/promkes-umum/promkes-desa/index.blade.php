@@ -1,5 +1,6 @@
 @extends('admin.layouts.admin')
 @section('content')
+    <a href="{{route('promkes.show.activity')}}" class="btn btn-danger mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
