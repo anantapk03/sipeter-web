@@ -33,9 +33,9 @@
                                 </td>
                                 <td>
                                     @if ($monthData['status'])
-                                        <a href="{{route('pencatatan-program-kegiatan-promkes-desa-create', ["id"=>$data->id, "month"=>$monthNumber])}}" class="btn btn-sm btn-success">Buat Laporan</a>
+                                        <a href="{{route('pencatatan-program-kegiatan-promkes-desa-create', ["id"=>$data->id, "month"=>$monthNumber, "status"=>$monthData['status']])}}" class="btn btn-sm btn-success">Buat Laporan</a>
                                     @else
-                                        <a href="#" class="btn btn-sm btn-primary">Lihat Laporan</a>
+                                        <a href="{{route('pencatatan-program-kegiatan-promkes-desa-create', ["id"=>$data->id, "month"=>$monthNumber, "status"=>0])}}" class="btn btn-sm btn-primary">Lihat Laporan</a>
                                     @endif
                                 </td>
                             </tr>

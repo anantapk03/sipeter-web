@@ -23,7 +23,7 @@
                 <script>
                     $("#backConfirmation").click(function () {
                         swal({
-                            title: 'Batal Menginputkan Data Pengguna?',
+                            title: 'Peringatan!',
                             text: "Semua perubahan tidak akan disimpan",
                             type: 'warning',
                             buttons:{
