@@ -4,9 +4,7 @@
         <div class="card-header">
             <h3>Ubah Pencatatan Data UKBM</h3>
         </div>
-        @foreach ($data as $item)
-        @endforeach
-        <form action="{{ route('ukbm.pencatatan-ukbm.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('ukbm.pencatatan-ukbm.update', ['idPeriode' => $idPeriode, 'id' => $data->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="row">
@@ -14,16 +12,14 @@
                         <div class="form-group">
                             <label for="selectUkbm">Data UKBM</label>
                             <select id="selectUkbm" type="text" name="dataUkbm" class="form-control" disabled>
-                                @foreach ($data as $item)
-                                    <option value="{{ $item->id}}">{{ $item->namaUkbm }}</option>
-                                @endforeach
+                                <option value="{{ $data->id}}">{{ $data->namaUkbm }}</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="inputDeskripsi">Deskripsi</label>
-                            <textarea id="inputDeskripsi" type="text" name="deskripsi" class="form-control" required>{{ $item->deskripsi }}</textarea>
+                            <textarea id="inputDeskripsi" type="text" name="deskripsi" class="form-control" required>{{ $data->deskripsi }}</textarea>
                         </div>
                     </div>
                 </div>

@@ -19,7 +19,7 @@ class PencatatanUkbmController extends Controller
         $dataPencatatan = DB::table('pencatatan_data_ukbm')
             ->leftJoin('data_ukbm', 'pencatatan_data_ukbm.idDataUkbm', '=', 'data_ukbm.id')
             ->leftJoin('periode_pencatatan', 'pencatatan_data_ukbm.idPeriode', '=', 'periode_pencatatan.id')
-            ->select('data_ukbm.namaUkbm', 'pencatatan_data_ukbm.*')
+            ->select('data_ukbm.id as idDataUkbm', 'periode_pencatatan.id as idPeriode', 'data_ukbm.namaUkbm', 'pencatatan_data_ukbm.*')
             ->where('periode_pencatatan.id', '=', $id)
             ->get();
 
@@ -62,36 +62,41 @@ class PencatatanUkbmController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $idPeriode, string $id)
     {
         $data = DB::table('pencatatan_data_ukbm')
             ->leftJoin('data_ukbm', 'pencatatan_data_ukbm.idDataUkbm', '=', 'data_ukbm.id')
-            ->select('data_ukbm.namaUkbm', 'pencatatan_data_ukbm.*')
+            ->select('data_ukbm.id as idDataUkbm', 'pencatatan_data_ukbm.*', 'data_ukbm.namaUkbm')
             ->where('pencatatan_data_ukbm.id', $id)
-            ->get();
-        return view('admin.ukm-essensial.promkes.promkes-umum.ukbm.pencatatan-ukbm.update', compact('data'));
+            ->first();
+
+        #dd($data);
+
+        return view('admin.ukm-essensial.promkes.promkes-umum.ukbm.pencatatan-ukbm.update', ['data' => $data, 'idPeriode' => $idPeriode]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $idPeriode, string $id)
     {
         $data = PencatatanUkbm::findOrFail($id);
         $data->deskripsi = $request->deskripsi;
         $data->update();
 
-        return redirect()->route('ukbm.pencatatan-ukbm.index');
+        #dd($data);
+
+        return redirect()->route('ukbm.pencatatan-ukbm.index', ['id' => $idPeriode]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $idPeriode, string $id)
     {
         $data = PencatatanUkbm::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('ukbm.pencatatan-ukbm.index', $id);
+        return redirect()->route('ukbm.pencatatan-ukbm.index', $idPeriode);
     }
 }

@@ -1,5 +1,6 @@
 @extends('admin.layouts.admin')
 @section('content')
+<a href="{{ route('ukbm.data-ukbm.index') }}" class="btn btn-danger mb-3"><i class="fas fa-left-arrow"></i>Kembali</a>
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
@@ -30,14 +31,16 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->bulan }}</td>
                             <td>
-                                <a class="btn btn-sm btn-success" href="{{ route('ukbm.pencatatan-ukbm.index', $item->id) }}"
-                                    @if ($item->is_disabled) disabled @endif> Laporan Bulanan</a>
+                                @if ($item->is_disabled)
+                                    <a class="btn btn-sm btn-info" href="{{ route('ukbm.pencatatan-ukbm.index', $item->id) }}">Lihat Laporan</a>
+                                @else
+                                    <a class="btn btn-sm btn-success" href="{{ route('ukbm.pencatatan-ukbm.index', $item->id) }}">Buat Laporan</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            <a href="{{ route('ukbm.data-ukbm.index') }}" class="btn btn-warning" style="margin-left: 1%">Kembali</a>
         </div>
     </div>
 </div>

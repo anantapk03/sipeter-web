@@ -14,7 +14,9 @@
                             <select class="js-example-basic-single form-control" name="dataUkbm" required>
                                 <option value="">Pilih</option>
                                 @foreach ($data as $item)
-                                    <option value="{{ $item->id}}">{{ $item->namaUkbm }}</option>
+                                    @if ($item->status == 'active')
+                                        <option value="{{ $item->id}}">{{ $item->namaUkbm }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                             <script>
@@ -34,7 +36,7 @@
             </div>
             <div class="card-footer">
                 <button class="btn btn-success" type="submit">Simpan</button>
-                <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{ route('ukbm.pencatatan-ukbm.index', $item->id) }}">Kembali</a>
+                <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{ route('ukbm.pencatatan-ukbm.index', $bulan->id) }}">Kembali</a>
                 <script>
                     $("#backConfirmation").click(function () {
                         swal({

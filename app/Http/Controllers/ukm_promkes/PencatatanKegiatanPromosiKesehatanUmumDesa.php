@@ -37,14 +37,16 @@ class PencatatanKegiatanPromosiKesehatanUmumDesa extends Controller
         $currentDay = date('j');   // Tanggal saat ini, misal: 1, 2, 3, ..., 31
 
         // Mendapatkan bulan selanjutnya
-        $nextMonth = date('F', strtotime('+1 month'));
+        $lastMonth = date('F', strtotime('-1 month'));
 
         // Set variabel bulan saat ini menjadi true
         $months[$currentMonth] = true;
 
         // Jika tanggal saat ini tidak lebih dari atau sama dengan tanggal 5, set variabel bulan selanjutnya menjadi true
         if ($currentDay <= 5) {
-            $months[$nextMonth] = true;
+            $months[$lastMonth] = true;
+        }else{
+            $months[$currentMonth] = true;
         }
 
         // Pemetaan nama bulan ke nomor bulan
