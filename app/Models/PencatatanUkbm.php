@@ -13,7 +13,8 @@ class PencatatanUkbm extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'idDataUkbm',
-        'idPeriode',
+        'bulan',
+        'tahun',
         'deskripsi'
     ];
 }

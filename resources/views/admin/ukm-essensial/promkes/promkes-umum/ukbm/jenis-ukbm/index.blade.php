@@ -14,6 +14,10 @@
                     <tr>
                         <th>No</th>
                         <th>Kegiatan</th>
+                        <th>Bulanan</th>
+                        <th>Triwulan</th>
+                        <th>Semester</th>
+                        <th>Tahunan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -21,6 +25,10 @@
                     <tr>
                         <th>No</th>
                         <th>Kegiatan</th>
+                        <th>Bulanan</th>
+                        <th>Triwulan</th>
+                        <th>Semester</th>
+                        <th>Tahunan</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -29,6 +37,10 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->jenisUkbm }}</td>
+                            <td>{{ $item->bulanan }}</td>
+                            <td>{{ $item->triwulan }}</td>
+                            <td>{{ $item->semester }}</td>
+                            <td>{{ $item->tahunan }}</td>
                             <td>
                                 <a class="btn btn-sm btn-warning" href="{{ route('ukbm.jenis.edit', $item->id) }}"><i class="fas fa-edit" style="margin-right: 3%"></i>  Edit</a>
                                 {{-- <a href="#" data-href="{{ route('ukbm.jenis.delete', $item->id) }}" class="btn btn-sm btn-danger" style="margin-right: 3%" id="deleteConfirmation{{ $item->id }}"><i class="fas fa-trash"></i> Hapus</a> --}}

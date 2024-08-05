@@ -37,16 +37,23 @@ class PencatatanKegiatanPromosiKesehatanUmumDesa extends Controller
         $currentDay = date('j');   // Tanggal saat ini, misal: 1, 2, 3, ..., 31
 
         // Mendapatkan bulan selanjutnya
+        $nextMonth = date('F', strtotime('+1 month'));
         $lastMonth = date('F', strtotime('-1 month'));
-
-        // Set variabel bulan saat ini menjadi true
-        $months[$currentMonth] = true;
+        
 
         // Jika tanggal saat ini tidak lebih dari atau sama dengan tanggal 5, set variabel bulan selanjutnya menjadi true
-        if ($currentDay <= 5) {
-            $months[$lastMonth] = true;
-        }else{
-            $months[$currentMonth] = true;
+        if($currentMonth == "January"){
+            if ($currentDay <= 5) {
+                $months["December"] = true;
+            } else{
+                $months[$currentMonth] = true;
+            }
+        } else {
+            if ($currentDay <= 5) {
+                $months[$lastMonth] = true;
+            } else{
+                $months[$currentMonth] = true;
+            }
         }
 
         // Pemetaan nama bulan ke nomor bulan
@@ -121,51 +128,128 @@ class PencatatanKegiatanPromosiKesehatanUmumDesa extends Controller
         return $bulanIndonesia[$monthNumber];
     }
 
-    public function indexReport($idKegiatanPromkesDesa, $month){
+    public function indexReport($idKegiatanPromkesDesa, $month, $status){
         $year = Carbon::now()->format('Y');
+        $status = filter_var($status, FILTER_VALIDATE_BOOLEAN);
         $monthNameIndonesia = $this->getMonth($month);
+        $isReportDone = $this->checkDesaInReport($month, $idKegiatanPromkesDesa);
         $data = SubKegiatanPromosiKesehatanDesa::find($idKegiatanPromkesDesa);
-        $dataReport = PencatatanKegiatanPromkesDesa::where('idKegiatanPromkesDesa', $idKegiatanPromkesDesa)->where('bulan', $month)->where('tahun', 2024)
-        ->leftJoin('wilayah_kerja', 'pencatatan_kegiatan_promkes_desa.idDesa', '=', 'wilayah_kerja.id')->get();
-        return view('admin.ukm-essensial.promkes.promkes-umum.promkes-desa.report-promkes-desa.report.index', ['data' => $data, 'year'=>$year, 'month'=>$monthNameIndonesia, 'monthNumber'=>$month, 'dataReport'=>$dataReport]);
+        $year = $this->checkYear($month);
+        $dataReport = PencatatanKegiatanPromkesDesa::where('idKegiatanPromkesDesa', $idKegiatanPromkesDesa)->where('bulan', $month)->where('tahun', $year)
+        ->leftJoin('wilayah_kerja', 'pencatatan_kegiatan_promkes_desa.idDesa', '=', 'wilayah_kerja.id')
+        ->select(
+            'pencatatan_kegiatan_promkes_desa.id as idReport',
+            'wilayah_kerja.*', // Mengambil semua kolom dari wilayah_kerja
+            'pencatatan_kegiatan_promkes_desa.*' // Mengambil semua kolom dari pencatatan_kegiatan_promkes_desa
+        )->get();
+        return view('admin.ukm-essensial.promkes.promkes-umum.promkes-desa.report-promkes-desa.report.index', ['data' => $data, 'year'=>$year, 'month'=>$monthNameIndonesia, 'monthNumber'=>$month, 'dataReport'=>$dataReport, 'status'=>$status, 'isReportDone'=>$isReportDone]);
         
     }
 
-    public function createReport($idKegiatanPromkesDesa, $month){
-        $desa = Desa::all();
+    public function createReport($idKegiatanPromkesDesa, $month, $status){
+        // dd($status);
+        // dd($desa);
+        $desa = $this->checkDesaInReport($month, $idKegiatanPromkesDesa);
+        $status = filter_var($status, FILTER_VALIDATE_BOOLEAN);
         $subKegiatan= SubKegiatanPromosiKesehatanDesa::find($idKegiatanPromkesDesa);
         $monthNameIdn = $this->getMonth($month);
-        return view('admin.ukm-essensial.promkes.promkes-umum.promkes-desa.report-promkes-desa.report.create', ['desa' => $desa, 'subKegiatan'=>$subKegiatan, 'month' => $month, 'monthNameIdn'=>$monthNameIdn]);
+        return view('admin.ukm-essensial.promkes.promkes-umum.promkes-desa.report-promkes-desa.report.create', ['desa' => $desa, 'subKegiatan'=>$subKegiatan, 'month' => $month, 'monthNameIdn'=>$monthNameIdn, 'status'=>$status]);
     }
 
-    public function storeReport($idKegiatanPromkesDesa, $month, Request $request){
+    public function checkDesaInReport($month, $idKegiatanPromkesDesa){
+        $currentMonth = $month;
+        $currentYear = $this->checkYear($currentMonth);
+        $desaInThisMonthandYear = PencatatanKegiatanPromkesDesa::where('bulan', $currentMonth)->where('tahun', $currentYear)->where('idKegiatanPromkesDesa',$idKegiatanPromkesDesa )->pluck('idDesa');
+        $desa = Desa::whereNotIn('id', $desaInThisMonthandYear)->get();
+        return $desa;
+    }
+
+    public function checkYear($month){
+        $currentDay = date('j');   // Tanggal saat ini, misal: 1, 2, 3, ..., 31
+        $currentYear = date('Y');   // Tanggal saat ini, misal: 1, 2, 3, ..., 31
+        $year = $currentYear;
+        $currentMonth = Carbon::now()->month;
+
+        if($currentMonth==1){
+            if($currentDay>5){
+                $year = $currentYear ;
+            } else{
+                $year = $currentYear - 1;
+            }
+        }
+        return $year;
+    }
+
+    public function storeReport($idKegiatanPromkesDesa, $month, $status, Request $request){
         $data = new PencatatanKegiatanPromkesDesa();
         $data->idKegiatanPromkesDesa = $idKegiatanPromkesDesa;
         $data->idDesa = $request->idDesa;
         $data->jumlah = $request->jumlah;
         $data->bulan = $month;
-        // $data->tahun = 2024;
-        $currentDay = date('j');   // Tanggal saat ini, misal: 1, 2, 3, ..., 31
-        $currentYear = date('y');   // Tanggal saat ini, misal: 1, 2, 3, ..., 31
 
-        if($month==1){
-            if($currentDay>5){
-                $data->tahun = $currentYear ;
-            } else{
-                $data->tahun = $currentYear - 1;
-            }
-        } 
-        else{
-            $data->tahun = $currentYear;
-        }
-        
+        $data->tahun = $this->checkYear($month);
+        $status = filter_var($status, FILTER_VALIDATE_BOOLEAN);
 
         try{
             $data->save();
-            return redirect(route('pencatatan-program-kegiatan-promkes-desa-create', ['id'=>$idKegiatanPromkesDesa, 'month'=>$month]))->with('success', 'Data berhasil ditambahkan');
+            $tag = "success";
+            $message = "Data berhasil ditambahkan";
         } catch(Exception $e){
-            return redirect(route('pencatatan-program-kegiatan-promkes-desa-create', ['id'=>$idKegiatanPromkesDesa, 'month'=>$month]))->with('error', $e->getMessage());            
+            $tag = "error";         
+            $message = $e->getMessage();
         }
+        return redirect(route('pencatatan-program-kegiatan-promkes-desa-create', ['id'=>$idKegiatanPromkesDesa, 'month'=>$month, 'status'=>$status]))->with($tag, $message);
+
+    }
+
+    public function editReport($idKegiatanPromkesDesa, $month, $status, $idReport){
+        // $desa = $this->checkDesaInReport($month, $idKegiatanPromkesDesa);
+        $status = filter_var($status, FILTER_VALIDATE_BOOLEAN);
+        $subKegiatan= SubKegiatanPromosiKesehatanDesa::find($idKegiatanPromkesDesa);
+        $monthNameIdn = $this->getMonth($month);
+         // Perbaiki query dengan menggunakan alias tabel
+        $data = PencatatanKegiatanPromkesDesa::leftJoin('wilayah_kerja', 'pencatatan_kegiatan_promkes_desa.idDesa', '=', 'wilayah_kerja.id')
+        ->where('pencatatan_kegiatan_promkes_desa.id', $idReport)
+        ->select(
+            'pencatatan_kegiatan_promkes_desa.id as idReport',
+            'wilayah_kerja.*', // Mengambil semua kolom dari wilayah_kerja
+            'pencatatan_kegiatan_promkes_desa.*' // Mengambil semua kolom dari pencatatan_kegiatan_promkes_desa
+        )
+        ->first();
+            
+        return view('admin.ukm-essensial.promkes.promkes-umum.promkes-desa.report-promkes-desa.report.update', ['subKegiatan'=>$subKegiatan, 'month' => $month, 'monthNameIdn'=>$monthNameIdn, 'status'=>$status, 'data'=>$data]);
+    }
+
+    public function updateReport($idKegiatanPromkesDesa, $month, $status, $idReport, Request $request)
+    {
+        $data = PencatatanKegiatanPromkesDesa::find($idReport);
+        $data->jumlah = $request->jumlah; 
+        
+        try{
+            $data->update();
+            $tag= "success";
+            $message = "Data berhasil diperbarui";
+        } catch(Exception $e) {
+            $tag = "error";
+            $message = $e->getMessage();
+        }
+
+        return redirect(route('pencatatan-program-kegiatan-promkes-desa-create', ['id'=>$idKegiatanPromkesDesa, 'month'=>$month, 'status'=>$status]))->with($tag, $message);
+
+    }
+
+    public function deleteReport($idReport){
+        $data = PencatatanKegiatanPromkesDesa::find($idReport);
+        try{
+            $data->delete();
+            $tag= "success";
+            $message = "Data berhasil dihapus";
+        } catch(Exception $e){
+            $tag = "error";
+            $message = $e->getMessage();
+        }
+
+        return redirect()->back()->with($tag, $message);
 
     }
 

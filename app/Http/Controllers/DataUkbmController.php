@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataUkbm;
+use Exception;
 use App\Models\Desa;
+use App\Models\DataUkbm;
 use App\Models\JenisUkbm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,8 +51,15 @@ class DataUkbmController extends Controller
             'jumlahKaderDilatih' => $request->jumlahKaderDilatih,
             'status' => 'active'
         ]);
+        try{
+            $tag= "success";
+            $message = "Data berhasil ditambahkan";
+        } catch(Exception $e){
+            $tag = "error";
+            $message = $e->getMessage();
+        }
 
-        return redirect()->route('ukbm.data-ukbm.index');
+        return redirect()->route('ukbm.data-ukbm.index')->with($tag, $message);
     }
 
     /**
@@ -65,10 +73,18 @@ class DataUkbmController extends Controller
         } else {
             $data->status = "active";
         }
-        $data->update();
+        try{
+            $data->update();
+            $tag= "success";
+            $message = "Status berhasil diperbarui";
+        } catch(Exception $e){
+            $tag = "error";
+            $message = $e->getMessage();
+        }
 
 
-        return redirect()->route('ukbm.data-ukbm.index');
+
+        return redirect()->route('ukbm.data-ukbm.index')->with($tag, $message);
     }
 
     /**
@@ -106,9 +122,17 @@ class DataUkbmController extends Controller
         $data->kegiatanUkbm = $request->kegiatanUkbm;
         $data->jumlahKader = $request->jumlahKader;
         $data->jumlahKaderDilatih = $request->jumlahKaderDilatih;
+        try{
+            $data->update();
+            $tag= "success";
+            $message = "Status berhasil diperbarui";
+        } catch(Exception $e){
+            $tag = "error";
+            $message = $e->getMessage();
+        }
         $data->update();
 
-        return redirect()->route('ukbm.data-ukbm.index');
+        return redirect()->route('ukbm.data-ukbm.index')->with($tag, $message);
     }
 
     /**

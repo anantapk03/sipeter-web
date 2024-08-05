@@ -1,20 +1,10 @@
 @extends('admin.layouts.admin')
 @section('content')
 <div class="card">
-    @if ($desa->isEmpty())
-    <div class="alert alert-success">
-        <h4>
-            <span class="badge badge-success mr-3">
-                <i class="flaticon-success" style="font-size: 24px;"></i>
-            </span>
-            Semua data desa sudah dilaporkan
-        </h4>
-    </div>
-    @endif
     <div class="card-header">
         <h3>Tambah data laporan sub kegiatan {{$subKegiatan->namaKegiatan}}</h3>
     </div>
-    <form action="{{route('pencatatan-program-kegiatan-promkes-desa-storeReport', ['id'=>$subKegiatan->id, 'month'=>$month, 'status'=>$status])}}" method="POST">
+    <form action="{{route('pencatatan-program-kegiatan-promkes-desa-updateReport', ['id'=>$subKegiatan->id, 'idReport'=>$data->idReport, 'month'=>$month, 'status'=>$status ])}}" method="POST">
         @csrf
         <div class="card-body">
             <div class="form-group">
@@ -27,22 +17,17 @@
             </div>
             <div class="form-group">
                 <label for="inpukNama">Desa / Kelurahan</label>
-                <select type="text" name="idDesa" class="form-control" required>
-                    <option disabled selected value> -- select an option -- </option>
-                    @foreach ($desa as $item)
-                        <option value="{{$item->id}}">{{$item->namaDesa}}</option>
-                    @endforeach
+                <select type="text" name="idDesa" class="form-control" required disabled>
+                    <option value="#">{{$data->namaDesa}}</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="inputJumlah">jumlah</label>
-                <input id="inputJumlah" type="number" name="jumlah" class="form-control" required placeholder="Masukan jumlah pelaksanaan kegiatan...">
+                <input id="inputJumlah" type="number" name="jumlah" class="form-control" required placeholder="Masukan jumlah pelaksanaan kegiatan..." value="{{$data->jumlah}}">
             </div>
-
-
         </div>
         <div class="card-footer">
-            <button class="btn btn-success" type="submit">Simpan</button>
+            <button class="btn btn-success" type="submit">Perbarui</button>
             <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{route('pencatatan-program-kegiatan-promkes-desa-create', ['id'=>$subKegiatan->id, 'month'=>$month, 'status'=>$status])}}">Kembali</a>
             <script>
                 $("#backConfirmation").click(function () {

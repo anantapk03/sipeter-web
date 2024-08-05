@@ -11,6 +11,10 @@ class JenisUkbm extends Model
     protected $table = 'jenis_ukbm';
     protected $primarykey = 'id';
     protected $fillable = [
-        'jenisUkbm'
+        'jenisUkbm',
+        'bulanan',
+        'triwulan',
+        'semester',
+        'tahunan'
     ];
 }

@@ -73,19 +73,14 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/data-ukbm/updateStatus/{id}', [DataUkbmController::class, 'show'])->name('ukbm.data-ukbm.show');
 
     // Management Pencatatan data UKBM
-    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm', [PeriodePencatatanController::class, 'index'])->name('ukbm.pencatatan-ukbm.report');
-    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{id}', [PencatatanUkbmController::class, 'index'])->name('ukbm.pencatatan-ukbm.index');
-    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{id}/create', [PencatatanUkbmController::class, 'create'])->name('ukbm.pencatatan-ukbm.create');
-    Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{id}/create', [PencatatanUkbmController::class, 'store'])->name('ukbm.pencatatan-ukbm.store');
-    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{idPeriode}/edit/{id}', [PencatatanUkbmController::class, 'edit'])->name('ukbm.pencatatan-ukbm.edit');
-    Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{idPeriode}/edit/{id}', [PencatatanUkbmController::class, 'update'])->name('ukbm.pencatatan-ukbm.update');
-    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{idPeriode}/delete/{id}', [PencatatanUkbmController::class, 'destroy'])->name('ukbm.pencatatan-ukbm.delete');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/report', [PencatatanUkbmController::class, 'indexReport'])->name('ukbm.pencatatan-ukbm.report');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}', [PencatatanUkbmController::class, 'index'])->name('ukbm.pencatatan-ukbm.index');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}/create', [PencatatanUkbmController::class, 'create'])->name('ukbm.pencatatan-ukbm.create');
+    Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}/create', [PencatatanUkbmController::class, 'store'])->name('ukbm.pencatatan-ukbm.store');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}/edit/{id}', [PencatatanUkbmController::class, 'edit'])->name('ukbm.pencatatan-ukbm.edit');
+    Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}/update/{id}', [PencatatanUkbmController::class, 'update'])->name('ukbm.pencatatan-ukbm.update');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}/delete/{id}', [PencatatanUkbmController::class, 'destroy'])->name('ukbm.pencatatan-ukbm.delete');
     
-    // Periode
-    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/pencatatan-data-ukbm/periode', [PeriodePencatatanController::class, 'create'])->name('ukbm.pencatatan-ukbm.periode.create');
-    Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/pencatatan-data-ukbm/periode', [PeriodePencatatanController::class, 'store'])->name('ukbm.pencatatan-ukbm.periode.store');
-
-
 
     // Management Jenis Program
     Route::get('ukm-essensial/divisi', [UkmEssensialController::class, 'index'])->name('ukm-essensial.index');
@@ -102,8 +97,14 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     // Pencatatan Kegiatan Promosi Kesehatan Umum Desa 
     Route::get('pencatatan-program-kegiatan-promkes-desa/index/{id}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'index'])->name('pencatatan-program-kegiatan-promkes-desa-index');
 
-    Route::get('pencatatan-program-kegiatan-promkes-desa/create/{id}/{month}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'indexReport'])->name('pencatatan-program-kegiatan-promkes-desa-create');
-    Route::get('pencatatan-program-kegiatan-promkes-desa/createReport/{id}/{month}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'createReport'])->name('pencatatan-program-kegiatan-promkes-desa-createReport');
-    Route::post('pencatatan-program-kegiatan-promkes-desa/storeReport/{id}/{month}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'storeReport'])->name('pencatatan-program-kegiatan-promkes-desa-storeReport');
+    Route::get('pencatatan-program-kegiatan-promkes-desa/create/{id}/{month}/{status}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'indexReport'])->name('pencatatan-program-kegiatan-promkes-desa-create');
+    Route::get('pencatatan-program-kegiatan-promkes-desa/createReport/{id}/{month}/{status}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'createReport'])->name('pencatatan-program-kegiatan-promkes-desa-createReport');
+    Route::post('pencatatan-program-kegiatan-promkes-desa/storeReport/{id}/{month}/{status}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'storeReport'])->name('pencatatan-program-kegiatan-promkes-desa-storeReport');
+    Route::get('pencatatan-program-kegiatan-promkes-desa/editReport/{id}/{month}/{status}/{idReport}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'editReport'])->name('pencatatan-program-kegiatan-promkes-desa-editReport');
+    Route::post('pencatatan-program-kegiatan-promkes-desa/updateReport/{id}/{month}/{status}/{idReport}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'updateReport'])->name('pencatatan-program-kegiatan-promkes-desa-updateReport');
+    Route::get('pencatatan-program-kegiatan-promkes-desa/deleteReport/{idReport}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'deleteReport'])->name('pencatatan-program-kegiatan-promkes-desa-deleteReport');
+    
+    
+
 
 });

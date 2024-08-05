@@ -4,7 +4,7 @@
         <div class="card-header">
             <h3>Tambah Pencatatan Data UKBM</h3>
         </div>
-        <form action="{{ route('ukbm.pencatatan-ukbm.store', $bulan->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('ukbm.pencatatan-ukbm.store', ['month' => $month, 'status' => $status]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="row">
@@ -13,9 +13,9 @@
                             <label for="selectUkbm">Data UKBM</label>
                             <select class="js-example-basic-single form-control" name="dataUkbm" required>
                                 <option value="">Pilih</option>
-                                @foreach ($data as $item)
-                                    @if ($item->status == 'active')
-                                        <option value="{{ $item->id}}">{{ $item->namaUkbm }}</option>
+                                @foreach ($ukbm as $item)
+                                    @if ($item->status == "active")
+                                        <option value="{{ $item->id }}">{{ $item->namaUkbm }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -36,7 +36,7 @@
             </div>
             <div class="card-footer">
                 <button class="btn btn-success" type="submit">Simpan</button>
-                <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{ route('ukbm.pencatatan-ukbm.index', $bulan->id) }}">Kembali</a>
+                <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{ route('ukbm.pencatatan-ukbm.index',['month' => $month, 'status' => $status]) }}">Kembali</a>
                 <script>
                     $("#backConfirmation").click(function () {
                         swal({
@@ -47,7 +47,7 @@
                                 cancel: {
                                     visible: true,
                                     text : 'Lanjutkan Mengisi Data',
-                                    className: 'btn btn-light',
+                                    className: 'btn btn-success',
                                 },
                                 confirm: {
                                     text: 'Iya',

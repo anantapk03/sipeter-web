@@ -1,14 +1,22 @@
 @extends('admin.layouts.admin')
 @section('content')
 <a href="{{ route('ukbm.pencatatan-ukbm.report') }}" class="btn btn-danger mb-3">Kembali</a>
+@if (!$status)
+    <div class="alert alert-warning mb-3">
+        <h4>
+            <span class="badge badge-warning mr-3">
+                <i class="flaticon-alarm-1" style="font-size: 24px;"></i>
+            </span>
+            Anda tidak diperkenankan mengirimkan laporan untuk saat ini
+        </h4>
+    </div>
+@endif
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <h3> Pencatatan Data UKBM Bulan {{ $periode->bulan }}</h3>
-            @if ($periode->is_disabled)
-                <button disabled class="btn btn-sm btn-success" href="#"><i class="fas fa-plus" style="margin-right: 3%"></i>  Tambah</button>
-            @else
-                <a class="btn btn-sm btn-success" href="{{ route('ukbm.pencatatan-ukbm.create', $periode->id) }}"><i class="fas fa-plus" style="margin-right: 3%"></i>  Tambah</a>
+            <h3> Pencatatan Data UKBM Bulan {{ $monthName }}</h3>
+            @if ($status)
+                <a class="btn btn-sm btn-success" href="{{ route('ukbm.pencatatan-ukbm.create', ['month'=>$month, 'status'=>$status]) }}"><i class="fas fa-plus" style="margin-right: 3%"></i>  Tambah</a>
             @endif
         </div>
     </div>
@@ -32,18 +40,14 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach ($dataPencatatan as $item)
+                    @foreach ($data as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->namaUkbm }}</td>
                             <td>{{ $item->deskripsi }}</td>
                             <td>
-                                @if ($periode->is_disabled == 1)
-                                    <button disabled class="btn btn-sm btn-warning" href="#"><i class="fas fa-edit" style="margin-right: 3%"></i>  Edit</button>
-                                    <button disabled class="btn btn-sm btn-danger" id="deleteConfirmation{{ $item->id }}" href="javascript:void(0)" data-href="#"><i class="fas fa-trash"></i>  Hapus</button>
-                                @else
-                                    <a class="btn btn-sm btn-warning" href="{{ route('ukbm.pencatatan-ukbm.update', ['idPeriode' => $item->idPeriode, 'id' => $item->id] ) }}"><i class="fas fa-edit" style="margin-right: 3%"></i>  Edit</a>
-                                    <a class="btn btn-sm btn-danger" data-href="{{ route('ukbm.pencatatan-ukbm.delete', ['idPeriode' => $item->idPeriode, 'id' => $item->id]) }}" id="deleteConfirmation{{ $item->id }}" href="javascript:void(0)" ><i class="fas fa-trash"></i>  Hapus</a>
+                                <a class="btn btn-sm btn-warning" href="{{ route('ukbm.pencatatan-ukbm.edit', ['month' => $month, 'status' => $status, 'id' => $item->id]) }}"><i class="fas fa-edit" style="margin-right: 3%"></i>  Edit</a>
+                                    <a class="btn btn-sm btn-danger" data-href="{{  route('ukbm.pencatatan-ukbm.delete', ['month' => $month, 'status' => $status, 'id' => $item->id]) }}" id="deleteConfirmation{{ $item->id }}" href="javascript:void(0)" ><i class="fas fa-trash"></i>  Hapus</a>
                                     {{-- JS DELETE CONFIRMATION --}}                                
                                     <script>
                                         $("#deleteConfirmation"+{{$item->id}}).click(function () {
@@ -69,7 +73,6 @@
                                             });
                                         });
                                     </script>
-                                    @endif
                             </td>
                         </tr>
                     @endforeach
