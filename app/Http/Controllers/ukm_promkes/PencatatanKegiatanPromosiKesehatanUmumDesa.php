@@ -37,7 +37,7 @@ class PencatatanKegiatanPromosiKesehatanUmumDesa extends Controller
         $currentDay = date('j');   // Tanggal saat ini, misal: 1, 2, 3, ..., 31
 
         // Mendapatkan bulan selanjutnya
-        $nextMonth = date('F', strtotime('+1 month'));
+        // $nextMonth = date('F', strtotime('+1 month'));
         $lastMonth = date('F', strtotime('-1 month'));
         
 
@@ -186,6 +186,8 @@ class PencatatanKegiatanPromosiKesehatanUmumDesa extends Controller
         $data->idDesa = $request->idDesa;
         $data->jumlah = $request->jumlah;
         $data->bulan = $month;
+        $data->deskripsi = $request->deskripsi;
+        
 
         $data->tahun = $this->checkYear($month);
         $status = filter_var($status, FILTER_VALIDATE_BOOLEAN);
@@ -224,6 +226,7 @@ class PencatatanKegiatanPromosiKesehatanUmumDesa extends Controller
     {
         $data = PencatatanKegiatanPromkesDesa::find($idReport);
         $data->jumlah = $request->jumlah; 
+        $data->deskripsi = $request->deskripsi; 
         
         try{
             $data->update();

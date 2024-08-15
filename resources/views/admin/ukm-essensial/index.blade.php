@@ -38,7 +38,7 @@
                                     }
                                 </style>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('promkes.show') }}"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
+                                    <a class="dropdown-item" href="{{ route('program-divisi-promosi-kesehatan') }}"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
                                 </div>
                             </div>
                         </td>

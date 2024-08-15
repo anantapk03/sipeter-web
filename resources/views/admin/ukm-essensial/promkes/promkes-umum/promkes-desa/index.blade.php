@@ -15,6 +15,7 @@
                         <tr>
                             <th>No</th>
                             <th>Kegiatan</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -22,6 +23,7 @@
                         <tr>
                             <th>No</th>
                             <th>Kegiatan</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
@@ -33,6 +35,13 @@
                                 </td>
                                 <td>
                                     {{$item->namaKegiatan}}
+                                </td>
+                                <td>
+                                    @if ($item->isActive)
+                                    <a href="{{route('program-kegiatan-promkes-desa-updateStatus', ['id'=>$item->id])}}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i> Active</a>
+                                    @else
+                                    <a href="{{route('program-kegiatan-promkes-desa-updateStatus', ['id'=>$item->id])}}" class="btn btn-sm btn-danger"><i class="fas fa-edit"></i> Inactive</a>
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="btn-group">

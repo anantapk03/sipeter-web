@@ -64,7 +64,7 @@
                     </tr>
                 </tbody>
             </table>
-            <a href="{{ route('promkes.show') }}" class="btn btn-warning" style="margin-left: 1%">Kembali</a>
+            <a href="{{ route('program-divisi-promosi-kesehatan') }}" class="btn btn-warning" style="margin-left: 1%">Kembali</a>
         </div>
     </div>
 </div>

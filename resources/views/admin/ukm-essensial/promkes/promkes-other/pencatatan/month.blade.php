@@ -1,32 +1,31 @@
 @extends('admin.layouts.admin')
 @section('content')
-    <a href="{{route('pencatatan-program-kegiatan-promkes-desa-index', ['id'=>$data->id])}}" class="btn btn-danger mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
-    @if (!$status)
-    <div class="alert alert-warning mb-3">
-        <h4>
-            <span class="badge badge-warning mr-3">
-                <i class="flaticon-alarm-1" style="font-size: 24px;"></i>
-            </span>
-            Anda tidak diperkenankan mengirimkan laporan untuk saat ini
-        </h4>
-    </div>
-    @endif
-    @if ($status && $isReportDone->isEmpty())
+    <a href="{{route('kegiatan-program-divisi-promkes-index', ['id'=>$dataProgram->id])}}" class="btn btn-danger mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
+    @if ($isReportThisMonthDone)
     <div class="alert alert-success">
         <h4>
             <span class="badge badge-success mr-3">
                 <i class="flaticon-success" style="font-size: 24px;"></i>
             </span>
-            Semua data desa sudah dilaporkan
+            Anda sudah melaporkan untuk bulan ini
         </h4>
-    </div>       
+    </div> 
+    @else
+    <div class="alert alert-danger">
+        <h4>
+            <span class="badge badge-danger mr-3">
+                <i class="flaticon-exclamation" style="font-size: 24px;"></i>
+            </span>
+            Anda belum melaporkan data untuk bulan {{\App\Helpers\MonthHelper::getMonth($month)}}
+        </h4>
+    </div> 
     @endif
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
-                <h3>Report Sub {{$data->namaKegiatan}} Periode {{$year}} Bulan {{$month}}</h3>
-                @if ($status && !$isReportDone->isEmpty())
-                <a href="{{route('pencatatan-program-kegiatan-promkes-desa-createReport', ['id'=>$data->id, 'month'=>$monthNumber, 'status'=>$status])}}" class="btn btn-primary">Tambah</a>
+                <h3>Laporan Tahun {{$year}} - Kegiatan {{$dataKegiatan->namaKegiatan}} - Program {{$dataProgram->namaProgram}}</h3>
+                @if (!$isReportThisMonthDone)
+                <a href="{{route('report-create-activity-promkes-month', ['id'=>$dataProgram->id, 'idKegiatan'=>$dataKegiatan->id])}}" class="btn btn-primary">Tambah</a>
                 @endif
             </div>
         </div>
@@ -36,7 +35,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Desa</th>
+                            <th>Bulan</th>
                             <th>Jumlah</th>
                             <th>Aksi</th>
                         </tr>
@@ -44,31 +43,31 @@
                     <tfoot>
                         <tr>
                             <th>No</th>
-                            <th>Desa</th>
+                            <th>Bulan</th>
                             <th>Jumlah</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach ($dataReport as $item)
+                        @foreach ($dataPencatatan as $item)
                             <tr>
                                 <td>
                                     {{$loop->iteration}}
                                 </td>
                                 <td>
-                                    {{$item->namaDesa}}
+                                    {{\App\Helpers\MonthHelper::getMonth($item->bulan)}}
                                 </td>
                                 <td>
                                     {{$item->jumlah}}
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-info mr-2 mt-2" data-target="#exampleModalCenter{{$item->idReport}}" data-toggle="modal"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="btn btn-info btn-sm" data-target="#exampleModalCenter{{$item->id}}" data-toggle="modal"><i class="fas fa-info"></i> Info</a>
                                     {{-- Modal start --}}
-                                    <div class="modal fade" id="exampleModalCenter{{$item->idReport}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModalCenter{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                <h3 class="modal-title" id="exampleModalLongTitle">Data {{$data->namaKegiatan}} </h3>
+                                                <h3 class="modal-title" id="exampleModalLongTitle">Data Kegiatan {{$dataKegiatan->namaKegiatan}} </h3>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -82,9 +81,9 @@
                                                                 <td>{{ $item->deskripsi}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="col">Tempat Kegiatan</th>
+                                                                <th scope="col">Nama Program</th>
                                                                 <td>:</td>
-                                                                <td> {{$item->namaDesa}} </td>
+                                                                <td> {{$dataProgram->namaProgram}} </td>
                                                             </tr>
                                                             <tr>
                                                                 <th scope="col">Jumlah</th>
@@ -96,18 +95,19 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- Modal end --}}
-                                    @if ($status)
-                                    <a href="{{route('pencatatan-program-kegiatan-promkes-desa-editReport', ['id'=>$data->id, 'idReport'=>$item->idReport, 'month'=>$monthNumber, 'status'=>$status])}}" class="btn btn-sm btn-warning mr-2 mt-2"><i class="fas fa-edit"></i></a>
-                                    <a id="deleteConfirmation{{$item->idReport}}" data-href="{{route('pencatatan-program-kegiatan-promkes-desa-deleteReport', ['idReport'=>$item->idReport])}}" data-name="Kegiatan di {{$item->namaDesa}}" class="btn btn-sm btn-danger mr-2 mt-2 mb-2"><i class="fas fa-trash"></i></a>
-                                    {{-- Start delete confirmation --}}
+                                    @if ($item->bulan == $month)
+                                    <a href="{{route('report-edit-activity-promkes-month', ['id'=>$dataProgram->id, 'idKegiatan'=>$dataKegiatan->id, 'idPencatatan'=>$item->id])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                                    <a href="#" id="deleteConfirmation{{$item->id}}" data-name="{{"bulan ".\App\Helpers\MonthHelper::getMonth($item->bulan)}}" data-href="{{route('report-destroy-activity-promkes-month', ['id'=>$dataProgram->id, 
+                                    'idKegiatan'=>$dataKegiatan->id, 
+                                    'idPencatatan'=>$item->id
+                                    ])}}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Hapus</a>
+                                    {{-- Delete Confirmation --}}
                                     <script>
-                                        $("#deleteConfirmation"+{{$item->idReport}}).click(function () {
+                                        $("#deleteConfirmation"+{{$item->id}}).click(function () {
                                             swal({
                                                 title: 'Peringatan!',
                                                 text: "Data "+$(this).data('name')+" Akan Dihapus",
@@ -130,7 +130,6 @@
                                             });
                                         });
                                     </script>
-                                    {{-- End of delete confirmation --}}
                                     @endif
                                 </td>
                             </tr>
@@ -139,5 +138,5 @@
                 </table>
             </div>
         </div>
-    </div>    
+    </div>
 @endsection

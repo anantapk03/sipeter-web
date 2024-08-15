@@ -1,10 +1,11 @@
 @extends('admin.layouts.admin')
 @section('content')
+<a href="{{route('program-divisi-promosi-kesehatan')}}" class="btn btn-danger mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <h3>Data Program Divisi Promosi Kesehatan</h3>
-            <a href="{{route('program-divisi-promosi-kesehatan-create')}}" class="btn btn-primary">Tambah</a>
+            <h3>Data Kegiatan Program {{$dataProgram->namaProgram}}</h3>
+            <a href="{{route('kegiatan-program-divisi-promkes-create', ['id'=>$dataProgram->id])}}" class="btn btn-primary">Tambah</a>
         </div>
     </div>
     <div class="card-body">
@@ -13,7 +14,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Program</th>
+                        <th>Kegiatan</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -21,47 +22,25 @@
                 <tfoot>
                     <tr>
                         <th>No</th>
-                        <th>Nama Program</th>
+                        <th>Kegiatan</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Promosi Kesehatan Umum Desa</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-success disabled"><i class="fas fa-edit"></i> Active</a>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-bars"></i>
-                                </button>
-                                <style>
-                                    .dropdown-toggle::after {
-                                        display: none;
-                                    }
-                                </style>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('promkes.show.activity') }}"><i class="fas fa-database"></i>  Data Program</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
                     @foreach ($data as $item)
                         <tr>
                             <td>
-                                {{$loop->iteration+1}}
+                                {{$loop->iteration}}
                             </td>
                             <td>
-                                {{$item->namaProgram}}
+                                {{$item->namaKegiatan}}
                             </td>
                             <td>
                                 @if ($item->isActive)
-                                <a href="{{route('program-divisi-promosi-kesehatan-updateStatus', ['id'=>$item->id])}}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i> Active</a>
+                                <a href="{{route('kegiatan-program-divisi-promkes-updateStatus', ['id'=>$dataProgram->id, 'idKegiatan'=>$item->id])}}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i> Active</a>
                                 @else
-                                <a href="{{route('program-divisi-promosi-kesehatan-updateStatus', ['id'=>$item->id])}}" class="btn btn-sm btn-danger"><i class="fas fa-edit"></i> Inactive</a>
+                                <a href="{{route('kegiatan-program-divisi-promkes-updateStatus', ['id'=>$dataProgram->id, 'idKegiatan'=>$item->id])}}" class="btn btn-sm btn-danger"><i class="fas fa-edit"></i> Inactive</a>
                                 @endif
                             </td>
                             <td>
@@ -76,10 +55,10 @@
                                     </style>
                                     <div class="dropdown-menu">
                                         <div class="dropdown-item">
-                                            <a href="{{route('kegiatan-program-divisi-promkes-index', ['id'=>$item->id])}}" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Info</a>
+                                            <a href="{{route('report-activity-promkes-month', ['id'=>$dataProgram->id, 'idKegiatan'=>$item->id])}}" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Info</a>
                                         </div>
                                         <div class="dropdown-item">
-                                            <a href="{{route('program-divisi-promosi-kesehatan-edit', ['id'=>$item->id])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                                            <a href="{{route('kegiatan-program-divisi-promkes-edit', ['id'=>$dataProgram->id, 'idKegiatan'=>$item->id])}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                         </div>
                                     </div>
                                 </div>

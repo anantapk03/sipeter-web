@@ -3,49 +3,49 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Tambah data sub kegiatan program promosi kesehatan umum di desa/kelurahan</h3>
+            <h3>Tambah data Kegiatan Program {{$dataProgram->namaProgram}}</h3>
         </div>
-        <form action="{{route('program-kegiatan-promkes-desa-store')}}" method="POST">
+        <form action="{{route('kegiatan-program-divisi-promkes-update', ['id'=>$dataProgram->id, 'idKegiatan'=>$data->id])}}" method="POST">
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label for="inputNamaKegiatan">Nama Sub Kegiatan</label>
-                    <input id="inputNamaKegiatan" type="text" name="namaKegiatan" class="form-control" required placeholder="Masukan Nama Sub Kegiatan">
+                    <label for="inputNamaKegiatan">Nama Kegiatan</label>
+                    <input id="inputNamaKegiatan" type="text" name="namaKegiatan" class="form-control" required placeholder="Masukan Nama Kegiatan" value="{{$data->namaKegiatan}}">
                 </div>
                 <div class="form-group">
-                    <label for="inputDeskripsiKegiatan">Deskripsi Sub Kegiatan</label>
-                    <textarea id="inputDeskripsiKegiatan" type="text" name="deskripsiKegiatan" class="form-control" required placeholder="Masukan Deskripsi Sub Kegiatan"></textarea>
+                    <label for="inputDeskripsiKegiatan">Deskripsi Program</label>
+                    <textarea id="inputDeskripsiKegiatan" type="text" name="deskripsi" class="form-control" required placeholder="Masukan Deskripsi Kegiatan"> {{$data->deskripsi}} </textarea>
                 </div>
                 <div class="row" id="DataTargetKegiatan">
                     <div class="col">
                         <div class="form-group">
                             <label for="inputTargetBulanan">Target Bulanan</label>
-                            <input id="inputTargetBulanan" type="number" name="targetBulanan" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama bulanan...">
+                            <input id="inputTargetBulanan" type="number" name="targetBulanan" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama bulanan..." value="{{$data->targetBulanan}}">
                         </div>        
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="inputTargetTriwulan">Target Triwulan</label>
-                            <input id="inputTargetTriwulan" type="number" name="targetTriwulan" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama Triwulan...">
+                            <input id="inputTargetTriwulan" type="number" name="targetTriwulan" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama Triwulan..." value="{{$data->targetTriwulan}}">
                         </div>        
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="inputTargetSemester">Target Semester</label>
-                            <input id="inputTargetSemester" type="number" name="targetSemester" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama Semester...">
+                            <input id="inputTargetSemester" type="number" name="targetSemester" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama Semester..." value="{{$data->targetSemester}}">
                         </div>        
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="inputTargetTahunan">Target Tahunan</label>
-                            <input id="inputTargetTahunan" type="number" name="targetTahunan" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama Tahunan...">
+                            <input id="inputTargetTahunan" type="number" name="targetTahunan" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama Tahunan..." value="{{$data->targetTahunan}}">
                         </div>        
                     </div>
                 </div>
             </div>
             <div class="card-footer">
                 <button class="btn btn-success" type="submit">Simpan</button>
-                <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{route('program-kegiatan-promkes-desa-index')}}">Kembali</a>
+                <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{route('kegiatan-program-divisi-promkes-index', ['id'=>$dataProgram->id])}}">Kembali</a>
                 <script>
                     $("#backConfirmation").click(function () {
                         swal({

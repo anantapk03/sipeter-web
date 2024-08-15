@@ -16,6 +16,53 @@
                     <label for="inputDeskripsiKegiatan">Deskripsi Sub Kegiatan</label>
                     <textarea id="inputDeskripsiKegiatan" type="text" name="deskripsiKegiatan" class="form-control" required placeholder="Masukan Deskripsi Sub Kegiatan">{{$data->deskripsiKegiatan}}</textarea>
                 </div>
+                <div class="row" id="DataTargetKegiatan">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="inputTargetBulanan">Target Bulanan</label>
+                            <input id="inputTargetBulanan" type="number" name="targetBulanan" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama bulanan..." value="{{$data->targetBulanan}}">
+                        </div>        
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="inputTargetTriwulan">Target Triwulan</label>
+                            <input id="inputTargetTriwulan" type="number" name="targetTriwulan" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama Triwulan..." value="{{$data->targetTriwulan}}">
+                        </div>        
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="inputTargetSemester">Target Semester</label>
+                            <input id="inputTargetSemester" type="number" name="targetSemester" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama Semester..." value="{{$data->targetSemester}}">
+                        </div>        
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="inputTargetTahunan">Target Tahunan</label>
+                            <input id="inputTargetTahunan" type="number" name="targetTahunan" class="form-control" required placeholder="Masukan Target Jumlah Kegiatan selama Tahunan..." value="{{$data->targetTahunan}}">
+                        </div>        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inpukNama">Status</label>
+                    <select type="text" name="isActive" class="form-control" required placeholder="Status Kegiatan...">
+                        @if ($data->isActive)
+                        <option value="{{$data->status}}">
+                            Active
+                        </option>
+                        <option value="0">
+                            Inactive
+                        </option>
+                        @else 
+                            <option value="{{$data->status}}">
+                                Inactive
+                            </option>
+                            <option value="1">
+                                Active
+                            </option>
+                        @endif
+                        
+                    </select>
+                </div>
             </div>
             <div class="card-footer">
                 <button class="btn btn-success" type="submit">Simpan</button>
