@@ -64,7 +64,7 @@
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>Kesehatan Ibu dan Anak</td>
+                        <td>Kesehatan Ibu dan Anak & Program Gizi</td>
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -76,7 +76,7 @@
                                     }
                                 </style>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-database" style="margin-right: 3%"></i> Data Detail</a>
+                                    <a class="dropdown-item" href="{{route('program-kia-gizi-index')}}"><i class="fas fa-database" style="margin-right: 3%"></i> Data Detail</a>
                                 </div>
                             </div>
                         </td>

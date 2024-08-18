@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKiaGiziController;
+use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKiaGiziController;
+use App\Http\Controllers\ukm_kia_gizi\ProgramKIAGiziController;
 use App\Http\Controllers\ukm_promkes\KegiatanProgramDivisiPromkesController;
 use App\Http\Controllers\ukm_promkes\PencatatanKegiatanProgramPromkesController;
 use App\Http\Controllers\ukm_promkes\ProgramDivisiPromkesController;
@@ -117,7 +120,34 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::post('pencatatan-program-kegiatan-promkes-desa/updateReport/{id}/{month}/{status}/{idReport}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'updateReport'])->name('pencatatan-program-kegiatan-promkes-desa-updateReport');
     Route::get('pencatatan-program-kegiatan-promkes-desa/deleteReport/{idReport}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'deleteReport'])->name('pencatatan-program-kegiatan-promkes-desa-deleteReport');
     
-    
 
+    // PROGRAM KIA GIZI
+    Route::get('pencatatan-program-kia-gizi/index', [ProgramKIAGiziController::class, 'index'])->name('program-kia-gizi-index');   
+    Route::get('pencatatan-program-kia-gizi/create', [ProgramKIAGiziController::class, 'create'])->name('program-kia-gizi-create');   
+    Route::post('pencatatan-program-kia-gizi/store', [ProgramKIAGiziController::class, 'store'])->name('program-kia-gizi-store');   
+    Route::get('pencatatan-program-kia-gizi/edit/{id}', [ProgramKIAGiziController::class, 'edit'])->name('program-kia-gizi-edit');
+    Route::post('pencatatan-program-kia-gizi/update/{id}', [ProgramKIAGiziController::class, 'update'])->name('program-kia-gizi-update');
+    Route::get('pencatatan-program-kia-gizi/updateStatus/{id}', [ProgramKIAGiziController::class, 'updateStatus'])->name('program-kia-gizi-updateStatus');
+    
+    // Kegiatan PROGRAM GIZI KIA 
+    Route::get('pencatatan-program-kia-gizi/kegiatan/index/{id}', [KegiatanProgramKiaGiziController::class, 'index'])->name('kegiatan-program-kia-gizi-index');
+    Route::get('pencatatan-program-kia-gizi/kegiatan/create/{id}', [KegiatanProgramKiaGiziController::class, 'create'])->name('kegiatan-program-kia-gizi-create');
+    Route::post('pencatatan-program-kia-gizi/kegiatan/store/{id}', [KegiatanProgramKiaGiziController::class, 'store'])->name('kegiatan-program-kia-gizi-store');
+    Route::get('pencatatan-program-kia-gizi/kegiatan/edit/{id}/{idKegiatan}', [KegiatanProgramKiaGiziController::class, 'edit'])->name('kegiatan-program-kia-gizi-edit');
+    Route::post('pencatatan-program-kia-gizi/kegiatan/update/{id}/{idKegiatan}', [KegiatanProgramKiaGiziController::class, 'update'])->name('kegiatan-program-kia-gizi-update');
+    Route::get('pencatatan-program-kia-gizi/kegiatan/updateStatus/{idKegiatan}', [KegiatanProgramKiaGiziController::class, 'updateStatus'])->name('kegiatan-program-kia-gizi-updateStatus');
+
+    // Pencatatan Kegiatan Program Gizi KIA
+    Route::get('pencatatan-program-kia-gizi/kegiatan/pencatatan/index/{id}/{idKegiatan}', [PencatatanKegiatanProgramKiaGiziController::class, 'index'])->name('pencatatan-kegiatan-program-kia-gizi-index');
+    Route::get('pencatatan-program-kia-gizi/kegiatan/pencatatan/create/{id}/{idKegiatan}', [PencatatanKegiatanProgramKiaGiziController::class, 'create'])->name('pencatatan-kegiatan-program-kia-gizi-create');
+    Route::post('pencatatan-program-kia-gizi/kegiatan/pencatatan/store/{id}/{idKegiatan}', [PencatatanKegiatanProgramKiaGiziController::class, 'store'])->name('pencatatan-kegiatan-program-kia-gizi-store');
+    Route::get('pencatatan-program-kia-gizi/kegiatan/pencatatan/edit/{id}/{idKegiatan}/{idPencatatan}', [PencatatanKegiatanProgramKiaGiziController::class, 'edit'])->name('pencatatan-kegiatan-program-kia-gizi-edit');
+    Route::post('pencatatan-program-kia-gizi/kegiatan/pencatatan/update/{id}/{idKegiatan}/{idPencatatan}', [PencatatanKegiatanProgramKiaGiziController::class, 'update'])->name('pencatatan-kegiatan-program-kia-gizi-update');
+    Route::get('pencatatan-program-kia-gizi/kegiatan/pencatatan/destroy/{id}/{idKegiatan}/{idPencatatan}', [PencatatanKegiatanProgramKiaGiziController::class, 'destroy'])->name('pencatatan-kegiatan-program-kia-gizi-destroy');
+    Route::get('pencatatan-program-kia-gizi/kegiatan/pencatatan/archieve/{id}/{idKegiatan}', [PencatatanKegiatanProgramKiaGiziController::class, 'archieve'])->name('pencatatan-kegiatan-program-kia-gizi-archieve');
+    
+    
+    
+    
 
 });
