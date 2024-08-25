@@ -6,8 +6,17 @@
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <h3>Data {{$dataProgram->namaProgram}}</h3>
-            <a href="{{route('kegiatan-program-kia-gizi-create', ['id'=>$dataProgram->id])}}" class="btn btn-primary">Tambah</a>
+            <h3>Data Program Kesehatan Sekolah</h3>
+            <div class="dropdown show">
+                <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Menu
+                </a>
+            
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{{route('kegiatan-program-kia-gizi-UKS-kelas-siswa-index')}}"><i class="fas fa-book"></i> Data Kelas</a>
+                    <a class="dropdown-item" href="{{route('kegiatan-program-kia-gizi-UKS-create')}}"><i class="fas fa-plus-circle"></i> Tambah Kegiatan</a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card-body">
@@ -40,18 +49,19 @@
                             </td>
                             <td>
                                 @if ($item->isActive)
-                                    <a href="{{route('kegiatan-program-kia-gizi-updateStatus', ['idKegiatan'=>$item->id])}}" class="btn btn-sm btn-success">Active</a>
+                                <a href="{{route('kegiatan-program-kia-gizi-UKS-updateStatus', ['id'=>$item->id])}}" class="btn btn-sm btn-success">Active</a>                                    
                                 @else
-                                    <a href="{{route('kegiatan-program-kia-gizi-updateStatus', ['idKegiatan'=>$item->id])}}" class="btn btn-sm btn-danger">Inactive</a>
+                                <a href="{{route('kegiatan-program-kia-gizi-UKS-updateStatus', ['id'=>$item->id])}}" class="btn btn-sm btn-danger">Inactive</a>
                                 @endif
                             </td>
                             <td>
-                                @if (\App\Helpers\MonthHelper::checkDesaInReport($item->id)->isNotEmpty())
-                                <a href="{{route('pencatatan-kegiatan-program-kia-gizi-index', ['id'=>$dataProgram->id, 'idKegiatan'=>$item->id])}}" class="btn btn-sm btn-danger"><i class="fas fa-info"></i> Periksa</a>
+                                @if (\App\Helpers\MonthHelper::checkClassInReport($item->id)->isNotEmpty())
+                                <a href="{{route('kegiatan-program-kia-gizi-pencatatan-UKS-index', ['id'=>$item->id])}}" class="btn btn-sm btn-danger"><i class="fas fa-info"></i> Buat Laporan</a>
+                                
                                 @else
-                                <a href="{{route('pencatatan-kegiatan-program-kia-gizi-index', ['id'=>$dataProgram->id, 'idKegiatan'=>$item->id])}}" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Lihat</a>
+                                <a href="{{route('kegiatan-program-kia-gizi-pencatatan-UKS-index', ['id'=>$item->id])}}" class="btn btn-sm btn-success"><i class="fas fa-info"></i> Laporan Lengkap</a>
                                 @endif
-                                <a href="{{route('kegiatan-program-kia-gizi-edit', ['id'=>$dataProgram->id, 'idKegiatan'=>$item->id])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> edit</a>
+                                <a href="{{route('kegiatan-program-kia-gizi-UKS-edit', ['id'=>$item->id])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
                             </td>
                         </tr>
                     @endforeach

@@ -30,11 +30,19 @@
                     </tr>
                 </tfoot>
                 <tbody>
+                    <tr>
+                       <td>1</td>
+                       <td> Program Usaha Kegiatan Sekolah </td> 
+                       <td> <a href="#" class="btn btn-sm btn-success disabled">Active</a></td>
+                       <td>
+                            <a href="{{route('kegiatan-program-kia-gizi-UKS-index')}}" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Info</a>
+                            <a href="#" class="btn btn-sm btn-warning disabled"><i class="fas fa-edit"></i> Edit</a>
+                        </td>
+                    </tr>
                     @foreach ($data as $item)
-
                     <tr>
                         <td>
-                            {{$loop->iteration}}
+                            {{$loop->iteration+1}}
                         </td>
                         <td>
                             {{$item->namaProgram}}

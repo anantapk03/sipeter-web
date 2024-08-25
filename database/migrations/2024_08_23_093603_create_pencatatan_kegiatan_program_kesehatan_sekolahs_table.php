@@ -11,27 +11,27 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pencatatan_kegiatan_program_kia_gizis', function (Blueprint $table) {
+        Schema::create('pencatatan_kegiatan_program_kesehatan_sekolahs', function (Blueprint $table) {
             $table->id();
-            
-            // Menentukan nama constraint foreign key secara manual
-            $table->foreignId('idKegiatanProgramKiaGizi')
-                ->constrained('kegiatan_program_kia_gizis')
+
+            // Foreign key untuk kegiatan_program_kesehatan_sekolah
+            $table->foreignId('idKegiatanProgramKesehatanSekolah')
+                ->constrained('kegiatan_program_kesehatan_sekolahs')
                 ->onDelete('cascade')
-                ->name('fk_kia_gizi_kegiatan');
-        
-            $table->foreignId('idDesa')
-                ->constrained('wilayah_kerja')
+                ->name('fk_kegiatan_kesehatan');
+
+            // Foreign key untuk kelas_siswa
+            $table->foreignId('idKelasSiswa')
+                ->constrained('kelas_siswas')
                 ->onDelete('cascade')
-                ->name('fk_kia_gizi_desa');
-        
+                ->name('fk_kelas_siswa');
+
             $table->enum('bulan', ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']);
             $table->integer('tahun');
             $table->integer('jumlah');
             $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pencatatan_kegiatan_program_kia_gizis');
+        Schema::dropIfExists('pencatatan_kegiatan_program_kesehatan_sekolahs');
     }
 };

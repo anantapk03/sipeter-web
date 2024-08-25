@@ -2,6 +2,8 @@
 
 namespace App\helpers;
 use App\Models\Desa;
+use App\Models\KelasSiswa;
+use App\Models\PencatatanKegiatanProgramKesehatanSekolah;
 use App\Models\PencatatanKegiatanProgramKiaGizi;
 use Carbon\Carbon;
 // use App\Http\Controllers\ukm_promkes\PencatatanKegiatanProgramPromkesController;
@@ -64,5 +66,16 @@ class MonthHelper
         // dd ($desa);
 
         return $desa;
+    }
+
+    public static function checkClassInReport($id){
+        $currentMonth = self::logicGetMonth();
+        $currentYear = self::checkYear();
+
+        $dataThisMonthAndYear = PencatatanKegiatanProgramKesehatanSekolah::where('bulan', $currentMonth)->where('tahun', $currentYear)
+        ->where('idKegiatanProgramKesehatanSekolah', $id)->pluck('idKelasSiswa');
+        $kelas = KelasSiswa::whereNotIn('id', $dataThisMonthAndYear)->get();
+
+        return $kelas;
     }
 }
