@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataUkbm;
+use Exception;
 use App\Models\Desa;
+use App\Models\DataUkbm;
 use App\Models\JenisUkbm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,9 +16,13 @@ class DataUkbmController extends Controller
      */
     public function index()
     {
-        
-        //
-        
+        $dataUkbm = DB::table('data_ukbm')
+            ->leftJoin('wilayah_kerja', 'data_ukbm.idDesa', '=', 'wilayah_kerja.id')
+            ->leftJoin('jenis_ukbm', 'data_ukbm.idJenisUkbm', '=', 'jenis_ukbm.id')
+            ->select('wilayah_kerja.namaDesa', 'jenis_ukbm.jenisUkbm', 'data_ukbm.*')
+            ->get();
+
+    return view('admin.ukm-essensial.promkes.promkes-umum.ukbm.index', compact('dataUkbm'));
     }
 
     /**
@@ -35,7 +40,7 @@ class DataUkbmController extends Controller
      */
     public function store(Request $request)
     {
-        $data = DataUkbm::create([
+        DataUkbm::create([
             'idDesa' => $request->namaDesa,
             'idJenisUkbm' => $request->jenisUkbm,
             'namaUkbm' => $request->namaUkbm,
@@ -43,18 +48,43 @@ class DataUkbmController extends Controller
             'sumberPembiayaan' => $request->sumberPembiayaan,
             'kegiatanUkbm' => json_encode($request->kegiatan),
             'jumlahKader' => $request->jumlahKader,
-            'jumlahKaderDilatih' => $request->jumlahKaderDilatih
+            'jumlahKaderDilatih' => $request->jumlahKaderDilatih,
+            'status' => 'active'
         ]);
+        try{
+            $tag= "success";
+            $message = "Data berhasil ditambahkan";
+        } catch(Exception $e){
+            $tag = "error";
+            $message = $e->getMessage();
+        }
 
-        return redirect()->route('ukbm.index');
+        return redirect()->route('ukbm.data-ukbm.index')->with($tag, $message);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        //
+        $data = DataUkbm::findOrFail($id);
+        if ($data->status == 'active') {
+            $data->status = "inactive";
+        } else {
+            $data->status = "active";
+        }
+        try{
+            $data->update();
+            $tag= "success";
+            $message = "Status berhasil diperbarui";
+        } catch(Exception $e){
+            $tag = "error";
+            $message = $e->getMessage();
+        }
+
+
+
+        return redirect()->route('ukbm.data-ukbm.index')->with($tag, $message);
     }
 
     /**
@@ -62,7 +92,20 @@ class DataUkbmController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = DB::table('data_ukbm')
+            ->leftJoin('wilayah_kerja', 'data_ukbm.idDesa', '=', 'wilayah_kerja.id')
+            ->leftJoin('jenis_ukbm', 'data_ukbm.idJenisUkbm', '=', 'jenis_ukbm.id')
+            ->select(
+                'wilayah_kerja.namaDesa',
+                'jenis_ukbm.jenisUkbm',
+                'data_ukbm.*'
+            )
+            ->where('data_ukbm.id', $id)
+            ->get();
+            
+
+        #dd($data);
+        return view('admin.ukm-essensial.promkes.promkes-umum.ukbm.data-ukbm.edit', compact('data'));
     }
 
     /**
@@ -70,7 +113,26 @@ class DataUkbmController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = DataUkbm::findOrFail($id);
+        $data->idDesa = $request->namaDesa;
+        $data->idJenisUkbm = $request->jenisUkbm;
+        $data->namaUkbm = $request->namaUkbm;
+        $data->alamatUkbm = $request->alamatUkbm;
+        $data->sumberPembiayaan = $request->sumberPembiayaan;
+        $data->kegiatanUkbm = $request->kegiatanUkbm;
+        $data->jumlahKader = $request->jumlahKader;
+        $data->jumlahKaderDilatih = $request->jumlahKaderDilatih;
+        try{
+            $data->update();
+            $tag= "success";
+            $message = "Status berhasil diperbarui";
+        } catch(Exception $e){
+            $tag = "error";
+            $message = $e->getMessage();
+        }
+        $data->update();
+
+        return redirect()->route('ukbm.data-ukbm.index')->with($tag, $message);
     }
 
     /**
@@ -78,6 +140,6 @@ class DataUkbmController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+       // nothing delete method here
     }
 }

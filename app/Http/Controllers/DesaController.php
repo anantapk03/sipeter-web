@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Desa;
 use Illuminate\Http\Request;
 
@@ -34,8 +35,15 @@ class DesaController extends Controller
             'lat' => $request->lat,
             'lon' => $request->lng
         ]);
+        try{
+            $tag= "success";
+            $message = "Data berhasil ditambahkan";
+        } catch(Exception $e) {
+            $tag = "error";
+            $message = $e->getMessage();
+        }
 
-        return redirect()->route('desa.index')->with('Success', 'Berhasil menambahkan data');
+        return redirect()->route('desa.index')->with($tag, $message);
     }
 
     /**
@@ -64,9 +72,16 @@ class DesaController extends Controller
         $data->namaDesa = $request->desa;
         $data->lat = $request->lat;
         $data->lon = $request->lng;
-        $data->update();
+        try{
+            $data->update();
+            $tag= "success";
+            $message = "Data berhasil diperbarui";
+        } catch(Exception $e) {
+            $tag = "error";
+            $message = $e->getMessage();
+        }
 
-        return redirect()->route('desa.index')->with('Success', 'Berhasil ubah data');
+        return redirect()->route('desa.index')->with($tag, $message);
     }
 
     /**
@@ -75,7 +90,14 @@ class DesaController extends Controller
     public function destroy(string $id)
     {
         $data = Desa::findOrFail($id);
-        $data->delete();
+        try{
+            $data->delete();
+            $tag= "success";
+            $message = "Data berhasil dihapus";
+        } catch(Exception $e) {
+            $tag = "error";
+            $message = $e->getMessage();
+        }
 
         return redirect()->route('desa.index');
     }

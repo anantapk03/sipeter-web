@@ -16,9 +16,14 @@ use App\Http\Controllers\DataUkbmController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\UkmEssensialController;
+use App\Http\Controllers\PencatatanUkbmController;
 use App\Http\Controllers\KegiatanPromKesController;
+use App\Http\Controllers\PeriodePencatatanController;
 use App\Http\Controllers\admin\UserManagementController;
 use App\Http\Controllers\JenisPromosiKesehatanController;
+use App\Http\Controllers\KegiatanKeslingController;
+use App\Http\Controllers\PencatatanKeslingController;
+use App\Http\Controllers\PengendalianPenyakitController;
 use App\Http\Controllers\ukm_promkes\KegiatanPromosiKesehatanUmumDesaController;
 use App\Http\Controllers\ukm_promkes\PencatatanKegiatanPromosiKesehatanUmumDesa;
 
@@ -89,7 +94,7 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     
 
     // Management UKBM
-    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm', [UkbmController::class, 'index'])->name('ukbm.index');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/jenis-ukbm', [UkbmController::class, 'index'])->name('ukbm.jenis.index');
     Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/jenis-ukbm/create', [UkbmController::class, 'addJenisUkbm'])->name('ukbm.jenis.create');
     Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/jenis-ukbm/create', [UkbmController::class, 'postJenisUkbm'])->name('ukbm.jenis.post');
     Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/jenis-ukbm/update/{id}', [UkbmController::class, 'editJenisUkbm'])->name('ukbm.jenis.edit');
@@ -97,8 +102,23 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/jenis-ukbm/delete/{id}', [UkbmController::class, 'deleteJenisUkbm'])->name('ukbm.jenis.delete');
     
     // Management data UKBM
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/data-ukbm', [DataUkbmController::class, 'index'])->name('ukbm.data-ukbm.index');
     Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/data-ukbm/create', [DataUkbmController::class, 'create'])->name('ukbm.data-ukbm.create');
     Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/data-ukbm/create', [DataUkbmController::class, 'store'])->name('ukbm.data-ukbm.store');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/data-ukbm/delete/{id}', [DataUkbmController::class, 'destroy'])->name('ukbm.data-ukbm.delete');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/data-ukbm/edit/{id}', [DataUkbmController::class, 'edit'])->name('ukbm.data-ukbm.edit');
+    Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/data-ukbm/update/{id}', [DataUkbmController::class, 'update'])->name('ukbm.data-ukbm.update');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/data-ukbm/updateStatus/{id}', [DataUkbmController::class, 'show'])->name('ukbm.data-ukbm.show');
+
+    // Management Pencatatan data UKBM
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/report', [PencatatanUkbmController::class, 'indexReport'])->name('ukbm.pencatatan-ukbm.report');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}', [PencatatanUkbmController::class, 'index'])->name('ukbm.pencatatan-ukbm.index');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}/create', [PencatatanUkbmController::class, 'create'])->name('ukbm.pencatatan-ukbm.create');
+    Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}/create', [PencatatanUkbmController::class, 'store'])->name('ukbm.pencatatan-ukbm.store');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}/edit/{id}', [PencatatanUkbmController::class, 'edit'])->name('ukbm.pencatatan-ukbm.edit');
+    Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}/update/{id}', [PencatatanUkbmController::class, 'update'])->name('ukbm.pencatatan-ukbm.update');
+    Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/report/pencatatan-data-ukbm/{month}/{status}/delete/{id}', [PencatatanUkbmController::class, 'destroy'])->name('ukbm.pencatatan-ukbm.delete');
+    
 
     // Management Jenis Program
     Route::get('ukm-essensial/divisi', [UkmEssensialController::class, 'index'])->name('ukm-essensial.index');
@@ -123,6 +143,23 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::post('pencatatan-program-kegiatan-promkes-desa/updateReport/{id}/{month}/{status}/{idReport}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'updateReport'])->name('pencatatan-program-kegiatan-promkes-desa-updateReport');
     Route::get('pencatatan-program-kegiatan-promkes-desa/deleteReport/{idReport}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'deleteReport'])->name('pencatatan-program-kegiatan-promkes-desa-deleteReport');
     
+    // Kegiatan Kesehatan Keliling
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan', [KegiatanKeslingController::class, 'index'])->name('kesling.kegiatan.index');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/create', [KegiatanKeslingController::class, 'create'])->name('kesling.kegiatan.create');
+    Route::post('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/create', [KegiatanKeslingController::class, 'store'])->name('kesling.kegiatan.store');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/edit', [KegiatanKeslingController::class, 'edit'])->name('kesling.kegiatan.edit');
+    Route::post('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/edit', [KegiatanKeslingController::class, 'update'])->name('kesling.kegiatan.update');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/delete', [KegiatanKeslingController::class, 'destroy'])->name('kesling.kegiatan.delete');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/updateStatus', [KegiatanKeslingController::class, 'updateStatus'])->name('kesling.kegiatan.updateStatus');
+
+    
+    // Pencatatan Kegiatan Kesehatan Keliling
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/report', [PencatatanKeslingController::class, 'indexReport'])->name('kesling.kegiatan.report');
+    Route::post('ukm-essensial/divisi/kesehatan-lingkungan/report/create', [PencatatanKeslingController::class, 'store'])->name('kesling.kegiatan.report.store');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/report/create', [PencatatanKeslingController::class, 'create'])->name('kesling.kegiatan.report.create');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/report/{id}/edit', [PencatatanKeslingController::class, 'edit'])->name('kesling.kegiatan.report.edit');
+    Route::post('ukm-essensial/divisi/kesehatan-lingkungan/report/{id}/edit', [PencatatanKeslingController::class, 'update'])->name('kesling.kegiatan.report.update');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/report/{id}/delete', [PencatatanKeslingController::class, 'destroy'])->name('kesling.kegiatan.report.delete');
 
     // PROGRAM KIA GIZI
     Route::get('pencatatan-program-kia-gizi/index', [ProgramKIAGiziController::class, 'index'])->name('program-kia-gizi-index');   
@@ -174,8 +211,10 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::get('kegiatan-program-kia-gizi/pencatatan/UKS/delete/{id}/{idPencatatan}', [PencatatanKegiatanProgramKesehatanSekolahController::class, 'delete'])->name('kegiatan-program-kia-gizi-pencatatan-UKS-delete');
     Route::get('kegiatan-program-kia-gizi/pencatatan/UKS/archieves/{id}/', [PencatatanKegiatanProgramKesehatanSekolahController::class, 'archieves'])->name('kegiatan-program-kia-gizi-pencatatan-UKS-archieves');
     
-   
-    
+  
+    // Pencegahan dan Pengendalian Penyakit
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit', [PengendalianPenyakitController::class, 'menu'])->name('pengendalian-penyakit.menu');
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi', [PengendalianPenyakitController::class, 'imunisasi'])->name('pengendalian-penyakit.imunisasi');
     
 
 });
