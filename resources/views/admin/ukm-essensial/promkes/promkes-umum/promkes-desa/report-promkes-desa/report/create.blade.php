@@ -38,7 +38,10 @@
                 <label for="inputJumlah">jumlah</label>
                 <input id="inputJumlah" type="number" name="jumlah" class="form-control" required placeholder="Masukan jumlah pelaksanaan kegiatan...">
             </div>
-
+            <div class="form-group">
+                <label for="inputDeskripsiPencatatan">Deskripsi</label>
+                <textarea id="inputDeskripsiPencatatan" type="text" name="deskripsi" class="form-control" required placeholder="Masukan Deskripsi Pencatatan"></textarea>
+            </div>
 
         </div>
         <div class="card-footer">

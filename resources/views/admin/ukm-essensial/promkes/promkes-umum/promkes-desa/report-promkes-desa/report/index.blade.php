@@ -79,7 +79,7 @@
                                                             <tr>
                                                                 <th scope="col">Deskripsi</th>
                                                                 <td>:</td>
-                                                                <td>{{ $data->deskripsiKegiatan }}</td>
+                                                                <td>{{ $item->deskripsi}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th scope="col">Tempat Kegiatan</th>
