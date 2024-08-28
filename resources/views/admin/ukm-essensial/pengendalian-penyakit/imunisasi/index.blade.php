@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <h3>Data Divisi UKM Essensial</h3>
+            <h3>Data Kegiatan Imunisasi</h3>
         </div>
     </div>
     <div class="card-body">
@@ -26,7 +26,7 @@
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>Promosi Kesehatan</td>
+                        <td>Imunisasi Bayi</td>
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -38,14 +38,14 @@
                                     }
                                 </style>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('promkes.show') }}"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
                                 </div>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>Kesehatan Lingkungan</td>
+                        <td>Imunisasi Bayi dibawah Dua Tahun</td>
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -57,14 +57,14 @@
                                     }
                                 </style>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('kesling.kegiatan.index') }}"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
                                 </div>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>Kesehatan Ibu dan Anak</td>
+                        <td>Imunisasi Wanita Usia Subur</td>
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -77,25 +77,6 @@
                                 </style>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#"><i class="fas fa-database" style="margin-right: 3%"></i> Data Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Pencegahan dan Pengendalian Penyakit</td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-bars"></i>
-                                </button>
-                                <style>
-                                    .dropdown-toggle::after {
-                                        display: none;
-                                    }
-                                </style>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('pengendalian-penyakit.menu') }}"><i class="fas fa-database" style="margin-right: 3%"></i> Data Detail</a>
                                 </div>
                             </div>
                         </td>

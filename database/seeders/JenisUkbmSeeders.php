@@ -13,9 +13,9 @@ class JenisUkbmSeeders extends Seeder
      */
     public function run(): void
     {
-        DB::table('jenis_ukbm')->create([
+        DB::table('jenis_ukbm')->insert([
             'jenisUkbm' => 'Pos Obat Desa',
-            'bulan' => 4,
+            'bulanan' => 4,
             'triwulan' => 12,
             'semester' => 24,
             'tahunan' => 48

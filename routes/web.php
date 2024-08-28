@@ -12,6 +12,9 @@ use App\Http\Controllers\KegiatanPromKesController;
 use App\Http\Controllers\PeriodePencatatanController;
 use App\Http\Controllers\admin\UserManagementController;
 use App\Http\Controllers\JenisPromosiKesehatanController;
+use App\Http\Controllers\KegiatanKeslingController;
+use App\Http\Controllers\PencatatanKeslingController;
+use App\Http\Controllers\PengendalianPenyakitController;
 use App\Http\Controllers\ukm_promkes\KegiatanPromosiKesehatanUmumDesaController;
 use App\Http\Controllers\ukm_promkes\PencatatanKegiatanPromosiKesehatanUmumDesa;
 
@@ -104,7 +107,27 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::post('pencatatan-program-kegiatan-promkes-desa/updateReport/{id}/{month}/{status}/{idReport}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'updateReport'])->name('pencatatan-program-kegiatan-promkes-desa-updateReport');
     Route::get('pencatatan-program-kegiatan-promkes-desa/deleteReport/{idReport}', [PencatatanKegiatanPromosiKesehatanUmumDesa::class, 'deleteReport'])->name('pencatatan-program-kegiatan-promkes-desa-deleteReport');
     
-    
+    // Kegiatan Kesehatan Keliling
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan', [KegiatanKeslingController::class, 'index'])->name('kesling.kegiatan.index');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/create', [KegiatanKeslingController::class, 'create'])->name('kesling.kegiatan.create');
+    Route::post('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/create', [KegiatanKeslingController::class, 'store'])->name('kesling.kegiatan.store');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/edit', [KegiatanKeslingController::class, 'edit'])->name('kesling.kegiatan.edit');
+    Route::post('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/edit', [KegiatanKeslingController::class, 'update'])->name('kesling.kegiatan.update');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/delete', [KegiatanKeslingController::class, 'destroy'])->name('kesling.kegiatan.delete');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/updateStatus', [KegiatanKeslingController::class, 'updateStatus'])->name('kesling.kegiatan.updateStatus');
 
+    
+    // Pencatatan Kegiatan Kesehatan Keliling
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/report', [PencatatanKeslingController::class, 'indexReport'])->name('kesling.kegiatan.report');
+    Route::post('ukm-essensial/divisi/kesehatan-lingkungan/report/create', [PencatatanKeslingController::class, 'store'])->name('kesling.kegiatan.report.store');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/report/create', [PencatatanKeslingController::class, 'create'])->name('kesling.kegiatan.report.create');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/report/{id}/edit', [PencatatanKeslingController::class, 'edit'])->name('kesling.kegiatan.report.edit');
+    Route::post('ukm-essensial/divisi/kesehatan-lingkungan/report/{id}/edit', [PencatatanKeslingController::class, 'update'])->name('kesling.kegiatan.report.update');
+    Route::get('ukm-essensial/divisi/kesehatan-lingkungan/report/{id}/delete', [PencatatanKeslingController::class, 'destroy'])->name('kesling.kegiatan.report.delete');
+
+
+    // Pencegahan dan Pengendalian Penyakit
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit', [PengendalianPenyakitController::class, 'menu'])->name('pengendalian-penyakit.menu');
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi', [PengendalianPenyakitController::class, 'imunisasi'])->name('pengendalian-penyakit.imunisasi');
 
 });
