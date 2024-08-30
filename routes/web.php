@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\SasaranImunisasiBayiController;
 use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKesehatanSekolahController;
 use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKiaGiziController;
 use App\Http\Controllers\ukm_kia_gizi\KelasSiswaController;
@@ -215,6 +216,16 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     // Pencegahan dan Pengendalian Penyakit
     Route::get('/ukm-essensial/divisi/pengendalian-penyakit', [PengendalianPenyakitController::class, 'menu'])->name('pengendalian-penyakit.menu');
     Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi', [PengendalianPenyakitController::class, 'imunisasi'])->name('pengendalian-penyakit.imunisasi');
+
+
+    // P2M Imunisasi Bayi 
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/index', [SasaranImunisasiBayiController::class, 'index'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-index');
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/create', [SasaranImunisasiBayiController::class, 'create'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-create');
+    Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/store', [SasaranImunisasiBayiController::class, 'store'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-store');
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/edit/{id}', [SasaranImunisasiBayiController::class, 'edit'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-edit');
+    Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/update/{id}', [SasaranImunisasiBayiController::class, 'update'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-update');
+    
+    
     
 
 });
