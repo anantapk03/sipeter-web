@@ -32,6 +32,28 @@
                     </tr>
                 </tfoot>
                 <tbody>
+                    @foreach ($data as $item)
+                    <tr>
+                        <td>
+                            {{$loop->iteration}}
+                        </td>
+                        <td>
+                            {{\App\Helpers\MonthHelper::getMonth($item->bulan)}}
+                        </td>
+                        <td>
+                            {{$item->tahun}}
+                        </td>
+                        <td>
+                            {{$item->kelasSiswa->namaKelas}}
+                        </td>
+                        <td>
+                            {{$item->jumlah}}
+                        </td>
+                        <td>
+                            action
+                        </td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
