@@ -2,7 +2,16 @@
 @section('content')
 
 <a href="{{route('pengendalian-penyakit.imunisasi')}}" class="btn btn-danger mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
-
+@if ($desa->isEmpty())
+<div class="alert alert-success">
+    <h4>
+        <span class="badge badge-success mr-3">
+            <i class="flaticon-success" style="font-size: 24px;"></i>
+        </span>
+        Periksa laporan pencatatan pada masing-masing desa
+    </h4>
+</div>       
+@endif
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
@@ -12,7 +21,7 @@
                     Menu
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#"><i class="fas fa-book"></i> Jenis Imunisasi</a>
+                    <a class="dropdown-item" href="{{route('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-index')}}"><i class="fas fa-book"></i> Jenis Imunisasi</a>
                     @if ($desa->isNotEmpty())
                     <a class="dropdown-item" href="{{route('pengendalian-penyakit-imunisai-imunisasi-bayi-create')}}"><i class="fas fa-plus-circle"></i> Tambah Laporan Sasaran</a>
                     @endif

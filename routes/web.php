@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\JenisImunisasiBayiController;
 use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\SasaranImunisasiBayiController;
 use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKesehatanSekolahController;
 use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKiaGiziController;
@@ -224,6 +225,14 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/store', [SasaranImunisasiBayiController::class, 'store'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-store');
     Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/edit/{id}', [SasaranImunisasiBayiController::class, 'edit'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-edit');
     Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/update/{id}', [SasaranImunisasiBayiController::class, 'update'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-update');
+    
+    // Jenis Imuniasi Bayi 
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/jenis_imunisasi/index', [JenisImunisasiBayiController::class, 'index'])->name('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-index');
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/jenis_imunisasi/create', [JenisImunisasiBayiController::class, 'create'])->name('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-create');
+    Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/jenis_imunisasi/store', [JenisImunisasiBayiController::class, 'store'])->name('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-store');
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/jenis_imunisasi/edit/{id}', [JenisImunisasiBayiController::class, 'edit'])->name('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-edit');
+    Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/jenis_imunisasi/update/{id}', [JenisImunisasiBayiController::class, 'update'])->name('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-update');
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/jenis_imunisasi/updateStatus/{id}', [JenisImunisasiBayiController::class, 'updateStatus'])->name('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-updateStatus');
     
     
     
