@@ -25,7 +25,7 @@
                     @if ($desa->isNotEmpty())
                     <a class="dropdown-item" href="{{route('pengendalian-penyakit-imunisai-imunisasi-bayi-create')}}"><i class="fas fa-plus-circle"></i> Tambah Laporan Sasaran</a>
                     @endif
-                    <a href="#" class="dropdown-item"><i class="flaticon-archive"></i> Arsip Laporan</a>
+                    <a href="{{route('pengendalian-penyakit-imunisai-bayi-arsip')}}" class="dropdown-item"><i class="flaticon-archive"></i> Arsip Laporan</a>
                 </div>
             </div>
         </div>
@@ -37,8 +37,9 @@
                     <tr>
                         <th>No</th>
                         <th>Desa</th>
-                        <th>Jumlah Sasaran Bayi</th>
-                        <th>Jumlah Sasaran Surviving Infant</th>
+                        <th>Sasaran Bayi</th>
+                        <th>Sasaran Surviving Infant</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -46,8 +47,9 @@
                     <tr>
                         <th>No</th>
                         <th>Desa</th>
-                        <th>Jumlah Sasaran Bayi</th>
-                        <th>Jumlah Sasaran Surviving Infant</th>
+                        <th>Sasaran Bayi</th>
+                        <th>Sasaran Surviving Infant</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -67,7 +69,14 @@
                                 {{$item->jumlah_surviving_infant_laki+$item->jumlah_surviving_infant_perempuan}}
                             </td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Info</a>
+                                @if (\App\Helpers\MonthHelper::checkJenisImunisasiInReport($item->id)->isNotEmpty())
+                                <span class="badge badge-danger">Uncomplete</span>
+                                @else
+                                <span class="badge badge-success">Complete</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{route('P2-Laporan-Imunisasi', ['id'=>$item->id])}}" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Info</a>
                                 <a href="{{route('pengendalian-penyakit-imunisai-imunisasi-bayi-edit', ['id'=>$item->id])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
                             </td>
                         </tr>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\JenisImunisasiBayiController;
+use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\LaporanImunisasiBayiController;
 use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\SasaranImunisasiBayiController;
 use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKesehatanSekolahController;
 use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKiaGiziController;
@@ -233,6 +234,17 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/jenis_imunisasi/edit/{id}', [JenisImunisasiBayiController::class, 'edit'])->name('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-edit');
     Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/jenis_imunisasi/update/{id}', [JenisImunisasiBayiController::class, 'update'])->name('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-update');
     Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/jenis_imunisasi/updateStatus/{id}', [JenisImunisasiBayiController::class, 'updateStatus'])->name('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-updateStatus');
+    
+    // Laporan imunisasi bayi 
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/imunisasi-bayi/laporan/index/{id}', [LaporanImunisasiBayiController::class, 'index'])->name('P2-Laporan-Imunisasi');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/imunisasi-bayi/laporan/create/{id}', [LaporanImunisasiBayiController::class, 'create'])->name('P2-Laporan-Imunisasi-create');
+    Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/imunisasi-bayi/laporan/store/{id}', [LaporanImunisasiBayiController::class, 'store'])->name('P2-Laporan-Imunisasi-store');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/imunisasi-bayi/laporan/edit/{id}/{idLaporan}', [LaporanImunisasiBayiController::class, 'edit'])->name('P2-Laporan-Imunisasi-edit');
+    Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/imunisasi-bayi/laporan/update/{id}/{idLaporan}', [LaporanImunisasiBayiController::class, 'update'])->name('P2-Laporan-Imunisasi-update');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/imunisasi-bayi/laporan/destroy/{id}/{idLaporan}', [LaporanImunisasiBayiController::class, 'destroy'])->name('P2-Laporan-Imunisasi-destroy');
+
+    // Arsip Laporan Imunisasi Bayi 
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/arsip/index', [SasaranImunisasiBayiController::class, 'archieves'])->name('pengendalian-penyakit-imunisai-bayi-arsip');
     
     
     

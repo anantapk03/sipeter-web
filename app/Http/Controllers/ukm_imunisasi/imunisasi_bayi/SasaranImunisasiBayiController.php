@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ukm_imunisasi\imunisasi_bayi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Desa;
+use App\Models\LaporanImunisasiBayi;
 use App\Models\SasaranImunisasiBayi;
 use Carbon\Carbon;
 use Exception;
@@ -148,6 +149,12 @@ class SasaranImunisasiBayiController extends Controller
 
         return redirect()->route('pengendalian-penyakit-imunisai-imunisasi-bayi-index')->with($tag, $message);
 
+    }
+
+    public function archieves(){
+        $desa = Desa::all();
+        $data = LaporanImunisasiBayi::all();
+        return view('admin.ukm-essensial.pengendalian-penyakit.imunisasi.imunisasi_bayi.arsip', ['desa' => $desa, 'data'=>$data]);
     }
 
 

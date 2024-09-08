@@ -2,7 +2,9 @@
 
 namespace App\helpers;
 use App\Models\Desa;
+use App\Models\JenisImunisasiBayi;
 use App\Models\KelasSiswa;
+use App\Models\LaporanImunisasiBayi;
 use App\Models\PencatatanKegiatanProgramKesehatanSekolah;
 use App\Models\PencatatanKegiatanProgramKiaGizi;
 use Carbon\Carbon;
@@ -77,5 +79,11 @@ class MonthHelper
         $kelas = KelasSiswa::whereNotIn('id', $dataThisMonthAndYear)->get();
 
         return $kelas;
+    }
+
+    public static function checkJenisImunisasiInReport($id){
+        $dataReportInThisMonthAndYear = LaporanImunisasiBayi::where('idSasaran', $id)->pluck('idJenisImunisasi');
+        $jenisImunisasi = JenisImunisasiBayi::whereNotIn('id', $dataReportInThisMonthAndYear)->get();
+        return $jenisImunisasi;
     }
 }
