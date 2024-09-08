@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ukm_imunisasi\baduta\JenisImunisasiBadutaController;
 use App\Http\Controllers\ukm_imunisasi\baduta\SasaranImunisasiBadutaController;
 use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\JenisImunisasiBayiController;
 use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\LaporanImunisasiBayiController;
@@ -252,6 +253,14 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/store', [SasaranImunisasiBadutaController::class, 'store'])->name('sasaran-imunisasi-baduta-store');
     Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/edit/{id}', [SasaranImunisasiBadutaController::class, 'edit'])->name('sasaran-imunisasi-baduta-edit');
     Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/update/{id}', [SasaranImunisasiBadutaController::class, 'update'])->name('sasaran-imunisasi-baduta-update');
+    
+    // Jenis Imunisasi Baduta 
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/jenis_imunisasi/index', [JenisImunisasiBadutaController::class, 'index'])->name('jenis-imunisasi-baduta-index');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/jenis_imunisasi/create', [JenisImunisasiBadutaController::class, 'create'])->name('jenis-imunisasi-baduta-create');
+    Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/jenis_imunisasi/store', [JenisImunisasiBadutaController::class, 'store'])->name('jenis-imunisasi-baduta-store');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/jenis_imunisasi/edit/{id}', [JenisImunisasiBadutaController::class, 'edit'])->name('jenis-imunisasi-baduta-edit');
+    Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/jenis_imunisasi/update/{id}', [JenisImunisasiBadutaController::class, 'update'])->name('jenisupdate-imunisasi-baduta-update');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/jenis_imunisasi/updateStatus/{id}', [JenisImunisasiBadutaController::class, 'updateStatus'])->name('jenis-imunisasi-baduta-updateStatus');
     
 
 });

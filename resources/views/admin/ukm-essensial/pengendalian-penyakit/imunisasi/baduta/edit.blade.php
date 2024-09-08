@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <button class="btn btn-success" type="submit">Simpan</button>
+            <button class="btn btn-success" type="submit">Perbarui</button>
             <a href="#" class="btn btn-danger" id="backConfirmation" data-href="{{route('sasaran-imunisasi-baduta-index')}}">Kembali</a>
             <script>
                 $("#backConfirmation").click(function () {

@@ -15,17 +15,17 @@
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <h3>Data Sasaran Program Imunisasi Bayi {{$monthName}} {{$year}}</h3>
+            <h3>Data Sasaran Program Imunisasi Baduta {{$monthName}} {{$year}}</h3>
             <div class="dropdown show">
                 <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Menu
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{{route('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-index')}}"><i class="fas fa-book"></i> Jenis Imunisasi</a>
+                    <a class="dropdown-item" href="{{route('jenis-imunisasi-baduta-index')}}"><i class="fas fa-book"></i> Jenis Imunisasi</a>
                     @if ($desa->isNotEmpty())
                     <a class="dropdown-item" href="{{route('sasaran-imunisasi-baduta-create')}}"><i class="fas fa-plus-circle"></i> Tambah Laporan Sasaran</a>
                     @endif
-                    <a href="{{route('pengendalian-penyakit-imunisai-bayi-arsip')}}" class="dropdown-item"><i class="flaticon-archive"></i> Arsip Laporan</a>
+                    <a href="#" class="dropdown-item"><i class="flaticon-archive"></i> Arsip Laporan</a>
                 </div>
             </div>
         </div>
