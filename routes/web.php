@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ukm_imunisasi\baduta\SasaranImunisasiBadutaController;
 use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\JenisImunisasiBayiController;
 use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\LaporanImunisasiBayiController;
 use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\SasaranImunisasiBayiController;
@@ -226,6 +227,8 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/store', [SasaranImunisasiBayiController::class, 'store'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-store');
     Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/edit/{id}', [SasaranImunisasiBayiController::class, 'edit'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-edit');
     Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/update/{id}', [SasaranImunisasiBayiController::class, 'update'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-update');
+    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/arsip/index', [SasaranImunisasiBayiController::class, 'archieves'])->name('pengendalian-penyakit-imunisai-bayi-arsip');
+
     
     // Jenis Imuniasi Bayi 
     Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/jenis_imunisasi/index', [JenisImunisasiBayiController::class, 'index'])->name('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-index');
@@ -241,12 +244,14 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/imunisasi-bayi/laporan/store/{id}', [LaporanImunisasiBayiController::class, 'store'])->name('P2-Laporan-Imunisasi-store');
     Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/imunisasi-bayi/laporan/edit/{id}/{idLaporan}', [LaporanImunisasiBayiController::class, 'edit'])->name('P2-Laporan-Imunisasi-edit');
     Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/imunisasi-bayi/laporan/update/{id}/{idLaporan}', [LaporanImunisasiBayiController::class, 'update'])->name('P2-Laporan-Imunisasi-update');
-    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/imunisasi-bayi/laporan/destroy/{id}/{idLaporan}', [LaporanImunisasiBayiController::class, 'destroy'])->name('P2-Laporan-Imunisasi-destroy');
-
-    // Arsip Laporan Imunisasi Bayi 
-    Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/arsip/index', [SasaranImunisasiBayiController::class, 'archieves'])->name('pengendalian-penyakit-imunisai-bayi-arsip');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/imunisasi-bayi/laporan/destroy/{id}/{idLaporan}', [LaporanImunisasiBayiController::class, 'destroy'])->name('P2-Laporan-Imunisasi-destroy');    
     
-    
+    // IMUNISASI BADUTA 
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/index', [SasaranImunisasiBadutaController::class, 'index'])->name('sasaran-imunisasi-baduta-index');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/create', [SasaranImunisasiBadutaController::class, 'create'])->name('sasaran-imunisasi-baduta-create');
+    Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/store', [SasaranImunisasiBadutaController::class, 'store'])->name('sasaran-imunisasi-baduta-store');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/edit/{id}', [SasaranImunisasiBadutaController::class, 'edit'])->name('sasaran-imunisasi-baduta-edit');
+    Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/update/{id}', [SasaranImunisasiBadutaController::class, 'update'])->name('sasaran-imunisasi-baduta-update');
     
 
 });

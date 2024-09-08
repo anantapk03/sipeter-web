@@ -57,7 +57,7 @@
                                     }
                                 </style>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
+                                    <a class="dropdown-item" href="{{route('sasaran-imunisasi-baduta-index')}}"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
                                 </div>
                             </div>
                         </td>
