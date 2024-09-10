@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\ukm_imunisasi\imunisasi_bayi;
+namespace App\Http\Controllers\ukm_imunisasi\baduta;
 
 use App\Http\Controllers\Controller;
-use App\Models\JenisImunisasiBayi;
-use App\Models\LaporanImunisasiBayi;
-use App\Models\SasaranImunisasiBayi;
+use App\Models\JenisImunisasiBaduta;
+use App\Models\LaporanImunisasiBaduta;
+use App\Models\SasaranImunisasiBaduta;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 
-class LaporanImunisasiBayiController extends Controller
+class LaporanImunisasiBadutaController extends Controller
 {
     public function getMonth(int $monthNumber){
         $bulanIndonesia = [
@@ -57,16 +57,17 @@ class LaporanImunisasiBayiController extends Controller
     }
 
     public function checkJenisImunisasiInReport($id){
-        $dataReportInThisMonthAndYear = LaporanImunisasiBayi::where('idSasaran', $id)->pluck('idJenisImunisasi');
-        $jenisImunisasi = JenisImunisasiBayi::whereNotIn('id', $dataReportInThisMonthAndYear)->get();
+        $dataReportInThisMonthAndYear = LaporanImunisasiBaduta::where('idSasaranImunisasi', $id)->pluck('idJenisImunisasi');
+        $jenisImunisasi = JenisImunisasiBaduta::whereNotIn('id', $dataReportInThisMonthAndYear)->get();
         return $jenisImunisasi;
     }
 
     public function index($id){
         $currentMonth = $this->logicGetMonth();
         $year = $this->checkYear();
+
         try {
-            $sasaranImuniasai = SasaranImunisasiBayi::findOrFail($id);
+            $sasaranImuniasai = SasaranImunisasiBaduta::findOrFail($id);
             if($sasaranImuniasai->bulan == $currentMonth){
                 if($sasaranImuniasai->tahun != $year){
                     return redirect()->back()->with('error', 'Anda tidak diperkenankan mengakses halaman ini');
@@ -77,19 +78,17 @@ class LaporanImunisasiBayiController extends Controller
         } catch (Exception $e) {
             return redirect()->back()->with('error','data tidak ditemukan');
         }
-
-        $data = LaporanImunisasiBayi::where('idSasaran', $id)->get();
+        $data = LaporanImunisasiBaduta::where('idSasaranImunisasi', $id)->get();
         $imunisasi = $this->checkJenisImunisasiInReport($id);
 
-        return view('admin.ukm-essensial.pengendalian-penyakit.imunisasi.imunisasi_bayi.laporan.index', ['data' => $data, 'sasaran' => $sasaranImuniasai, 'imunisasi'=>$imunisasi]);
-
+        return view('admin.ukm-essensial.pengendalian-penyakit.imunisasi.baduta.laporan.index', ['data'=>$data, 'imunisasi'=>$imunisasi, 'sasaran'=>$sasaranImuniasai]);
     }
 
     public function create($id){
         $currentMonth = $this->logicGetMonth();
         $year = $this->checkYear();
         try {
-            $sasaranImuniasai = SasaranImunisasiBayi::findOrFail($id);
+            $sasaranImuniasai = SasaranImunisasiBaduta::findOrFail($id);
             if($sasaranImuniasai->bulan == $currentMonth){
                 if($sasaranImuniasai->tahun != $year){
                     return redirect()->back()->with('error', 'Anda tidak diperkenankan mengakses halaman ini');
@@ -103,14 +102,14 @@ class LaporanImunisasiBayiController extends Controller
 
         $jenisImunisasi = $this->checkJenisImunisasiInReport($id);
 
-        return view('admin.ukm-essensial.pengendalian-penyakit.imunisasi.imunisasi_bayi.laporan.create', ['imunisasi'=>$jenisImunisasi, 'sasaran'=>$sasaranImuniasai]);
+        return view('admin.ukm-essensial.pengendalian-penyakit.imunisasi.baduta.laporan.create', ['imunisasi'=>$jenisImunisasi, 'sasaran'=>$sasaranImuniasai]);
     }
 
     public function store($id, Request $request){
         $currentMonth = $this->logicGetMonth();
         $year = $this->checkYear();
         try {
-            $sasaranImuniasai = SasaranImunisasiBayi::findOrFail($id);
+            $sasaranImuniasai = SasaranImunisasiBaduta::findOrFail($id);
             if($sasaranImuniasai->bulan == $currentMonth){
                 if($sasaranImuniasai->tahun != $year){
                     return redirect()->back()->with('error', 'Anda tidak diperkenankan mengakses halaman ini');
@@ -122,14 +121,15 @@ class LaporanImunisasiBayiController extends Controller
             return redirect()->back()->with('error','data tidak ditemukan');
         }
 
-        $data = new LaporanImunisasiBayi();
+        $data = new LaporanImunisasiBaduta();
 
         $data->idJenisImunisasi= $request->idJenisImunisasi;
-        $data->idSasaran= $id;
+        $data->idSasaranImunisasi= $id;
         $data->jumlah_laki= $request->jumlah_laki;
         $data->jumlah_perempuan= $request->jumlah_perempuan;
         $data->deskripsi= $request->deskripsi;
 
+        
         try{
             $data->save();
             $tag = "success";
@@ -139,15 +139,16 @@ class LaporanImunisasiBayiController extends Controller
             $message = $e->getMessage();
         }
 
-        return redirect()->route('P2-Laporan-Imunisasi', ['id'=>$id])->with($tag, $message);
+        return redirect()->route('laporan-imunisasi-baduta-index', ['id'=>$id])->with($tag, $message);
+
     }
 
     public function edit($id, $idLaporan){
         $currentMonth = $this->logicGetMonth();
         $year = $this->checkYear();
         try {
-            $sasaranImuniasai = SasaranImunisasiBayi::findOrFail($id);
-            $data = LaporanImunisasiBayi::findOrFail($idLaporan);
+            $sasaranImuniasai = SasaranImunisasiBaduta::findOrFail($id);
+            $data = LaporanImunisasiBaduta::findOrFail($idLaporan);
             if($sasaranImuniasai->bulan == $currentMonth){
                 if($sasaranImuniasai->tahun != $year){
                     return redirect()->back()->with('error', 'Anda tidak diperkenankan mengakses halaman ini');
@@ -162,15 +163,15 @@ class LaporanImunisasiBayiController extends Controller
         $jenisImunisasi = $this->checkJenisImunisasiInReport($id);
         
 
-        return view('admin.ukm-essensial.pengendalian-penyakit.imunisasi.imunisasi_bayi.laporan.edit', ['imunisasi'=>$jenisImunisasi, 'sasaran'=>$sasaranImuniasai, 'data'=>$data]);
+        return view('admin.ukm-essensial.pengendalian-penyakit.imunisasi.baduta.laporan.update', ['imunisasi'=>$jenisImunisasi, 'sasaran'=>$sasaranImuniasai, 'data'=>$data]);
     }
 
     public function update($id, $idLaporan, Request $request){
         $currentMonth = $this->logicGetMonth();
         $year = $this->checkYear();
         try {
-            $sasaranImuniasai = SasaranImunisasiBayi::findOrFail($id);
-            $data = LaporanImunisasiBayi::findOrFail($idLaporan);
+            $sasaranImuniasai = SasaranImunisasiBaduta::findOrFail($id);
+            $data = LaporanImunisasiBaduta::findOrFail($idLaporan);
             if($sasaranImuniasai->bulan == $currentMonth){
                 if($sasaranImuniasai->tahun != $year){
                     return redirect()->back()->with('error', 'Anda tidak diperkenankan mengakses halaman ini');
@@ -195,15 +196,15 @@ class LaporanImunisasiBayiController extends Controller
             $message = $e->getMessage();
         }
 
-        return redirect()->route('P2-Laporan-Imunisasi', ['id'=>$id])->with($tag, $message);
+        return redirect()->route('laporan-imunisasi-baduta-index', ['id'=>$id])->with($tag, $message);
     }
 
     public function destroy($id, $idLaporan){
         $currentMonth = $this->logicGetMonth();
         $year = $this->checkYear();
         try {
-            $sasaranImuniasai = SasaranImunisasiBayi::findOrFail($id);
-            $data = LaporanImunisasiBayi::findOrFail($idLaporan);
+            $sasaranImuniasai = SasaranImunisasiBaduta::findOrFail($id);
+            $data = LaporanImunisasiBaduta::findOrFail($idLaporan);
             if($sasaranImuniasai->bulan == $currentMonth){
                 if($sasaranImuniasai->tahun != $year){
                     return redirect()->back()->with('error', 'Anda tidak diperkenankan mengakses halaman ini');
@@ -227,6 +228,5 @@ class LaporanImunisasiBayiController extends Controller
         return redirect()->back()->with($tag, $message);
 
     }
-
 
 }

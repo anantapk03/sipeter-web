@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ukm_imunisasi\baduta\JenisImunisasiBadutaController;
+use App\Http\Controllers\ukm_imunisasi\baduta\LaporanImunisasiBadutaController;
 use App\Http\Controllers\ukm_imunisasi\baduta\SasaranImunisasiBadutaController;
 use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\JenisImunisasiBayiController;
 use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\LaporanImunisasiBayiController;
@@ -261,6 +262,15 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/jenis_imunisasi/edit/{id}', [JenisImunisasiBadutaController::class, 'edit'])->name('jenis-imunisasi-baduta-edit');
     Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/jenis_imunisasi/update/{id}', [JenisImunisasiBadutaController::class, 'update'])->name('jenisupdate-imunisasi-baduta-update');
     Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/jenis_imunisasi/updateStatus/{id}', [JenisImunisasiBadutaController::class, 'updateStatus'])->name('jenis-imunisasi-baduta-updateStatus');
+    
+    // Laporan Imunisasi Baduta
+
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/index/{id}', [LaporanImunisasiBadutaController::class, 'index'])->name('laporan-imunisasi-baduta-index');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/create/{id}', [LaporanImunisasiBadutaController::class, 'create'])->name('laporan-imunisasi-baduta-create');
+    Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/store/{id}', [LaporanImunisasiBadutaController::class, 'store'])->name('laporan-imunisasi-baduta-store');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/edit/{id}/{idLaporan}', [LaporanImunisasiBadutaController::class, 'edit'])->name('laporan-imunisasi-baduta-edit');
+    Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/update/{id}/{idLaporan}', [LaporanImunisasiBadutaController::class, 'update'])->name('laporan-imunisasi-baduta-update');
+    Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/destroy/{id}/{idLaporan}', [LaporanImunisasiBadutaController::class, 'destroy'])->name('laporan-imunisasi-baduta-destroy');
     
 
 });

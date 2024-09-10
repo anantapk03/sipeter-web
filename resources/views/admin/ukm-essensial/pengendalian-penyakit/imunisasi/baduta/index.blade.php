@@ -69,14 +69,14 @@
                                 {{$item->sasaran_perempuan}}
                             </td>
                             <td>
-                                {{-- @if (\App\Helpers\MonthHelper::checkJenisImunisasiInReport($item->id)->isNotEmpty()) --}}
-                                {{-- <span class="badge badge-danger">Uncomplete</span> --}}
-                                {{-- @else --}}
+                                @if (\App\Helpers\MonthHelper::checkJenisImunisasiBadutaInReport($item->id)->isNotEmpty())
+                                <span class="badge badge-danger">Uncomplete</span>
+                                @else
                                 <span class="badge badge-success">Complete</span>
-                                {{-- @endif --}}
+                                @endif
                             </td>
                             <td>
-                                <a href="" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Info</a>
+                                <a href="{{route('laporan-imunisasi-baduta-index', ['id'=>$item->id])}}" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Info</a>
                                 <a href="{{route('sasaran-imunisasi-baduta-edit', ['id'=>$item->id])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
                             </td>
                         </tr>
