@@ -49,7 +49,7 @@
                                 {{$item->deskripsi}}
                             </td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Info</a>
+                                <a href="{{route('laporan-kegiatan-program-p2', ['id'=>$item->id])}}" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Info</a>
                                 @if ($item->isActive)
                                 <a href="{{route('program-p2-updateStatus', ['id'=>$category->id, 'idProgram'=>$item->id])}}" class="btn btn-sm btn-success">Active</a>
                                 @else
