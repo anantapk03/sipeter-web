@@ -13,6 +13,7 @@ use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKesehatanSekolahC
 use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKiaGiziController;
 use App\Http\Controllers\ukm_kia_gizi\ProgramKIAGiziController;
 use App\Http\Controllers\ukm_p2\CategoryP2Controller;
+use App\Http\Controllers\ukm_p2\ProgramP2Controller;
 use App\Http\Controllers\ukm_promkes\KegiatanProgramDivisiPromkesController;
 use App\Http\Controllers\ukm_promkes\PencatatanKegiatanProgramPromkesController;
 use App\Http\Controllers\ukm_promkes\ProgramDivisiPromkesController;
@@ -281,6 +282,13 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::post('/ukm-essensial/pengendalian-penyakit/category/update/{id}', [CategoryP2Controller::class, 'update'])->name('category-p2-update');
     Route::get('/ukm-essensial/pengendalian-penyakit/category/updateStatus/{id}', [CategoryP2Controller::class, 'updateStatus'])->name('category-p2-updateStatus');
     
+    // Program P2 
+    Route::get('/ukm-essensial/pengendalian-penyakit/program/index/{id}', [ProgramP2Controller::class, 'index'])->name('program-p2-index');
+    Route::get('/ukm-essensial/pengendalian-penyakit/program/create/{id}', [ProgramP2Controller::class, 'create'])->name('program-p2-create');
+    Route::post('/ukm-essensial/pengendalian-penyakit/program/store/{id}', [ProgramP2Controller::class, 'store'])->name('program-p2-store');
+    Route::get('/ukm-essensial/pengendalian-penyakit/program/edit/{id}/{idProgram}', [ProgramP2Controller::class, 'edit'])->name('program-p2-edit');
+    Route::post('/ukm-essensial/pengendalian-penyakit/program/update/{id}/{idProgram}', [ProgramP2Controller::class, 'update'])->name('program-p2-update');
+    Route::get('/ukm-essensial/pengendalian-penyakit/program/updateStatus/{id}/{idProgram}', [ProgramP2Controller::class, 'updateStatus'])->name('program-p2-updateStatus');
     
 
 });
