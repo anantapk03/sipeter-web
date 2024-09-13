@@ -12,6 +12,7 @@ use App\Http\Controllers\ukm_kia_gizi\KelasSiswaController;
 use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKesehatanSekolahController;
 use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKiaGiziController;
 use App\Http\Controllers\ukm_kia_gizi\ProgramKIAGiziController;
+use App\Http\Controllers\ukm_p2\CategoryP2Controller;
 use App\Http\Controllers\ukm_promkes\KegiatanProgramDivisiPromkesController;
 use App\Http\Controllers\ukm_promkes\PencatatanKegiatanProgramPromkesController;
 use App\Http\Controllers\ukm_promkes\ProgramDivisiPromkesController;
@@ -271,6 +272,15 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/edit/{id}/{idLaporan}', [LaporanImunisasiBadutaController::class, 'edit'])->name('laporan-imunisasi-baduta-edit');
     Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/update/{id}/{idLaporan}', [LaporanImunisasiBadutaController::class, 'update'])->name('laporan-imunisasi-baduta-update');
     Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/destroy/{id}/{idLaporan}', [LaporanImunisasiBadutaController::class, 'destroy'])->name('laporan-imunisasi-baduta-destroy');
+
+    // Category P2
+    Route::get('/ukm-essensial/pengendalian-penyakit/category/index', [CategoryP2Controller::class, 'index'])->name('category-p2-index');
+    Route::get('/ukm-essensial/pengendalian-penyakit/category/create', [CategoryP2Controller::class, 'create'])->name('category-p2-create');
+    Route::post('/ukm-essensial/pengendalian-penyakit/category/store', [CategoryP2Controller::class, 'store'])->name('category-p2-store');
+    Route::get('/ukm-essensial/pengendalian-penyakit/category/edit/{id}', [CategoryP2Controller::class, 'edit'])->name('category-p2-edit');
+    Route::post('/ukm-essensial/pengendalian-penyakit/category/update/{id}', [CategoryP2Controller::class, 'update'])->name('category-p2-update');
+    Route::get('/ukm-essensial/pengendalian-penyakit/category/updateStatus/{id}', [CategoryP2Controller::class, 'updateStatus'])->name('category-p2-updateStatus');
+    
     
 
 });
