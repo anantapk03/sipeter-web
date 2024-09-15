@@ -4,12 +4,15 @@ namespace App\helpers;
 use App\Models\Desa;
 use App\Models\JenisImunisasiBaduta;
 use App\Models\JenisImunisasiBayi;
+use App\Models\KegiatanProgramPengendalianPenyakit;
 use App\Models\KelasSiswa;
 use App\Models\LaporanImunisasiBaduta;
 use App\Models\LaporanImunisasiBayi;
 use App\Models\PencatatanKegiatanProgramKesehatanSekolah;
 use App\Models\PencatatanKegiatanProgramKiaGizi;
+use App\Models\PencatatanProgramPengendalianPenyakit;
 use Carbon\Carbon;
+use Exception;
 // use App\Http\Controllers\ukm_promkes\PencatatanKegiatanProgramPromkesController;
 // use App\Models\PencatatanKegiatanProgramPromkes;
 
@@ -93,5 +96,20 @@ class MonthHelper
         $dataReportInThisMonthAndYear = LaporanImunisasiBaduta::where('idSasaranImunisasi', $id)->pluck('idJenisImunisasi');
         $jenisImunisasi = JenisImunisasiBaduta::whereNotIn('id', $dataReportInThisMonthAndYear)->get();
         return $jenisImunisasi;
+    }
+
+    public static function checkReportP2InThisMonth($idProgram){
+        $currentMonth = self::logicGetMonth();
+        $year = self::checkYear();
+        try{
+            $dataKegiatanAll = KegiatanProgramPengendalianPenyakit::where('idProgram',$idProgram)->where('isActive', true)->get();
+            $dataKegiatan =$dataKegiatanAll->pluck('id');
+            $dataLaporan = PencatatanProgramPengendalianPenyakit::whereIn('idKegiatan', $dataKegiatan)->where('tahun', $year)->where('bulan', $currentMonth)->pluck('idKegiatan');
+            $unReportedKegiatan = KegiatanProgramPengendalianPenyakit::whereNotIn('id', $dataLaporan)->where('idProgram', $idProgram)->where('isActive',true)->get();
+            return $unReportedKegiatan;
+
+        } catch(Exception $e){
+            return null;
+        }
     }
 }

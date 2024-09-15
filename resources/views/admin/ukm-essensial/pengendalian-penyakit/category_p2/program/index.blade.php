@@ -24,7 +24,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Program</th>
-                        <th>Deskripsi</th>
+                        <th>Status Laporan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -32,7 +32,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Program</th>
-                        <th>Deskripsi</th>
+                        <th>Status Laporan</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -46,7 +46,11 @@
                                 {{$item->namaProgram}}
                             </td>
                             <td>
-                                {{$item->deskripsi}}
+                                @if (\App\Helpers\MonthHelper::checkReportP2InThisMonth($item->id)->isNotEmpty())
+                                <span class="badge badge-danger">Uncomplete</span>
+                                @else
+                                <span class="badge badge-success">Complete</span>
+                                @endif
                             </td>
                             <td>
                                 <a href="{{route('laporan-kegiatan-program-p2', ['id'=>$item->id])}}" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Info</a>

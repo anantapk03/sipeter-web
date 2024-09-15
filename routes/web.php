@@ -304,6 +304,13 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
 
     // Laporan P2 
     Route::get('/ukm-essensial/pengendalian-penyakit/program/laporan/{id}', [LaporanKegiatanProgramP2Controller::class, 'index'])->name('laporan-kegiatan-program-p2');
+    Route::get('/ukm-essensial/pengendalian-penyakit/program/laporan/create/{id}', [LaporanKegiatanProgramP2Controller::class, 'create'])->name('laporan-kegiatan-program-p2-create');
+    Route::post('/ukm-essensial/pengendalian-penyakit/program/laporan/store/{id}', [LaporanKegiatanProgramP2Controller::class, 'store'])->name('laporan-kegiatan-program-p2-store');
+    Route::get('/ukm-essensial/pengendalian-penyakit/program/laporan/edit/{id}/{idPencatatan}', [LaporanKegiatanProgramP2Controller::class, 'edit'])->name('laporan-kegiatan-program-p2-edit');
+    Route::post('/ukm-essensial/pengendalian-penyakit/program/laporan/update/{id}/{idPencatatan}', [LaporanKegiatanProgramP2Controller::class, 'update'])->name('laporan-kegiatan-program-p2-update');
+    Route::get('/ukm-essensial/pengendalian-penyakit/program/laporan/destroy/{id}/{idPencatatan}', [LaporanKegiatanProgramP2Controller::class, 'destroy'])->name('laporan-kegiatan-program-p2-destroy');
+    Route::get('/ukm-essensial/pengendalian-penyakit/program/laporan/history/{id}', [LaporanKegiatanProgramP2Controller::class, 'history'])->name('laporan-kegiatan-program-p2-history');
+    
     
 
 });
