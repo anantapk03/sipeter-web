@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('program_divisi', function (Blueprint $table) {
+        Schema::create('access_features', function (Blueprint $table) {
             $table->id();
             $table->foreignId('idDivisi')
                 ->constrained('divisi')
                 ->onDelete('cascade');
-            $table->string('namaProgram');
-            $table->boolean('isActive')->default(true);
+            $table->foreignId('idUser')
+                ->constrained('users')
+                ->onDelete('cascade');
+            $table->boolean('isLeader')->default(false);
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('program_divisi');
+        Schema::dropIfExists('access_features');
     }
 };

@@ -10,11 +10,14 @@ class Divisi extends Model
     use HasFactory;
 
     protected $table = 'divisi';
+    protected $fillable = [
+        'namaDivisi',
+        'deskripsi',
+        'isActive',
+    ];
 
-    protected $fillable = ['namaDivisi', 'isActive'];
-
-    public function programDivisi()
+    public function accessFeatures()
     {
-        return $this->hasMany(ProgramDivisi::class, 'idDivisi');
+        return $this->hasMany(AccessFeature::class, 'idDivisi');
     }
 }

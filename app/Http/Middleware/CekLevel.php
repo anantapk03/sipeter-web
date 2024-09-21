@@ -19,10 +19,7 @@ class CekLevel
             return $next($request);
         }
         
-        try {
-            return redirect()->back()->with('error', 'Akses Ditolak');
-        } catch(e){
-            return redirect(route('loginPage'))->with('error', 'Akses Ditolak');
-        }
+        return redirect()->back()->with('error', 'Akses Ditolak') 
+           ?: redirect(route('loginPage'))->with('error', 'Akses Ditolak');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AccessFeaturesController;
 use App\Http\Controllers\ukm_imunisasi\baduta\JenisImunisasiBadutaController;
 use App\Http\Controllers\ukm_imunisasi\baduta\LaporanImunisasiBadutaController;
 use App\Http\Controllers\ukm_imunisasi\baduta\SasaranImunisasiBadutaController;
@@ -43,7 +44,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('loginPost');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
+Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (){
     Route::get('admin', [AdminController::class, 'index'])->name('admin-dashboard');
 
     // Management User
@@ -54,6 +55,18 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::post('management-users/update/{id}', [UserManagementController::class, 'update'])->name('admin-update-management-users');
     Route::get('management-users/updatePassword/{id}', [UserManagementController::class, 'updatePassword'])->name('admin-updatePassword-management-users');
     Route::get('management-users/delete/{id}', [UserManagementController::class, 'delete'])->name('admin-delete-management-users');
+
+    // Management Features Access
+    Route::get('management-features/index/{idUser}', [AccessFeaturesController::class, 'index'])->name('management-features-index');
+    Route::get('management-features/create/{idUser}', [AccessFeaturesController::class, 'create'])->name('management-features-create');
+    Route::post('management-features/store/{idUser}', [AccessFeaturesController::class, 'store'])->name('management-features-store');
+    Route::get('management-features/edit/{idUser}/{idAccessFeature}', [AccessFeaturesController::class, 'edit'])->name('management-features-edit');
+    Route::post('management-features/update/{idUser}/{idAccessFeature}', [AccessFeaturesController::class, 'update'])->name('management-features-update');
+    Route::get('management-features/editLeader/{idAccessFeature}', [AccessFeaturesController::class, 'editLeader'])->name('management-features-editLeader');
+    Route::get('management-features/destroy/{idAccessFeature}', [AccessFeaturesController::class, 'destroy'])->name('management-features-destroy');
+    
+    
+    
     
     // Management Desa
     Route::get('management-desa', [DesaController::class, 'index'])->name('desa.index');

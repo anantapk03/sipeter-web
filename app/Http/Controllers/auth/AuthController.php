@@ -34,7 +34,7 @@ class AuthController extends Controller
                 //dd("kepala-puskesmas");
             }
             if (auth()->user()->level == "Petugas UKM") {
-                return redirect()->intended('petugas-ukm');
+                return redirect(route('admin-dashboard'));
                 //dd("kepala-puskesmas");
             }  
             return back()->withErrors('Error');
