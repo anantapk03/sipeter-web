@@ -5,16 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProgramDivisi extends Model
+class AccessFeature extends Model
 {
     use HasFactory;
 
-    protected $table = 'program_divisi';
-
-    protected $fillable = ['idDivisi', 'namaProgram', 'isActive'];
+    protected $fillable = [
+        'idDivisi',
+        'idUser',
+        'isLeader',
+    ];
 
     public function divisi()
     {
         return $this->belongsTo(Divisi::class, 'idDivisi');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'idUser');
     }
 }

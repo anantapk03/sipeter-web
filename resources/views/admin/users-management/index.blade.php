@@ -90,32 +90,7 @@
                                 </div>
                                 {{-- Modal end --}}
                                 <a href="{{route('admin-updatePassword-management-users', ['id'=>$user->id])}}" class="btn btn-sm btn-warning"><i class="fas fa-redo"></i> Password</a>
-                                <a href="#" data-href="{{route('admin-delete-management-users', ['id'=>$user->id])}}" data-name="{{$user->nama}}" class="btn btn-sm btn-danger" id="deleteConfirmation{{$user->id}}"><i class="fas fa-trash"></i> Hapus</a>
-                                {{-- JS DELETE CONFIRMATION --}}
-                                <script>
-                                    $("#deleteConfirmation"+{{$user->id}}).click(function () {
-                                        swal({
-                                            title: 'Peringatan!',
-                                            text: "Data "+$(this).data('name')+" Akan Dihapus",
-                                            type: 'warning',
-                                            buttons:{
-                                                confirm: {
-                                                    text: 'Hapus Data',
-                                                    className : 'btn btn-success',
-                                                },
-                                                cancel: {
-                                                    visible: true,
-                                                    text : 'Batalkan',
-                                                    className: 'btn btn-danger',
-                                                }
-                                            }
-                                        }).then((willConfirm) => {
-                                            if (willConfirm) {
-                                                window.location.href = $(this).data('href');
-                                            } 
-                                        });
-                                    });
-                                </script>
+                                <a href="{{route('management-features-index', ['idUser'=>$user->id])}}" class="btn btn-sm btn-default"><i class="fas fa-edit"></i> Features</a>
                             </td>
                         </tr>                        
                     @endforeach

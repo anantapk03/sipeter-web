@@ -1,108 +1,75 @@
 @extends('admin.layouts.admin')
-@section('content')
-<div class="card">
-    <div class="card-header">
-        <div class="d-flex justify-content-between align-items-center">
-            <h3>Data Divisi UKM Essensial</h3>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table id="basic-datatables" class="display table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Promosi Kesehatan</td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-bars"></i>
-                                </button>
-                                <style>
-                                    .dropdown-toggle::after {
-                                        display: none;
-                                    }
-                                </style>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('program-divisi-promosi-kesehatan') }}"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Kesehatan Lingkungan</td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-bars"></i>
-                                </button>
-                                <style>
-                                    .dropdown-toggle::after {
-                                        display: none;
-                                    }
-                                </style>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('kesling.kegiatan.index') }}"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Kesehatan Ibu dan Anak & Program Gizi</td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-bars"></i>
-                                </button>
-                                <style>
-                                    .dropdown-toggle::after {
-                                        display: none;
-                                    }
-                                </style>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{route('program-kia-gizi-index')}}"><i class="fas fa-database" style="margin-right: 3%"></i> Data Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Pencegahan dan Pengendalian Penyakit</td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-bars"></i>
-                                </button>
-                                <style>
-                                    .dropdown-toggle::after {
-                                        display: none;
-                                    }
-                                </style>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('pengendalian-penyakit.menu') }}"><i class="fas fa-database" style="margin-right: 3%"></i> Data Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+@section('panel-header')
+<div class="panel-header bg-primary-gradient">
+    <div class="page-inner py-5">
+        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+            <div>
+                <h2 class="text-white pb-2 fw-bold">UKM Essensial</h2>
+                <h5 class="text-white op-7 mb-2">Selamat datang di Divisi UKM Essensial</h5>
+            </div>
         </div>
     </div>
 </div>
+@endsection
+@section('content')
+
+    <div class="row ">
+        @if (\App\Helpers\DivisiHelper::isUserHaveAccess(\App\Helpers\DivisiHelper::PROMOSI_KESEHATAN, $listAccessFeatures))
+            <div class="col">
+                <div class="card card-info card-annoucement card-round">
+                    <div class="card-body text-center">
+                        <div class="card-opening">Promosi Kesehatan</div>
+                        <div class="card-desc">
+                        </div>
+                        <div class="card-detail">
+                            <a href="{{ route('program-divisi-promosi-kesehatan') }}" class="btn btn-light btn-rounded">View Detail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if (\App\Helpers\DivisiHelper::isUserHaveAccess(\App\Helpers\DivisiHelper::KESEHATAN_LINGKUNGAN, $listAccessFeatures))
+            <div class="col">
+                <div class="card card-info card-annoucement card-round">
+                    <div class="card-body text-center">
+                        <div class="card-opening">Kesehatan Lingkungan</div>
+                        <div class="card-desc">
+                        </div>
+                        <div class="card-detail">
+                            <a href="{{ route('kesling.kegiatan.index') }}" class="btn btn-light btn-rounded">View Detail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if (\App\Helpers\DivisiHelper::isUserHaveAccess(\App\Helpers\DivisiHelper::KESEHATAN_IBU_ANAK_GIZI, $listAccessFeatures))
+        <div class="col">
+            <div class="card card-info card-annoucement card-round">
+                <div class="card-body text-center">
+                    <div class="card-opening">KIA & Kesehatan Gizi</div>
+                    <div class="card-desc">
+                    </div>
+                    <div class="card-detail">
+                        <a href="{{route('program-kia-gizi-index')}}" class="btn btn-light btn-rounded">View Detail</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+        @if (\App\Helpers\DivisiHelper::isUserHaveAccess(\App\Helpers\DivisiHelper::PENCEGAHAN_PENGENDALIAN_PENYAKIT, $listAccessFeatures))
+            <div class="col">
+                <div class="card card-info card-annoucement card-round">
+                    <div class="card-body text-center">
+                        <div class="card-opening">Pengendalian Penyakit</div>
+                        <div class="card-desc">
+                        </div>
+                        <div class="card-detail">
+                            <a href="{{ route('pengendalian-penyakit.menu') }}" class="btn btn-light btn-rounded">View Detail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
 @endsection

@@ -28,8 +28,8 @@
         },
         "files": [
             "app/Helpers/MonthHelper.php",
-            "app/Helpers/DivisiHelper.php",
-            "app/Helpers/ProgramDivisiHelper.php"
+            "app/Helpers/DivisiHelper.php"
+
         ]
 
     },

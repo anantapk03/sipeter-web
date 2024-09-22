@@ -49,50 +49,47 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-section">
-                    <span class="sidebar-mini-icon">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </span>
-                    <h4 class="text-section">Data Master</h4>
-                </li>
-                <li class="nav-item">
-                    <a data-toggle="collapse" href="#base" class="nav-links">
-                        <i class="fas fa-user"></i>
-                        <p>Data Pengguna</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="base">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="{{route('admin-management-users', ['level'=>'Admin'])}}">
-                                    <span class="sub-item">Admin</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{route('admin-management-users', ['level'=>'Kepala Puskesmas'])}}">
-                                    <span class="sub-item">Kepala Puskesmas</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{route('admin-management-users', ['level'=>'Petugas UKM'])}}">
-                                    <span class="sub-item">Petugas UKM</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a  href="{{ route('desa.index') }}" aria-expanded="false">
-                        <i class="fas fa-location-arrow"></i>
-                        <p>Desa</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a  href="{{ route('desa.index') }}" aria-expanded="false">
-                        <i class="fas fa-pen"></i>
-                        <p>Akses Petugas UKM</p>
-                    </a>
-                </li>
+                {{-- Data Master --}}
+                @if (auth()->user()->level == 'Admin')
+                    <li class="nav-section">
+                        <span class="sidebar-mini-icon">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </span>
+                        <h4 class="text-section">Data Master</h4>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#base" class="nav-links">
+                            <i class="fas fa-user"></i>
+                            <p>Data Pengguna</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="base">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="{{route('admin-management-users', ['level'=>'Admin'])}}">
+                                        <span class="sub-item">Admin</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('admin-management-users', ['level'=>'Kepala Puskesmas'])}}">
+                                        <span class="sub-item">Kepala Puskesmas</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('admin-management-users', ['level'=>'Petugas UKM'])}}">
+                                        <span class="sub-item">Petugas UKM</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a  href="{{ route('desa.index') }}" aria-expanded="false">
+                            <i class="fas fa-location-arrow"></i>
+                            <p>Desa</p>
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>

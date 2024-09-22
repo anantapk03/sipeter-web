@@ -98,6 +98,7 @@
 		<!-- Main content -->
 		<div class="main-panel">
 			<div class="content">
+				@yield('panel-header')
 				<div class="page-inner">
 					@yield('content')
 				</div>
