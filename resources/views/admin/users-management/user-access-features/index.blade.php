@@ -44,7 +44,6 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-info"><i class="fas fa-info"></i> Info</a>
                                     <a href="{{route('management-features-edit', ['idAccessFeature'=>$item->id, 'idUser'=>$user->id])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
                                     <a href="#" id="deleteConfirmation{{$item->id}}" data-href="{{route('management-features-destroy', ['idAccessFeature'=>$item->id])}}" data-name="Akses pada {{$item->divisi->namaDivisi}} pada user {{$item->user->nama}}" class="btn btn-sm btn-danger mr-2 mt-2 mb-2"><i class="fas fa-trash"></i> Hapus</a>
                                     {{-- Start delete confirmation --}}

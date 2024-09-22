@@ -22,4 +22,8 @@ class DivisiHelper
             self::ADMIN,
         ];
     }
+
+    public static function isUserHaveAccess($nameFeatures, $listFeaturesFromUsers){
+        return in_array($nameFeatures, $listFeaturesFromUsers);
+    }
 }
