@@ -27,7 +27,9 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/MonthHelper.php"
+            "app/Helpers/MonthHelper.php",
+            "app/Helpers/DivisiHelper.php",
+            "app/Helpers/ProgramDivisiHelper.php"
         ]
 
     },

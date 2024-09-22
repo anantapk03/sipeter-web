@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryP2;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PengendalianPenyakitController extends Controller
 {
     public function menu(){
-        return view('admin.ukm-essensial.pengendalian-penyakit.index');
+        $data = CategoryP2::where('isActive',true)->get();
+        return view('admin.ukm-essensial.pengendalian-penyakit.index', ['data' => $data]);
     }
 
     public function imunisasi(){

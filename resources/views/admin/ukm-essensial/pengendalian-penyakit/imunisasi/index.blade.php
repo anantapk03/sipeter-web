@@ -1,5 +1,6 @@
 @extends('admin.layouts.admin')
 @section('content')
+<a href="{{route('pengendalian-penyakit.menu')}}" class="btn btn-danger mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
@@ -38,7 +39,7 @@
                                     }
                                 </style>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
+                                    <a class="dropdown-item" href="{{route('pengendalian-penyakit-imunisai-imunisasi-bayi-index')}}"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
                                 </div>
                             </div>
                         </td>
@@ -57,7 +58,7 @@
                                     }
                                 </style>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
+                                    <a class="dropdown-item" href="{{route('sasaran-imunisasi-baduta-index')}}"><i class="fas fa-database" style="margin-right: 3%"></i>  Data Detail</a>
                                 </div>
                             </div>
                         </td>
