@@ -37,17 +37,8 @@ use App\Http\Controllers\admin\UserManagementController;
 use App\Http\Controllers\PengendalianPenyakitController;
 use App\Http\Controllers\JenisPromosiKesehatanController;
 use App\Http\Controllers\PencatatanWusController;
-use App\Http\Controllers\ukm_kia_gizi\KelasSiswaController;
-use App\Http\Controllers\ukm_kia_gizi\ProgramKIAGiziController;
-use App\Http\Controllers\ukm_promkes\ProgramDivisiPromkesController;
-use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKiaGiziController;
-use App\Http\Controllers\ukm_promkes\KegiatanProgramDivisiPromkesController;
-use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKesehatanSekolahController;
 use App\Http\Controllers\ukm_promkes\KegiatanPromosiKesehatanUmumDesaController;
-use App\Http\Controllers\ukm_promkes\PencatatanKegiatanProgramPromkesController;
 use App\Http\Controllers\ukm_promkes\PencatatanKegiatanPromosiKesehatanUmumDesa;
-use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKiaGiziController;
-use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKesehatanSekolahController;
 use App\Helpers\DivisiHelper;
 
 
