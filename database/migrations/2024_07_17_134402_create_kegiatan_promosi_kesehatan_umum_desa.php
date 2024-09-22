@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id('id')->autoIncrement();
             $table->string('namaKegiatan');
             $table->text('deskripsiKegiatan');
+            $table->integer('targetBulanan');
+            $table->integer('targetTriwulan');
+            $table->integer('targetSemester');
+            $table->integer('targetTahunan');
+            $table->boolean('isActive');
             $table->timestamps();
         });
     }
