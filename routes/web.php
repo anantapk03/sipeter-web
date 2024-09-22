@@ -28,15 +28,26 @@ use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\UkmEssensialController;
 use App\Http\Controllers\PencatatanUkbmController;
-use App\Http\Controllers\KegiatanPromKesController;
-use App\Http\Controllers\PeriodePencatatanController;
-use App\Http\Controllers\admin\UserManagementController;
-use App\Http\Controllers\JenisPromosiKesehatanController;
 use App\Http\Controllers\KegiatanKeslingController;
+use App\Http\Controllers\KegiatanPromKesController;
+use App\Http\Controllers\JenisImunisasiWusController;
 use App\Http\Controllers\PencatatanKeslingController;
+use App\Http\Controllers\SasaranImunisasiWusController;
+use App\Http\Controllers\admin\UserManagementController;
 use App\Http\Controllers\PengendalianPenyakitController;
+use App\Http\Controllers\JenisPromosiKesehatanController;
+use App\Http\Controllers\PencatatanWusController;
+use App\Http\Controllers\ukm_kia_gizi\KelasSiswaController;
+use App\Http\Controllers\ukm_kia_gizi\ProgramKIAGiziController;
+use App\Http\Controllers\ukm_promkes\ProgramDivisiPromkesController;
+use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKiaGiziController;
+use App\Http\Controllers\ukm_promkes\KegiatanProgramDivisiPromkesController;
+use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKesehatanSekolahController;
 use App\Http\Controllers\ukm_promkes\KegiatanPromosiKesehatanUmumDesaController;
+use App\Http\Controllers\ukm_promkes\PencatatanKegiatanProgramPromkesController;
 use App\Http\Controllers\ukm_promkes\PencatatanKegiatanPromosiKesehatanUmumDesa;
+use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKiaGiziController;
+use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKesehatanSekolahController;
 use App\Helpers\DivisiHelper;
 
 
@@ -102,8 +113,6 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/report/destroy/{id}/{idKegiatan}/{idPencatatan}', [PencatatanKegiatanProgramPromkesController::class, 'destroy'])->name('report-destroy-activity-promkes-month');
         Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/report/edit/{id}/{idKegiatan}/{idPencatatan}', [PencatatanKegiatanProgramPromkesController::class, 'edit'])->name('report-edit-activity-promkes-month');
         Route::post('ukm-essensial/divisi/promosi-kesehatan/kegiatan/report/update/{id}/{idKegiatan}/{idPencatatan}', [PencatatanKegiatanProgramPromkesController::class, 'update'])->name('report-update-activity-promkes-month');
-        
-        
 
         // Management UKBM
         Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/ukbm/jenis-ukbm', [UkbmController::class, 'index'])->name('ukbm.jenis.index');
@@ -164,7 +173,6 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::post('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/edit', [KegiatanKeslingController::class, 'update'])->name('kesling.kegiatan.update');
         Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/delete', [KegiatanKeslingController::class, 'destroy'])->name('kesling.kegiatan.delete');
         Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/updateStatus', [KegiatanKeslingController::class, 'updateStatus'])->name('kesling.kegiatan.updateStatus');
-
         
         // Pencatatan Kegiatan Kesehatan Keliling
         Route::get('ukm-essensial/divisi/kesehatan-lingkungan/report', [PencatatanKeslingController::class, 'indexReport'])->name('kesling.kegiatan.report');
@@ -191,7 +199,8 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::get('pencatatan-program-kia-gizi/kegiatan/edit/{id}/{idKegiatan}', [KegiatanProgramKiaGiziController::class, 'edit'])->name('kegiatan-program-kia-gizi-edit');
         Route::post('pencatatan-program-kia-gizi/kegiatan/update/{id}/{idKegiatan}', [KegiatanProgramKiaGiziController::class, 'update'])->name('kegiatan-program-kia-gizi-update');
         Route::get('pencatatan-program-kia-gizi/kegiatan/updateStatus/{idKegiatan}', [KegiatanProgramKiaGiziController::class, 'updateStatus'])->name('kegiatan-program-kia-gizi-updateStatus');
-
+        
+        
         // Pencatatan Kegiatan Program Gizi KIA
         Route::get('pencatatan-program-kia-gizi/kegiatan/pencatatan/index/{id}/{idKegiatan}', [PencatatanKegiatanProgramKiaGiziController::class, 'index'])->name('pencatatan-kegiatan-program-kia-gizi-index');
         Route::get('pencatatan-program-kia-gizi/kegiatan/pencatatan/create/{id}/{idKegiatan}', [PencatatanKegiatanProgramKiaGiziController::class, 'create'])->name('pencatatan-kegiatan-program-kia-gizi-create');
@@ -232,7 +241,6 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::get('/ukm-essensial/divisi/pengendalian-penyakit', [PengendalianPenyakitController::class, 'menu'])->name('pengendalian-penyakit.menu');
         Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi', [PengendalianPenyakitController::class, 'imunisasi'])->name('pengendalian-penyakit.imunisasi');
 
-
         // P2M Imunisasi Bayi 
         Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/index', [SasaranImunisasiBayiController::class, 'index'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-index');
         Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/create', [SasaranImunisasiBayiController::class, 'create'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-create');
@@ -240,7 +248,6 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/edit/{id}', [SasaranImunisasiBayiController::class, 'edit'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-edit');
         Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/update/{id}', [SasaranImunisasiBayiController::class, 'update'])->name('pengendalian-penyakit-imunisai-imunisasi-bayi-update');
         Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/arsip/index', [SasaranImunisasiBayiController::class, 'archieves'])->name('pengendalian-penyakit-imunisai-bayi-arsip');
-
         
         // Jenis Imuniasi Bayi 
         Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi/imunisasi_bayi/jenis_imunisasi/index', [JenisImunisasiBayiController::class, 'index'])->name('pengendalian-penyakit-imunisai-imunisasi_bayi-jenis-index');
@@ -274,7 +281,6 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/jenis_imunisasi/updateStatus/{id}', [JenisImunisasiBadutaController::class, 'updateStatus'])->name('jenis-imunisasi-baduta-updateStatus');
         
         // Laporan Imunisasi Baduta
-
         Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/index/{id}', [LaporanImunisasiBadutaController::class, 'index'])->name('laporan-imunisasi-baduta-index');
         Route::get('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/create/{id}', [LaporanImunisasiBadutaController::class, 'create'])->name('laporan-imunisasi-baduta-create');
         Route::post('/ukm-essensial/pengendalian-penyakit/imunisasi/baduta/laporan/store/{id}', [LaporanImunisasiBadutaController::class, 'store'])->name('laporan-imunisasi-baduta-store');
@@ -297,8 +303,8 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::get('/ukm-essensial/pengendalian-penyakit/program/edit/{id}/{idProgram}', [ProgramP2Controller::class, 'edit'])->name('program-p2-edit');
         Route::post('/ukm-essensial/pengendalian-penyakit/program/update/{id}/{idProgram}', [ProgramP2Controller::class, 'update'])->name('program-p2-update');
         Route::get('/ukm-essensial/pengendalian-penyakit/program/updateStatus/{id}/{idProgram}', [ProgramP2Controller::class, 'updateStatus'])->name('program-p2-updateStatus');
-
-
+        
+        
         // Kegiatan P2 
         Route::get('/ukm-essensial/pengendalian-penyakit/program/kegiatan/index/{id}', [KegiatanProgramP2Controller::class, 'index'])->name('kegiatan-p2-index');
         Route::get('/ukm-essensial/pengendalian-penyakit/program/kegiatan/create/{id}', [KegiatanProgramP2Controller::class, 'create'])->name('kegiatan-p2-create');
@@ -316,6 +322,35 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::post('/ukm-essensial/pengendalian-penyakit/program/laporan/update/{id}/{idPencatatan}', [LaporanKegiatanProgramP2Controller::class, 'update'])->name('laporan-kegiatan-program-p2-update');
         Route::get('/ukm-essensial/pengendalian-penyakit/program/laporan/destroy/{id}/{idPencatatan}', [LaporanKegiatanProgramP2Controller::class, 'destroy'])->name('laporan-kegiatan-program-p2-destroy');
         Route::get('/ukm-essensial/pengendalian-penyakit/program/laporan/history/{id}', [LaporanKegiatanProgramP2Controller::class, 'history'])->name('laporan-kegiatan-program-p2-history');
+      
+        // Imunisasi WUS
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus', [PengendalianPenyakitController::class, 'imunisasi_wus'])->name('imunisasi-wus.index');
+
+        // Jenis
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/jenis', [JenisImunisasiWusController::class, 'index'])->name('imunisasi-wus.jenis');
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/jenis/create', [JenisImunisasiWusController::class, 'create'])->name('imunisasi-wus.jenis.create');
+        Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/jenis/create', [JenisImunisasiWusController::class, 'store'])->name('imunisasi-wus.jenis.store');
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/jenis/{id}/edit', [JenisImunisasiWusController::class, 'edit'])->name('imunisasi-wus.jenis.edit');
+        Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/jenis/{id}/edit', [JenisImunisasiWusController::class, 'update'])->name('imunisasi-wus.jenis.update');
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/jenis/{id}/delete', [JenisImunisasiWusController::class, 'destroy'])->name('imunisasi-wus.jenis.delete');
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/jenis/{id}/updateStatus', [JenisImunisasiWusController::class, 'updateStatus'])->name('imunisasi-wus.jenis.status');
+
+            // Sasaran
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran', [SasaranImunisasiWusController::class, 'index'])->name('imunisasi-wus.sasaran');
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/create', [SasaranImunisasiWusController::class, 'create'])->name('imunisasi-wus.sasaran.create');
+        Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/create', [SasaranImunisasiWusController::class, 'store'])->name('imunisasi-wus.sasaran.store');
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/{id}/edit', [SasaranImunisasiWusController::class, 'edit'])->name('imunisasi-wus.sasaran.edit');
+        Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/{id}/edit', [SasaranImunisasiWusController::class, 'update'])->name('imunisasi-wus.sasaran.update');
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/{id}/delete', [SasaranImunisasiWusController::class, 'destroy'])->name('imunisasi-wus.sasaran.delete');
+
+        // Laporan
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/{idSasaran}/laporan', [PencatatanWusController::class, 'index'])->name('imunisasi-wus.laporan.index');
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/{idSasaran}/laporan/create', [PencatatanWusController::class, 'create'])->name('imunisasi-wus.laporan.create');
+        Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/{idSasaran}/laporan/create', [PencatatanWusController::class, 'store'])->name('imunisasi-wus.laporan.post');
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/{idSasaran}/laporan/edit/{id}', [PencatatanWusController::class, 'edit'])->name('imunisasi-wus.laporan.edit');
+        Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/{idSasaran}/laporan/edit/{id}', [PencatatanWusController::class, 'update'])->name('imunisasi-wus.laporan.update');
+        Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/{idSasaran}/laporan/delete/{id}', [PencatatanWusController::class, 'destroy'])->name('imunisasi-wus.laporan.delete');
+
     });
     
 });
