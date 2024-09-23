@@ -29,6 +29,8 @@ class VisualisasiDataKiaGizi extends Component
         $this->monthNumber = $this->getMonth();
         $this->year = $this->getYear();
         $this->listTotalCapaian = $this->getListTotalCapaian();
+        $this->listTotalKelasKegiatan = $this->getTotalLocation();
+
     }
 
     public function getYear(){
@@ -91,6 +93,33 @@ class VisualisasiDataKiaGizi extends Component
         }
 
         return $listTotalCapaianKegiatan;
+    }
+
+    public function getTotalLocation(){
+        $listIdKegiatan = $this->getKegiatanUKS()->pluck('id');
+        $listLocation = [];
+        $currentMonth = $this->getMonth();
+        $currentYear = $this->getYear();
+
+        for($i=0;$i<count($listIdKegiatan);$i++){
+            try{
+                $data = PencatatanKegiatanProgramKesehatanSekolah::where('idKegiatanProgramKesehatanSekolah', $listIdKegiatan[$i])
+                ->where('bulan', $currentMonth)
+                ->where('tahun', $currentYear)
+                ->get()
+                ->pluck('idKelasSiswa')
+                ->toArray();
+
+                $totalKelas = count($data);
+
+                array_push($listLocation, $totalKelas);
+            } catch(Exception $e){
+                array_push($listLocation, 0);
+            }
+
+            return $listLocation;
+        }
+
     }
 
     /**
