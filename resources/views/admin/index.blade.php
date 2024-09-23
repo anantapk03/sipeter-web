@@ -1,7 +1,6 @@
 @extends('admin.layouts.admin')
 @section('content')
     <h2 class="mb-3">Selamat Datang, {{ Auth::user()->nama }}</h2>
-    <div class="page-inner">
         <div class="row">
             <div class="col-sm-6 col-md-6">
                 <div class="card card-stats card-round">
@@ -133,5 +132,6 @@
                 </div>
             </div>
         </div>
-    </div>
+
+        <x-visualisasi-data-kia-gizi />
 @endsection
