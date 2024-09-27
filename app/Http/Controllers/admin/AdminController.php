@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\AccessFeature;
 use Carbon\Carbon;
 use App\Models\Desa;
 use App\Models\User;
@@ -30,9 +31,17 @@ class AdminController extends Controller
 
         $kegiatan = $data->pluck('kegiatan')->toJson();
 
+        $listAccessFeatures = AccessFeature::where('idUser', auth()->user()->id)
+        ->join('divisi', 'access_features.idDivisi', '=', 'divisi.id')
+        ->pluck('divisi.namaDivisi')
+        ->toArray();
+
+        // dd($listAccessFeatures);
+
+
         #dd($kegiatan);
 
-        return view('admin.index', compact('user', 'desa', 'jumlah', 'kegiatan', 'currentMonth'));
+        return view('admin.index', compact('user', 'desa', 'jumlah', 'kegiatan', 'currentMonth', 'listAccessFeatures'));
     }
     
 }
