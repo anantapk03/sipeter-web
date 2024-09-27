@@ -20,5 +20,26 @@ class JenisUkbmSeeders extends Seeder
             'semester' => 24,
             'tahunan' => 48
         ]);
+        DB::table('jenis_ukbm')->insert([
+            'jenisUkbm' => 'Posyandu Balita',
+            'bulanan' => 4,
+            'triwulan' => 12,
+            'semester' => 24,
+            'tahunan' => 48
+        ]);
+        DB::table('jenis_ukbm')->insert([
+            'jenisUkbm' => 'Pos gizi',
+            'bulanan' => 2,
+            'triwulan' => 4,
+            'semester' => 8,
+            'tahunan' => 16
+        ]);
+        DB::table('jenis_ukbm')->insert([
+            'jenisUkbm' => 'Poliklinik Kesehatan Desa',
+            'bulanan' => 1,
+            'triwulan' => 3,
+            'semester' => 6,
+            'tahunan' => 12
+        ]);
     }
 }

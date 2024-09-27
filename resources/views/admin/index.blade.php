@@ -79,59 +79,9 @@
                 </div>
             </div>
         </div>
-        
-        <div class="row">
-            <div class="card" style="width: 20rem;">
-                <div class="card-body">
-                    <h4 class="card-title mb-2 fw-mediumbold">Data Promosi Kesehatan</h4>
-                </div>
-                <div id="chart-container-promkes">
-                    <canvas id="doughnutCharts" style="width: 300px; height:300px"></canvas>
-                </div>
-            </div>
-
-            <div class="card" style="width: 30rem; margin-left:2%">
-                <div class="card-body">
-                    <h4 class="card-title mb-2 fw-mediumbold">Data Kesehatan Lingkungan</h4>
-                <div id="chart-container">
-                    <canvas id="doughnutChart" style="width: 300px; height:300px"></canvas>
-                </div>
-            
-                <script>
-                    var doughnutChart = document.getElementById('doughnutChart').getContext('2d');
-                    var jumlah = {!! $jumlah !!};
-                    var data = {!! $kegiatan !!};
-                    //console.log(jumlah);
-                    var myDoughnutChart = new Chart(doughnutChart, {
-                        type: 'doughnut',
-                        data: {
-                            datasets: [{
-                                data: jumlah,
-                                backgroundColor: ['#f3545d','#fdaf4b','#1d7af3']
-                            }],
-
-                            labels: data
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            legend : {
-                                position: 'bottom'
-                            },
-                            layout: {
-                                padding: {
-                                    left: 20,
-                                    right: 20,
-                                    top: 20,
-                                    bottom: 20
-                                }
-                            }
-                        }
-                    });
-                </script>
-                </div>
-            </div>
-        </div>
-
+        <x-visualisasi-data-promkes-umum />
+        <x-visualisasi-data-ukbm/>
+        <x-visualisasi-data-promkes-lain />
+        <x-visualisasi-data-kesling/>
         <x-visualisasi-data-kia-gizi />
 @endsection
