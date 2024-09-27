@@ -134,4 +134,6 @@
         </div>
 
         <x-visualisasi-data-kia-gizi />
+        <x-visualisasi-kia-gizi-2 />
+        
 @endsection
