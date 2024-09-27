@@ -1,29 +1,29 @@
 <div>
-    <!-- Always remember that you are absolutely unique. Just like everyone else. - Margaret Mead -->
-
+    <!-- Very little is needed to make a happy life. - Marcus Aurelius -->
+    
 	<div class="card">
 		<div class="card-header">
-			<div class="card-title">Program Usaha Kesehatan Sekolah - {{\App\Helpers\MonthHelper::getMonth($monthNumber)}}</div>
+			<div class="card-title">Program KIA & Kesehatan Gizi - {{\App\Helpers\MonthHelper::getMonth($monthNumber)}}</div>
 		</div>
 		<div class="card-body">
 			<div class="chart-container">
-				<canvas id="multipleLineChartUKS"></canvas>
+				<canvas id="multipleChartKiaGizi"></canvas>
 			</div>
 		</div>
 	</div>
 
 	<script>
-		var labels = {!! json_encode($listKegiatan) !!};
-		var listTotalTarget = {!! json_encode($listTotalTarget) !!};
-		var listTotalCapaian = {!! json_encode($listTotalCapaian) !!};
-		var listTotalKelasKegiatan = {!! json_encode($listTotalKelasKegiatan) !!};
-		var multipleLineChartUKS = document.getElementById('multipleLineChartUKS').getContext('2d');
-		var mymultipleLineChartUKS = new Chart(multipleLineChartUKS, {
+		var labels = {!! json_encode($listProgram) !!};
+		var listTotalKegiatanInProgram = {!! json_encode($listTotalKegiatanInProgram) !!};
+		var listTotalKegiatanAchieveTarget = {!! json_encode($listTotalKegiatanAchieveTarget) !!};
+		var listTotalKegiatanInReportThisMonth = {!! json_encode($listTotalKegiatanInReportThisMonth) !!};
+		var multipleChartKiaGizi = document.getElementById('multipleChartKiaGizi').getContext('2d');
+		var mymultipleChartKiaGizi = new Chart(multipleChartKiaGizi, {
 			type: 'line',
 			data: {
 				labels: labels,
 				datasets: [{
-					label: "Capaian",
+					label: "Total Kegiatan",
 					borderColor: "#1d7af3",
 					pointBorderColor: "#FFF",
 					pointBackgroundColor: "#1d7af3",
@@ -34,9 +34,9 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: listTotalCapaian
+					data: listTotalKegiatanInProgram
 				},{
-					label: "Target",
+					label: "Total Kegiatan Yang Dilaksanakan",
 					borderColor: "#59d05d",
 					pointBorderColor: "#FFF",
 					pointBackgroundColor: "#59d05d",
@@ -47,9 +47,9 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: listTotalTarget
+					data: listTotalKegiatanInReportThisMonth
 				}, {
-					label: "Jumlah Kelas",
+					label: "Total Kegiatan Yang Mencapai Target",
 					borderColor: "#f3545d",
 					pointBorderColor: "#FFF",
 					pointBackgroundColor: "#f3545d",
@@ -60,7 +60,7 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: listTotalKelasKegiatan
+					data: listTotalKegiatanAchieveTarget,
 				}]
 			},
 			options : {
@@ -110,8 +110,4 @@
 			}
 		});
 	</script>
-	
-	
-	
-
 </div>

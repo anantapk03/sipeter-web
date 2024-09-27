@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class KegiatanProgramKesehatanSekolahController extends Controller
 {
     public function index(){
-        $data = KegiatanProgramKesehatanSekolah::all();
+        $data = KegiatanProgramKesehatanSekolah::where('isActive', true)->get();
         return view('admin.ukm-essensial.kia-gizi.kesehatan_sekolah.index', ['data' => $data]);
     }
 

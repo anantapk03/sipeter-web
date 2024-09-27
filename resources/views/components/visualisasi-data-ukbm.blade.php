@@ -2,10 +2,9 @@
     <!-- The only way to do great work is to love what you do. - Steve Jobs -->
     <div class="card">
         <div class="card-header">
-            <div class="card-title">Program Promosi Kesehatan</div>
+            <div class="card-title">Data UKBM yang dibina</div>
         </div>
         <div class="card-body">
-            <h3>Promosi Kesehatan - Data UKBM yang dibina</h3>
             <div class="chart-container">
                 <canvas id="chartUkbm"></canvas>
             </div>
@@ -58,7 +57,33 @@
                 legend: {
                     position: 'top',
                 },
+                scales: {
+					xAxes: [{
+						ticks: {
+							callback: function(value, index, values) {
+								return value.length > 10 ? value.substr(0, 10) + '...' : value;
+							}
+						}
+					}],
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+				}]
+			},
                 tooltips: {
+                    callbacks: {
+						title: function(tooltipItem, data) {
+							// Mengambil label dari array labels berdasarkan indeks
+							return listJenisUkbm[tooltipItem[0].index];
+						},
+						label: function(tooltipItem, data) {
+							// Mengambil label dataset dan nilai
+							var datasetLabel = data.datasets[tooltipItem.datasetIndex].label; // Nama dataset
+							var value = tooltipItem.yLabel; // Nilai
+							return datasetLabel + ': ' + value; // Format: "Capaian: 80" atau "Target: 80"
+						}
+					},
                     bodySpacing: 4,
                     mode:"nearest",
                     intersect: 0,
@@ -70,14 +95,6 @@
                 layout:{
                     padding:{left:15,right:15,top:15,bottom:15}
                 },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true, // Start from 0
-                            stepSize: 5,      // Set the step size to 5 to ensure multiples of 5
-                        }
-                    }]
-                }
             }
         });
     </script>

@@ -1,7 +1,7 @@
 <div>
     <div class="card">
         <div class="card-header">
-            <div class="card-title">Program Promosi Kesehatan</div>
+            <div class="card-title">Program Promosi Kesehatan Umum Desa</div>
         </div>
         <div class="card-body">
             <div class="chart-container">
