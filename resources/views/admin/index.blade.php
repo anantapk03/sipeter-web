@@ -124,7 +124,7 @@
     @endif
 
     @if (\App\Helpers\DivisiHelper::isUserHaveAccess(\App\Helpers\DivisiHelper::PENCEGAHAN_PENGENDALIAN_PENYAKIT, $listAccessFeatures))
-    
+    <x-visualisasi-imunisasi-bayi/>
     @endif
 
 @endsection
