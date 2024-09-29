@@ -151,14 +151,6 @@ class VisualisasiImunisasiBaduta extends Component
         }
     }
 
-
-
-
-
-
-
-    // public function
-
     /**
      * Get the view / contents that represent the component.
      */
