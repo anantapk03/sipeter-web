@@ -36,15 +36,6 @@ class VisualisasiImunisasiBayi extends Component
 
     }
 
-    public function getListTypeImunisasi(){
-        try{
-            $data = JenisImunisasiBayi::where('isActive', true)->get();
-            return $data;
-        } catch(Exception $e){
-            return collect();
-        }
-    }
-
     public function getListDesa(){
         try{
             $data = Desa::all();

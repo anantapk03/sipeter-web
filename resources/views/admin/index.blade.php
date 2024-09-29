@@ -124,7 +124,14 @@
     @endif
 
     @if (\App\Helpers\DivisiHelper::isUserHaveAccess(\App\Helpers\DivisiHelper::PENCEGAHAN_PENGENDALIAN_PENYAKIT, $listAccessFeatures))
-    <x-visualisasi-imunisasi-bayi/>
+    <div class="row">
+        <div class="col-md-6">
+            <x-visualisasi-imunisasi-bayi/>
+        </div>
+        <div class="col-md-6">
+            <x-visualisasi-imunisasi-baduta/>
+        </div>
+    </div>
     @endif
 
 @endsection
