@@ -20,6 +20,7 @@ class SasaranImunisasiWusController extends Controller
             ->select('wilayah_kerja.namaDesa', 'sasaran_imunisasi_wus.*')
             ->get();
 
+        //dd($data);
         return view('admin.ukm-essensial.pengendalian-penyakit.imunisasi.imunisasi-wus.index', compact('data'));
     }
 
@@ -51,7 +52,7 @@ class SasaranImunisasiWusController extends Controller
             $message = $e->getMessage();
         }
 
-        return redirect()->route('imunisasi-wus.sasaran.index')->with($tag, $message);
+        return redirect()->route('imunisasi-wus.sasaran')->with($tag, $message);
     }
 
     /**

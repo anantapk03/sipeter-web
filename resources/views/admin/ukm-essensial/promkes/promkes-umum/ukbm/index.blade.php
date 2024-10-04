@@ -33,17 +33,6 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Desa</th>
-                        <th>Jenis UKBM</th>
-                        <th>Nama UKBM</th>
-                        <th>Status</th>
-                        {{-- <th>Alamat UKBM</th> --}}
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     @foreach ($dataUkbm as $item)
                         <tr>

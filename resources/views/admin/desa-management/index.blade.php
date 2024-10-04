@@ -19,15 +19,6 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Desa</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     @foreach ($data as $item)
                         <tr>

@@ -36,7 +36,7 @@ class PencatatanWusController extends Controller
         $sasaran = SasaranImunisasiWus::find($idSasaran);
         // $data = LaporanImunisasiWus::where('idSasaran', $id)->get();
 
-        #dd($data);
+        // dd($data);
         #dd($sasaran);
         return view('admin.ukm-essensial.pengendalian-penyakit.imunisasi.imunisasi-wus.laporan-imunisasi.index', ['data' => $data, 'sasaran' => $sasaran, 'totalJenis' => $totalJenis, 'linkedJenis' => $linkedJenisCount]);
     }

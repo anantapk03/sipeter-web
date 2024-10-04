@@ -21,17 +21,6 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Kegiatan</th>
-                        <th>Bulanan</th>
-                        <th>Triwulan</th>
-                        <th>Semester</th>
-                        <th>Tahunan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     @foreach ($data as $item)
                         <tr>

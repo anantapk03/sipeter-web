@@ -14,9 +14,7 @@
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            @foreach ($data as $item)
-            @endforeach
-            <h3>Data Imunisasi Wanita Usia Subur Desa {{ $item->namaDesa }}</h3>
+            <h3>Data Imunisasi Wanita Usia Subur</h3>
             @if ($linkedJenis >= $totalJenis)
                 <div class="dropdown show">
                     <button disabled href="{{ route('imunisasi-wus.laporan.create', ['idSasaran'=>$sasaran->id]) }}" class="btn btn-sm btn-success"><i class="fas fa-plus"></i> Tambah</button>
@@ -41,16 +39,6 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Desa</th>
-                        <th>Jumlah Sasaran</th>
-                        <th>Jenis Imunisasi</th>
-                        <th>Jumlah Terlaksana</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     @foreach ($data as $item)
                         <tr>

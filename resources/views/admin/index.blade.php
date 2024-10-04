@@ -102,9 +102,9 @@
             <div class="col-md-6">
                 <x-visualisasi-data-ukbm/>
             </div>
-            {{-- <div class="col-md-12">
+            <div class="col-md-12">
                 <x-visualisasi-data-promkes-lain />
-            </div> --}}
+            </div>
         </div>
     @endif
 
@@ -124,7 +124,11 @@
     @endif
 
     @if (\App\Helpers\DivisiHelper::isUserHaveAccess(\App\Helpers\DivisiHelper::PENCEGAHAN_PENGENDALIAN_PENYAKIT, $listAccessFeatures))
-    
+        <div class="row">
+            <div class="col-md-12">
+                <x-visualisasi-data-imunisasi-wus />
+            </div>
+        </div>
     @endif
 
 @endsection

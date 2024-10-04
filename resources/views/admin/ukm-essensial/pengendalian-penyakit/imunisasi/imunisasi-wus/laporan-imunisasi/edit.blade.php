@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3>Tambah Pencatatan Imunisasi</h3>
+            <h3>Ubah Data Pencatatan Imunisasi</h3>
         </div>
         <form action="{{ route('imunisasi-wus.laporan.update', ['idSasaran'=>$sasaran->idSasaran, 'id'=>$data->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf

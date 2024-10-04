@@ -19,6 +19,8 @@
     // variable yang dibutuhkan
     var listProgram = {!! json_encode($listProgramPromkes) !!}
     var totalKegiatan = {!! json_encode($totalKegiatan) !!}
+    var jumlahKegiatanReport = {!! json_encode($jumlahKegiatanInReport) !!}
+    var achiveTarget = {!! json_encode($jumlahKegiatanMemenuhiTarget) !!}
 
     var myMultipleLineChart = new Chart(multipleLineChart, {
         type: 'line',
@@ -38,7 +40,7 @@
                 borderWidth: 2,
                 data: totalKegiatan
             },{
-                label: "Jumlah Capaian",
+                label: "Jumlah Kegiatan yang Memenuhi Target",
                 borderColor: "#59d05d",
                 pointBorderColor: "#FFF",
                 pointBackgroundColor: "#59d05d",
@@ -49,9 +51,9 @@
                 backgroundColor: 'transparent',
                 fill: true,
                 borderWidth: 2,
-                data: jumlahCapaian
+                data: achiveTarget
             }, {
-                label: "Jumlah Desa Terlaksana",
+                label: "Total Kegiatan yang dilaksanakan",
                 borderColor: "#f3545d",
                 pointBorderColor: "#FFF",
                 pointBackgroundColor: "#f3545d",
@@ -62,7 +64,7 @@
                 backgroundColor: 'transparent',
                 fill: true,
                 borderWidth: 2,
-                data: jumlahDesa
+                data: jumlahKegiatanReport
             }]
         },
         options : {
@@ -86,6 +88,18 @@
 				}]
 			},
             tooltips: {
+                callbacks: {
+						title: function(tooltipItem, data) {
+							// Mengambil label dari array labels berdasarkan indeks
+							return listProgram[tooltipItem[0].index];
+						},
+						label: function(tooltipItem, data) {
+							// Mengambil label dataset dan nilai
+							var datasetLabel = data.datasets[tooltipItem.datasetIndex].label; // Nama dataset
+							var value = tooltipItem.yLabel; // Nilai
+							return datasetLabel + ': ' + value; // Format: "Capaian: 80" atau "Target: 80"
+						}
+					},
                 bodySpacing: 4,
                 mode:"nearest",
                 intersect: 0,

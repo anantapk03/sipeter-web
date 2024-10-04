@@ -22,15 +22,6 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Jenis</th>
-                        <th>Deskripsi</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     @foreach ($data as $item)
                         <tr>

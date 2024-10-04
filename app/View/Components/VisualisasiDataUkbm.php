@@ -75,7 +75,7 @@ class VisualisasiDataUkbm extends Component
             // dd($listCapaianUkbm);
             return $listCapaianUkbm;
         }catch(Exception $e){
-            dd($e);
+            // dd($e);
             return [];
         }
         
