@@ -1,29 +1,28 @@
 <div>
-    <!-- Always remember that you are absolutely unique. Just like everyone else. - Margaret Mead -->
-
-	<div class="card">
+    <!-- Very little is needed to make a happy life. - Marcus Aurelius -->
+    <div class="card">
 		<div class="card-header">
-			<div class="card-title">Program Usaha Kesehatan Sekolah - {{\App\Helpers\MonthHelper::getMonth($monthNumber)}}</div>
+			<div class="card-title">Program Imunisasi Baduta - {{\App\Helpers\MonthHelper::getMonth($monthNumber)}} {{$year}}</div>
 		</div>
 		<div class="card-body">
 			<div class="chart-container">
-				<canvas id="multipleLineChartUKS"></canvas>
+				<canvas id="multipleLineChartImunisasiBaduta"></canvas>
 			</div>
 		</div>
 	</div>
 
 	<script>
-		var labelsUKS = {!! json_encode($listKegiatan) !!};
-		var listTotalTarget = {!! json_encode($listTotalTarget) !!};
-		var listTotalCapaian = {!! json_encode($listTotalCapaian) !!};
-		var listTotalKelasKegiatan = {!! json_encode($listTotalKelasKegiatan) !!};
-		var multipleLineChartUKS = document.getElementById('multipleLineChartUKS').getContext('2d');
-		var mymultipleLineChartUKS = new Chart(multipleLineChartUKS, {
+		var listDesaBaduta = {!! json_encode($listDesaImunisasiBaduta) !!};
+        var listTotalTargetJumlahImunisasiBadutaLakiDanPerempuan = {!! json_encode($listTotalTargetJumlahImunisasiBadutaLakiDanPerempuan) !!};
+        var listTotalCapaianJumlahImunisasiBadutaLakiDanPerempuan = {!! json_encode($listTotalCapaianJumlahImunisasiBadutaLakiDanPerempuan) !!};
+        var listTotalTypeImunisasiBadutaInReport = {!! json_encode($listTotalTypeImunisasiBadutaInReport) !!};
+        var multipleLineChartImunisasiBaduta = document.getElementById('multipleLineChartImunisasiBaduta').getContext('2d');
+		var mymultipleLineChartImunisasiBaduta = new Chart(multipleLineChartImunisasiBaduta, {
 			type: 'line',
 			data: {
-				labels: labelsUKS,
+				labels: listDesaBaduta,
 				datasets: [{
-					label: "Capaian",
+					label: "Laporan Perjenis Imunisasi Baduta",
 					borderColor: "#1d7af3",
 					pointBorderColor: "#FFF",
 					pointBackgroundColor: "#1d7af3",
@@ -34,9 +33,10 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: listTotalCapaian
-				},{
-					label: "Target",
+					data: listTotalTypeImunisasiBadutaInReport,
+				},
+                {
+					label: "Total Target Sasaran",
 					borderColor: "#59d05d",
 					pointBorderColor: "#FFF",
 					pointBackgroundColor: "#59d05d",
@@ -47,9 +47,10 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: listTotalTarget
-				}, {
-					label: "Jumlah Kelas",
+					data: listTotalTargetJumlahImunisasiBadutaLakiDanPerempuan
+				},
+                {
+					label: "Total Capaian Imunisasi",
 					borderColor: "#f3545d",
 					pointBorderColor: "#FFF",
 					pointBackgroundColor: "#f3545d",
@@ -60,8 +61,10 @@
 					backgroundColor: 'transparent',
 					fill: true,
 					borderWidth: 2,
-					data: listTotalKelasKegiatan
-				}]
+					data: listTotalCapaianJumlahImunisasiBadutaLakiDanPerempuan
+				}
+                
+                ]
 			},
 			options : {
 				responsive: true, 
@@ -87,7 +90,7 @@
 					callbacks: {
 						title: function(tooltipItem, data) {
 							// Mengambil label dari array labels berdasarkan indeks
-							return labelsUKS[tooltipItem[0].index];
+							return listDesaBaduta[tooltipItem[0].index];
 						},
 						label: function(tooltipItem, data) {
 							// Mengambil label dataset dan nilai
@@ -110,8 +113,4 @@
 			}
 		});
 	</script>
-	
-	
-	
-
 </div>

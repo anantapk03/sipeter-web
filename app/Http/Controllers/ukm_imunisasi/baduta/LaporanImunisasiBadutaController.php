@@ -58,7 +58,7 @@ class LaporanImunisasiBadutaController extends Controller
 
     public function checkJenisImunisasiInReport($id){
         $dataReportInThisMonthAndYear = LaporanImunisasiBaduta::where('idSasaranImunisasi', $id)->pluck('idJenisImunisasi');
-        $jenisImunisasi = JenisImunisasiBaduta::whereNotIn('id', $dataReportInThisMonthAndYear)->get();
+        $jenisImunisasi = JenisImunisasiBaduta::where('isActive', true)->whereNotIn('id', $dataReportInThisMonthAndYear)->get();
         return $jenisImunisasi;
     }
 
