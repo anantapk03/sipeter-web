@@ -131,6 +131,9 @@
         <div class="col-md-6">
             <x-visualisasi-imunisasi-baduta/>
         </div>
+        <div class="col-md-12">
+            <x-visualisasi-data-imunisasi-wus/>
+        </div>
         <div class="col-md-6">
             <x-visualisasi-data-pengendalian-penyakit-menular/>
         </div>
