@@ -40,6 +40,8 @@ use App\Http\Controllers\PencatatanWusController;
 use App\Http\Controllers\ukm_promkes\KegiatanPromosiKesehatanUmumDesaController;
 use App\Http\Controllers\ukm_promkes\PencatatanKegiatanPromosiKesehatanUmumDesa;
 use App\Helpers\DivisiHelper;
+use App\Http\Controllers\report\ReportController;
+use App\Http\Controllers\report\KiaGiziReportController;
 
 
 Route::get('/', [AuthController::class, 'loginPage'])->name('loginPage');
@@ -78,6 +80,10 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::get('management-desa/{id}', [DesaController::class, 'edit'])->name('desa.edit');
         Route::post('management-desa/{id}', [DesaController::class, 'update'])->name('desa.update');
         Route::delete('management-desa/{id}', [DesaController::class, 'destroy'])->name('desa.destroy');
+
+        // Managemen Report 
+        Route::get('management-report/index', [ReportController::class, 'index'])->name('management-report-index');
+        Route::get('management-report/kia-gizi/index', [KiaGiziReportController::class, 'index'])->name('management-report-kia-gizi-index');
     });
 
     Route::group(['middleware'=>['checkAccessFeatures:'.DivisiHelper::PROMOSI_KESEHATAN.','.DivisiHelper::ADMIN]], function(){

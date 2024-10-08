@@ -118,6 +118,12 @@
                     </div>
                 </li>
                 <li class="nav-item ">
+                    <a  href="{{route('management-report-index')}}" aria-expanded="false">
+                        <i class="icon-docs"></i>
+                        <p>Laporan</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
                     <a  href="{{route('logout')}}" aria-expanded="false">
                         <i class="fas fa-power-off"></i>
                         <p>Keluar</p>
