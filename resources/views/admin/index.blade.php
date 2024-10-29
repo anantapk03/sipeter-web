@@ -115,10 +115,10 @@
     @if (\App\Helpers\DivisiHelper::isUserHaveAccess(\App\Helpers\DivisiHelper::KESEHATAN_IBU_ANAK_GIZI, $listAccessFeatures))
     <div class="row">
         <div class="col-md-6">
-            <x-visualisasi-data-kia-gizi />
+            <x-visualisasi-data-kia-gizi :monthNumber="$currentMonth" :year="$currentYear" />
         </div>
         <div class="col-md-6">
-            <x-visualisasi-kia-gizi-2 />
+            <x-visualisasi-kia-gizi-2 :monthNumber="$currentMonth" :year="$currentYear"/>
         </div>
     </div>
     @endif

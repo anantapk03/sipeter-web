@@ -23,15 +23,15 @@ class VisualisasiKiaGizi2 extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($monthNumber = null, $year = null)
     {
         //
-        $this->monthNumber = MonthHelper::logicGetMonth();
-        $this->year = MonthHelper::checkYear();
+        $this->monthNumber = $monthNumber ?? MonthHelper::logicGetMonth();
+        $this->year = $year ?? MonthHelper::checkYear();
         $this->listProgram = $this->getListProgram()->pluck('namaProgram')->toArray();
         $this->listTotalKegiatanInProgram = $this->getTotalKegiatanInProgram();
-        $this->listTotalKegiatanInReportThisMonth = $this->getTotalKegiatanInReportThisMonth(MonthHelper::logicGetMonth(), MonthHelper::checkYear());
-        $this->listTotalKegiatanAchieveTarget = $this->getTotalKegiatanAchieveTarget(MonthHelper::logicGetMonth(), MonthHelper::checkYear());
+        $this->listTotalKegiatanInReportThisMonth = $this->getTotalKegiatanInReportThisMonth($this->monthNumber, $this->year);
+        $this->listTotalKegiatanAchieveTarget = $this->getTotalKegiatanAchieveTarget($this->monthNumber, $this->year);
     }
 
     public function getListProgram(){

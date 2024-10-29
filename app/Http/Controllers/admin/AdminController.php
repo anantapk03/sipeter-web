@@ -18,6 +18,7 @@ class AdminController extends Controller
         $user = User::all();
         $desa = Desa::all();
         $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
         
         $kesling = PencatatanKegiatanKesling::select('jumlah')
         ->where('bulan', $currentMonth)->get();
@@ -41,7 +42,7 @@ class AdminController extends Controller
 
         #dd($kegiatan);
 
-        return view('admin.index', compact('user', 'desa', 'jumlah', 'kegiatan', 'currentMonth', 'listAccessFeatures'));
+        return view('admin.index', compact('user', 'desa', 'jumlah', 'kegiatan', 'currentMonth', 'listAccessFeatures', 'currentYear'));
     }
     
 }

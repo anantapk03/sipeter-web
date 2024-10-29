@@ -22,14 +22,14 @@ class VisualisasiDataKiaGizi extends Component
      public $listTotalTarget;
      public $monthNumber;
      public $year;
-    public function __construct()
+    public function __construct($monthNumber = null, $year = null)
     {
         $this->listKegiatan = $this->getKegiatanUKS()->pluck('namaKegiatan')->toArray();
         $this->listTotalTarget = $this->getKegiatanUKS()->pluck('targetBulanan')->toArray();
-        $this->monthNumber = $this->getMonth();
-        $this->year = $this->getYear();
-        $this->listTotalCapaian = $this->getListTotalCapaian();
-        $this->listTotalKelasKegiatan = $this->getTotalLocation();
+        $this->monthNumber = $monthNumber ?? $this->getMonth();
+        $this->year = $year ?? $this->getYear();
+        $this->listTotalCapaian = $this->getListTotalCapaian($this->year, $this->monthNumber);
+        $this->listTotalKelasKegiatan = $this->getTotalLocation($this->year, $this->monthNumber);
 
     }
 
@@ -69,11 +69,9 @@ class VisualisasiDataKiaGizi extends Component
         }
     }
 
-    public function getListTotalCapaian(){
+    public function getListTotalCapaian($currentYear, $currentMonth){
         $listIdKegiatan = $this->getKegiatanUKS()->pluck('id');
         $listTotalCapaianKegiatan = [];
-        $currentMonth = $this->getMonth();
-        $currentYear = $this->getYear();
 
         for($i=0;$i<count($listIdKegiatan);$i++){
             try{
@@ -95,11 +93,9 @@ class VisualisasiDataKiaGizi extends Component
         return $listTotalCapaianKegiatan;
     }
 
-    public function getTotalLocation(){
+    public function getTotalLocation($currentYear, $currentMonth){
         $listIdKegiatan = $this->getKegiatanUKS()->pluck('id');
         $listLocation = [];
-        $currentMonth = $this->getMonth();
-        $currentYear = $this->getYear();
 
         for($i=0;$i<count($listIdKegiatan);$i++){
             try{

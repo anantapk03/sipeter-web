@@ -7,7 +7,16 @@
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <h3>Data Program KIA & Gizi</h3>
-            <a href="{{route('program-kia-gizi-create')}}" class="btn btn-primary">Tambah</a>
+            <div class="dropdown show">
+                <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Menu
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a href="{{route('program-kia-gizi-create')}}" class="dropdown-item"><i class="flaticon-plus"></i> Buat Progam</a>
+                    <a href="{{route('program-kia-gizi-index-statistics')}}" class="dropdown-item"><i class="flaticon-analytics"></i> Statistik Data</a>
+                </div>
+            </div>
+
         </div>
     </div>
     <div class="card-body">

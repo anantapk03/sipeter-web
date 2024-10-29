@@ -40,6 +40,7 @@ use App\Http\Controllers\PencatatanWusController;
 use App\Http\Controllers\ukm_promkes\KegiatanPromosiKesehatanUmumDesaController;
 use App\Http\Controllers\ukm_promkes\PencatatanKegiatanPromosiKesehatanUmumDesa;
 use App\Helpers\DivisiHelper;
+use App\Http\Controllers\ukm_kia_gizi\StatisticDataProgramKiaGiziController;
 
 
 Route::get('/', [AuthController::class, 'loginPage'])->name('loginPage');
@@ -182,6 +183,9 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::get('pencatatan-program-kia-gizi/edit/{id}', [ProgramKIAGiziController::class, 'edit'])->name('program-kia-gizi-edit');
         Route::post('pencatatan-program-kia-gizi/update/{id}', [ProgramKIAGiziController::class, 'update'])->name('program-kia-gizi-update');
         Route::get('pencatatan-program-kia-gizi/updateStatus/{id}', [ProgramKIAGiziController::class, 'updateStatus'])->name('program-kia-gizi-updateStatus');
+        Route::get('pencatatan-program-kia-gizi/indexStatistics', [StatisticDataProgramKiaGiziController::class, 'index'])->name('program-kia-gizi-index-statistics');
+        Route::get('pencatatan-program-kia-gizi/indexStatistics/filter', [StatisticDataProgramKiaGiziController::class, 'filterData'])->name('program-kia-gizi-index-statistics-filter-data');
+        
         
         // Kegiatan PROGRAM GIZI KIA 
         Route::get('pencatatan-program-kia-gizi/kegiatan/index/{id}', [KegiatanProgramKiaGiziController::class, 'index'])->name('kegiatan-program-kia-gizi-index');
