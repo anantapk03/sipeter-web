@@ -92,6 +92,15 @@
             </div>
         </div>
     </div>
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <x-visualisasi-data-statistic-users/>
+        </div>
+        <div class="col-md-6">
+            <x-visualisasi-data-statistic-users-pie-charts/>
+        </div>
+    </div>
+
     @endif
 
     @if (\App\Helpers\DivisiHelper::isUserHaveAccess(\App\Helpers\DivisiHelper::PROMOSI_KESEHATAN, $listAccessFeatures))
@@ -115,10 +124,10 @@
     @if (\App\Helpers\DivisiHelper::isUserHaveAccess(\App\Helpers\DivisiHelper::KESEHATAN_IBU_ANAK_GIZI, $listAccessFeatures))
     <div class="row">
         <div class="col-md-6">
-            <x-visualisasi-data-kia-gizi :monthNumber="$currentMonth" :year="$currentYear" />
+            <x-visualisasi-data-kia-gizi/>
         </div>
         <div class="col-md-6">
-            <x-visualisasi-kia-gizi-2 :monthNumber="$currentMonth" :year="$currentYear"/>
+            <x-visualisasi-kia-gizi-2 />
         </div>
     </div>
     @endif
