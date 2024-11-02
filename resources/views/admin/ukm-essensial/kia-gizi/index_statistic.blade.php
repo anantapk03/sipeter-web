@@ -9,10 +9,13 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <x-visualisasi-data-kia-gizi :monthNumber="$currentMonth" :year="$currentYear" />
+                <x-visualisasi-kegiatan-active-in-program :month="$currentMonth" :year="$currentYear"/>
             </div>
             <div class="col-md-6">
                 <x-visualisasi-kia-gizi-2 :monthNumber="$currentMonth" :year="$currentYear"/>
+            </div>
+            <div class="col-md-6">
+                <x-visualisasi-data-kia-gizi :monthNumber="$currentMonth" :year="$currentYear" />
             </div>
         </div>
     </div>
