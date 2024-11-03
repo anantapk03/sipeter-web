@@ -19,6 +19,7 @@ class VisualisasiDataKesling extends Component
     public $listKegiatan;
     public $listTargetKegiatan;
     public $listJumlahCapaian;
+    public $monthNumber;
     public $year;
 
     // Fungsi mengambil nama kegiatan Kesehatan Lingkungan
@@ -58,9 +59,9 @@ class VisualisasiDataKesling extends Component
         return $currentMonth;
     }
 
-    public function getListCapaian(){
+    public function getListCapaian($monthNumber, $year){
         try{
-            $data = PencatatanKegiatanKesling::all();
+            $data = PencatatanKegiatanKesling::where('bulan', $monthNumber)->where('tahun', $year);
             return $data;
         }catch(Exception $e){
             dd($e);
@@ -70,12 +71,13 @@ class VisualisasiDataKesling extends Component
 
 
 
-    public function __construct()
+    public function __construct($monthNumber = null, $year = null)
     {
         $this->listKegiatan = $this->getListKegiatan()->pluck('kegiatan')->toArray();
         $this->listTargetKegiatan = $this->getListKegiatan()->pluck('bulanan')->toArray();
-        $this->listJumlahCapaian = $this->getListCapaian()->pluck('jumlah')->toArray();
-
+        $this->listJumlahCapaian = $this->getListCapaian($monthNumber, $year)->pluck('jumlah')->toArray();
+        $this->monthNumber = $monthNumber ?? $this->getMonth();
+        $this->year = $year ?? $this->getYear();
     }
 
     /**

@@ -2,14 +2,15 @@
 
 namespace App\View\Components;
 
-use App\helpers\MonthHelper;
-use App\Models\KegiatanProgramPromkes;
-use App\Models\PencatatanKegiatanProgramPromkes;
-use App\Models\ProgramDivisiPromkes;
 use Closure;
 use Exception;
-use Illuminate\Contracts\View\View;
+use Carbon\Carbon;
+use App\helpers\MonthHelper;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
+use App\Models\ProgramDivisiPromkes;
+use App\Models\KegiatanProgramPromkes;
+use App\Models\PencatatanKegiatanProgramPromkes;
 
 class VisualisasiDataPromkesLain extends Component
 {
@@ -26,6 +27,32 @@ class VisualisasiDataPromkesLain extends Component
     public $year;
 
 
+    public function getYear(){
+        $currentDay = date('j');   // Tanggal saat ini, misal: 1, 2, 3, ..., 31
+        $currentYear = date('Y');   // Tanggal saat ini, misal: 1, 2, 3, ..., 31
+        $year = $currentYear;
+        $currentMonth = Carbon::now()->month;
+
+        if($currentMonth==1){
+            if($currentDay>5){
+                $year = $currentYear ;
+            } else{
+                $year = $currentYear - 1;
+            }
+        }
+        return $year;
+    }
+
+    public function getMonth(){
+        $currentMonth = Carbon::now()->month;
+        $currentDay = date('j');
+
+        if($currentDay < 5){
+            $currentMonth = $currentMonth - 1;
+        }
+        return $currentMonth;
+    }
+    
     // mendapatkan nama program kesehatan yang ada
     public function listPromkes(){
         try{
@@ -133,14 +160,14 @@ class VisualisasiDataPromkesLain extends Component
     }
     
 
-    public function __construct()
+    public function __construct($monthNumber = null, $year = null)
     {
         $this->listProgramPromkes = $this->listPromkes()->pluck('namaProgram')->toArray();
         $this->totalKegiatan = $this->getTotalKegiatan();
-        $this->jumlahKegiatanInReport = $this->getKegiatanInReportThisMonth(MonthHelper::logicGetMonth(), MonthHelper::checkYear());
-        $this->jumlahKegiatanMemenuhiTarget = $this->getKegiatanAchieveTarget(MonthHelper::logicGetMonth(), MonthHelper::checkYear());
-        $this->monthNumber = MonthHelper::logicGetMonth();
-        $this->year = MonthHelper::checkYear();
+        $this->jumlahKegiatanInReport = $this->getKegiatanInReportThisMonth($this->monthNumber, $this->year);
+        $this->jumlahKegiatanMemenuhiTarget = $this->getKegiatanAchieveTarget($this->monthNumber, $this->year);
+        $this->monthNumber = $monthNumber ?? $this->getMonth();
+        $this->year = $year ?? $this->getYear();
     }
 
     /**

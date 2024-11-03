@@ -2,7 +2,7 @@
     <!-- He who is contented is rich. - Laozi -->
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title mb-2 fw-mediumbold">Data Kesehatan Lingkungan</h4>
+            <h4 class="card-title mb-2 fw-mediumbold">Data Kesehatan Lingkungan - {{\App\Helpers\MonthHelper::getMonth($monthNumber)}} {{$year}}</h4>
         <div id="chart-container">
             <canvas id="multipleLineKesling" style="width: 300px; height:300px"></canvas>
         </div>

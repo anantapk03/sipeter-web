@@ -99,6 +99,12 @@
         <div class="col-md-6">
             <x-visualisasi-data-statistic-users-pie-charts/>
         </div>
+        <div class="col-md-6">
+            <x-visualisasi-data-kader/>
+        </div>
+        <div class="col-md-6">
+            <x-visualisasi-data-dana/>
+        </div>
     </div>
 
     @endif

@@ -2,7 +2,7 @@
     <!-- The only way to do great work is to love what you do. - Steve Jobs -->
     <div class="card">
         <div class="card-header">
-            <div class="card-title">Data UKBM yang dibina</div>
+            <div class="card-title">Data UKBM yang dibina - {{\App\Helpers\MonthHelper::getMonth($monthNumber)}} {{$year}}</div>
         </div>
         <div class="card-body">
             <div class="chart-container">

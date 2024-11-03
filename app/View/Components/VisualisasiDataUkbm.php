@@ -19,6 +19,8 @@ class VisualisasiDataUkbm extends Component
     public $listJenisUkbm;
     public $listTargetUkbm;
     public $listCapaianUkbm;
+    public $monthNumber;
+    public $year;
 
     // Data UKBM
     public function getJenisUkbm(){
@@ -56,10 +58,8 @@ class VisualisasiDataUkbm extends Component
         return $currentMonth;
     }
 
-    public function getListCapaian(){
+    public function getListCapaian($currentMonth, $currentYear){
         $listIdJenis = $this->getJenisUkbm()->pluck('id')->toArray();
-        $currentMonth = $this->getMonth();
-        $currentYear = $this->getYear();
         $listCapaianUkbm = [];
 
         try{
@@ -81,12 +81,14 @@ class VisualisasiDataUkbm extends Component
         
     }
     
-    public function __construct()
+    public function __construct($monthNumber = null, $year = null)
     {
         // Data Ukbm
         $this->listJenisUkbm = $this->getJenisUkbm()->pluck('jenisUkbm')->toArray();
         $this->listTargetUkbm = $this->getJenisUkbm()->pluck('bulanan')->toArray();
-        $this->listCapaianUkbm = $this->getListCapaian();
+        $this->listCapaianUkbm = $this->getListCapaian($this->monthNumber, $this->year);
+        $this->monthNumber = $monthNumber ?? $this->getMonth();
+        $this->year = $year ?? $this->getYear();
     }
 
     /**

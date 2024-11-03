@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 use App\Models\SubKegiatanPromosiKesehatanDesa;
+use SebastianBergmann\Type\NullType;
 
 class VisualisasiDataPromkesUmum extends Component
 {
@@ -23,6 +24,7 @@ class VisualisasiDataPromkesUmum extends Component
     public $jumlahDesa;
     public $month;
     public $year;
+    public $monthNumber;
 
     public function getListKegiatan(){
         try{
@@ -60,12 +62,10 @@ class VisualisasiDataPromkesUmum extends Component
         return $currentMonth;
     }
 
-    public function getJumlahCapaian(){
+    public function getJumlahCapaian($currentMonth, $currentYear){
         $listIdKegiatan = $this->getListKegiatan()->pluck('id');
         $listJumlahCapaian = [];
-        $currentMonth = $this->getMonth();
-        $currentYear = $this->getYear();
-
+        
         for($i = 0; $i < count($listIdKegiatan); $i++){
             try{
                 $data = PencatatanKegiatanPromkesDesa::where('idKegiatanPromKesDesa', $listIdKegiatan[$i])
@@ -85,11 +85,9 @@ class VisualisasiDataPromkesUmum extends Component
         return $listJumlahCapaian;
     }
 
-    public function getJumlahDesa(){
+    public function getJumlahDesa($currentMonth, $currentYear){
         // Ambil list ID Kegiatan
         $listIdKegiatan = $this->getListKegiatan()->pluck('id')->toArray();
-        $currentMonth = $this->getMonth();
-        $currentYear = $this->getYear();
     
         // Inisialisasi array untuk menampung hasil
         $listJumlahDesa = [];
@@ -117,13 +115,14 @@ class VisualisasiDataPromkesUmum extends Component
     }
 
 
-    public function __construct()
+    public function __construct($monthNumber = null, $year = null)
     {
         $this->listKegiatan = $this->getListKegiatan()->pluck('namaKegiatan')->toArray();
         $this->targetKegiatan = $this->getListKegiatan()->pluck('targetBulanan')->toArray();
-        $this->jumlahCapaian = $this->getJumlahCapaian();
-        $this->jumlahDesa = $this->getJumlahDesa();
-        $this->year = $this->getYear();
+        $this->jumlahCapaian = $this->getJumlahCapaian($this->monthNumber, $this->year);
+        $this->jumlahDesa = $this->getJumlahDesa($this->monthNumber, $this->year);
+        $this->monthNumber = $monthNumber ?? $this->getMonth();
+        $this->year = $year ?? $this->getYear();
     }
 
 

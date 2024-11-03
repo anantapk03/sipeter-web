@@ -1,25 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\AccessFeaturesController;
-use App\Http\Controllers\ukm_imunisasi\baduta\JenisImunisasiBadutaController;
-use App\Http\Controllers\ukm_imunisasi\baduta\LaporanImunisasiBadutaController;
-use App\Http\Controllers\ukm_imunisasi\baduta\SasaranImunisasiBadutaController;
-use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\JenisImunisasiBayiController;
-use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\LaporanImunisasiBayiController;
-use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\SasaranImunisasiBayiController;
-use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKesehatanSekolahController;
-use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKiaGiziController;
-use App\Http\Controllers\ukm_kia_gizi\KelasSiswaController;
-use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKesehatanSekolahController;
-use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKiaGiziController;
-use App\Http\Controllers\ukm_kia_gizi\ProgramKIAGiziController;
-use App\Http\Controllers\ukm_p2\CategoryP2Controller;
-use App\Http\Controllers\ukm_p2\ProgramP2Controller;
-use App\Http\Controllers\ukm_p2\KegiatanProgramP2Controller;
-use App\Http\Controllers\ukm_p2\LaporanKegiatanProgramP2Controller;
-use App\Http\Controllers\ukm_promkes\KegiatanProgramDivisiPromkesController;
-use App\Http\Controllers\ukm_promkes\PencatatanKegiatanProgramPromkesController;
-use App\Http\Controllers\ukm_promkes\ProgramDivisiPromkesController;
+use App\Helpers\DivisiHelper;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\UkbmController;
@@ -27,20 +8,41 @@ use App\Http\Controllers\DataUkbmController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\UkmEssensialController;
+use App\Http\Controllers\PencatatanWusController;
 use App\Http\Controllers\PencatatanUkbmController;
 use App\Http\Controllers\KegiatanKeslingController;
 use App\Http\Controllers\KegiatanPromKesController;
+use App\Http\Controllers\ukm_p2\ProgramP2Controller;
 use App\Http\Controllers\JenisImunisasiWusController;
 use App\Http\Controllers\PencatatanKeslingController;
+use App\Http\Controllers\ukm_p2\CategoryP2Controller;
 use App\Http\Controllers\SasaranImunisasiWusController;
+use App\Http\Controllers\admin\AccessFeaturesController;
 use App\Http\Controllers\admin\UserManagementController;
 use App\Http\Controllers\PengendalianPenyakitController;
+use App\Http\Controllers\StatisticDataKeslingController;
+use App\Http\Controllers\StatisticDataPromkesController;
 use App\Http\Controllers\JenisPromosiKesehatanController;
-use App\Http\Controllers\PencatatanWusController;
-use App\Http\Controllers\ukm_promkes\KegiatanPromosiKesehatanUmumDesaController;
-use App\Http\Controllers\ukm_promkes\PencatatanKegiatanPromosiKesehatanUmumDesa;
-use App\Helpers\DivisiHelper;
+use App\Http\Controllers\ukm_kia_gizi\KelasSiswaController;
+use App\Http\Controllers\ukm_p2\KegiatanProgramP2Controller;
+use App\Http\Controllers\ukm_kia_gizi\ProgramKIAGiziController;
+use App\Http\Controllers\ukm_p2\LaporanKegiatanProgramP2Controller;
+use App\Http\Controllers\ukm_promkes\ProgramDivisiPromkesController;
+use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKiaGiziController;
 use App\Http\Controllers\ukm_kia_gizi\StatisticDataProgramKiaGiziController;
+use App\Http\Controllers\ukm_promkes\KegiatanProgramDivisiPromkesController;
+use App\Http\Controllers\ukm_imunisasi\baduta\JenisImunisasiBadutaController;
+use App\Http\Controllers\ukm_imunisasi\baduta\LaporanImunisasiBadutaController;
+use App\Http\Controllers\ukm_imunisasi\baduta\SasaranImunisasiBadutaController;
+use App\Http\Controllers\ukm_kia_gizi\KegiatanProgramKesehatanSekolahController;
+use App\Http\Controllers\ukm_promkes\KegiatanPromosiKesehatanUmumDesaController;
+use App\Http\Controllers\ukm_promkes\PencatatanKegiatanProgramPromkesController;
+use App\Http\Controllers\ukm_promkes\PencatatanKegiatanPromosiKesehatanUmumDesa;
+use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKiaGiziController;
+use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\JenisImunisasiBayiController;
+use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\LaporanImunisasiBayiController;
+use App\Http\Controllers\ukm_imunisasi\imunisasi_bayi\SasaranImunisasiBayiController;
+use App\Http\Controllers\ukm_kia_gizi\PencatatanKegiatanProgramKesehatanSekolahController;
 
 
 Route::get('/', [AuthController::class, 'loginPage'])->name('loginPage');
@@ -89,6 +91,8 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::get('ukm-essensial/divisi/promosi-kesehatan-1/edit/{id}', [ProgramDivisiPromkesController::class, 'edit'])->name('program-divisi-promosi-kesehatan-edit');
         Route::post('ukm-essensial/divisi/promosi-kesehatan-1/update/{id}', [ProgramDivisiPromkesController::class, 'update'])->name('program-divisi-promosi-kesehatan-update');
         Route::get('ukm-essensial/divisi/promosi-kesehatan-1/updateStatus/{id}', [ProgramDivisiPromkesController::class, 'updateStatus'])->name('program-divisi-promosi-kesehatan-updateStatus');
+        Route::get('ukm-essensial/divisi/promosi-kesehatan/statistic', [StatisticDataPromkesController::class, 'index'])->name('promkes.statistic');
+        Route::get('ukm-essensial/divisi/promosi-kesehatan/statistic/filter', [StatisticDataPromkesController::class, 'filterData'])->name('promkes.statistic.filter');
 
         // Management Kegiatan Program point B dst. 
         Route::get('ukm-essensial/divisi/promosi-kesehatan/kegiatan/index/{id}', [KegiatanProgramDivisiPromkesController::class, 'index'])->name('kegiatan-program-divisi-promkes-index');
@@ -165,6 +169,8 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::post('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/edit', [KegiatanKeslingController::class, 'update'])->name('kesling.kegiatan.update');
         Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/delete', [KegiatanKeslingController::class, 'destroy'])->name('kesling.kegiatan.delete');
         Route::get('ukm-essensial/divisi/kesehatan-lingkungan/kegiatan/{id}/updateStatus', [KegiatanKeslingController::class, 'updateStatus'])->name('kesling.kegiatan.updateStatus');
+        Route::get('ukm-essensial/divisi/kesehatan-lingkungan/data-statistic', [StatisticDataKeslingController::class, 'index'])->name('kesling.index-statistic');
+        Route::get('ukm-essensial/divisi/kesehatan-lingkungan/data-statistic/filter', [StatisticDataKeslingController::class, 'filterData'])->name('kesling.index-statistic.filter');
         
         // Pencatatan Kegiatan Kesehatan Keliling
         Route::get('ukm-essensial/divisi/kesehatan-lingkungan/report', [PencatatanKeslingController::class, 'indexReport'])->name('kesling.kegiatan.report');

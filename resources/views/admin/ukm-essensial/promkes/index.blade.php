@@ -4,7 +4,15 @@
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <h3>Data Program Divisi Promosi Kesehatan</h3>
-            <a href="{{route('program-divisi-promosi-kesehatan-create')}}" class="btn btn-primary">Tambah</a>
+            <div class="dropdown show" style="margin-left: 55%">
+                <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Menu
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{{ route('program-divisi-promosi-kesehatan-create') }}"><i class="fas fa-plus"></i> Tambah</a>
+                    <a class="dropdown-item" href="{{ route('promkes.statistic') }}"><i class="fas fa-chart-bar"></i> Statistic</a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card-body">

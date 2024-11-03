@@ -4,7 +4,15 @@
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <h3>Data Kegiatan Kesehatan Lingkungan</h3>
-            <a href="{{ route('kesling.kegiatan.report') }}" class="btn btn-sm btn-info" style="margin-left: 50%"><i class="fas fa-list"></i> Pencatatan</a>
+            <div class="dropdown show" style="margin-left: 55%">
+                <a class="btn btn-sm btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Menu
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{{ route('kesling.kegiatan.report') }}"><i class="fas fa-book"></i> Pencatatan</a>
+                    <a class="dropdown-item" href="{{ route('kesling.index-statistic') }}"><i class="fas fa-chart-bar"></i> Statistic</a>
+                </div>
+            </div>
             <a href="{{ route('kesling.kegiatan.create') }}" class="btn btn-sm btn-success"><i class="fas fa-plus"></i> Tambah</a>
         </div>
     </div>
