@@ -25,15 +25,15 @@ class VisualisasiDataPengendalianPenyakitTidakMenular extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($month = null, $year = null)
     {
-        $this->monthNumber = MonthHelper::logicGetMonth();
-        $this->year = MonthHelper::checkYear();
+        $this->monthNumber = $month ?? MonthHelper::logicGetMonth();
+        $this->year = $year ?? MonthHelper::checkYear();
         $this->getCategoryTidakMenular = $this->getCategory();
         $this->listNamaProgramP2TidakMenular = $this->getListProgramNameP2Menular();
         $this->listTotalKegiatanForEachProgramTidakMenular = $this->getListTotalKegiatanForeachProgram();
-        $this->listTotalCapaianKegiatanTidakMenular = $this->getListTotalKegiatanYangDilaksanakan();
-        $this->listTotalKegiatanBelumMencapaiTargetTidakMenular = $this->getListTotalKegiatanBelumMencapaiTarget();
+        $this->listTotalCapaianKegiatanTidakMenular = $this->getListTotalKegiatanYangDilaksanakan($this->monthNumber, $this->year);
+        $this->listTotalKegiatanBelumMencapaiTargetTidakMenular = $this->getListTotalKegiatanBelumMencapaiTarget($this->monthNumber, $this->year);
     }
 
     public function getCategory(){
@@ -91,9 +91,7 @@ class VisualisasiDataPengendalianPenyakitTidakMenular extends Component
         }
     }
 
-    public function getReportByIdKegiatan($idKegiatan){
-        $currentMonth = MonthHelper::logicGetMonth();
-        $currentYear = MonthHelper::checkYear();
+    public function getReportByIdKegiatan($idKegiatan, $currentMonth, $currentYear){
 
         try{
             $data = PencatatanProgramPengendalianPenyakit::where('idKegiatan', $idKegiatan)->where('bulan', $currentMonth)->where('tahun', $currentYear)->first();
@@ -103,7 +101,7 @@ class VisualisasiDataPengendalianPenyakitTidakMenular extends Component
         }
     }
 
-    public function getListTotalKegiatanYangDilaksanakan(){
+    public function getListTotalKegiatanYangDilaksanakan($currentMonth, $currentYear){
         $idCategory = $this->getCategory();
         $dataListTotalKegiatanForeachProgramDo = [];
         
@@ -113,7 +111,7 @@ class VisualisasiDataPengendalianPenyakitTidakMenular extends Component
                 $dataKegiatanByProgram = $this->getKegiatanProgramById($idProgram)->pluck('id')->toArray();
                 $dataTotalCapaian = [];
                 foreach($dataKegiatanByProgram as $idKegiatan){
-                    $data = $this->getReportByIdKegiatan($idKegiatan);
+                    $data = $this->getReportByIdKegiatan($idKegiatan, $currentMonth, $currentYear);
                     if($data != null){
                         $dataTotalCapaian[] = 1;
                     } else{
@@ -130,7 +128,7 @@ class VisualisasiDataPengendalianPenyakitTidakMenular extends Component
         }
     }
 
-    public function getListTotalKegiatanBelumMencapaiTarget(){
+    public function getListTotalKegiatanBelumMencapaiTarget($currentMonth, $currentYear){
         $idCategory = $this->getCategory();
         $listTotalKegiatanBelumMencapaiTarget = [];
         
@@ -141,7 +139,7 @@ class VisualisasiDataPengendalianPenyakitTidakMenular extends Component
                 $dataJumlahSasaranKegiatan = $this->getKegiatanProgramById($idProgram)->pluck('targetJumlah')->toArray();
                 $dataTotalKegiatanBelumMencapaiTarget = [];
                 foreach($dataKegiatanByProgram as $key => $idKegiatan){
-                    $dataKegiatanInReport = $this->getReportByIdKegiatan($idKegiatan);
+                    $dataKegiatanInReport = $this->getReportByIdKegiatan($idKegiatan, $currentMonth, $currentYear);
                     $targetJumlah = $dataJumlahSasaranKegiatan[$key];
                     if($dataKegiatanInReport != null){
                         if($targetJumlah>$dataKegiatanInReport->jumlah){

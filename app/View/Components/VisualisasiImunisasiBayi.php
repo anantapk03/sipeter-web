@@ -25,14 +25,14 @@ class VisualisasiImunisasiBayi extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($month = null, $year = null)
     {
-        $this->year = MonthHelper::checkYear();
-        $this->monthNumber = MonthHelper::logicGetMonth();
+        $this->year = $year ?? MonthHelper::checkYear();
+        $this->monthNumber =  $month ?? MonthHelper::logicGetMonth();
         $this->listDesa = $this->getListDesa()->pluck('namaDesa')->toArray();
-        $this->totalImunisasiBySasaranId = $this->getListTotalImunisasiInReport();
-        $this->totalSasaranSurvifingInfantAndBayi = $this->getListSasaranSurvifingInfantAndBayi();
-        $this->totalCapaianImunisasiPerDesa = $this->getListCapaianImunisasi();
+        $this->totalImunisasiBySasaranId = $this->getListTotalImunisasiInReport($this->monthNumber, $this->year);
+        $this->totalSasaranSurvifingInfantAndBayi = $this->getListSasaranSurvifingInfantAndBayi($this->monthNumber, $this->year);
+        $this->totalCapaianImunisasiPerDesa = $this->getListCapaianImunisasi($this->monthNumber, $this->year);
 
     }
 
@@ -45,9 +45,7 @@ class VisualisasiImunisasiBayi extends Component
         }
     }
 
-    public function getSasaranReport($idDesa){
-        $currentMonth = MonthHelper::logicGetMonth();
-        $currentYear = MonthHelper::checkYear();
+    public function getSasaranReport($idDesa, $currentMonth, $currentYear){
         try{
             $data = SasaranImunisasiBayi::where('idDesa', $idDesa)->where('bulan', $currentMonth)->where('tahun', $currentYear)->first();
             return $data;
@@ -56,12 +54,12 @@ class VisualisasiImunisasiBayi extends Component
         }
     }
 
-    public function sasaranDesaInReport(){
+    public function sasaranDesaInReport($currentMonth, $currentYear){
         $idDesa = $this->getListDesa()->pluck('id')->toArray();
         $listIdSasaranReport = [];
         try{
             foreach($idDesa as $desaId){
-                $dataDesaInReport = $this->getSasaranReport($desaId);
+                $dataDesaInReport = $this->getSasaranReport($desaId, $currentMonth, $currentYear);
                 if($dataDesaInReport != null){
                     $listIdSasaranReport[] = $dataDesaInReport->id;
                 } else{
@@ -85,8 +83,8 @@ class VisualisasiImunisasiBayi extends Component
         }
     }
 
-    public function getListTotalImunisasiInReport(){
-        $dataReport = $this->sasaranDesaInReport();
+    public function getListTotalImunisasiInReport($currentMonth, $currentYear){
+        $dataReport = $this->sasaranDesaInReport($currentMonth, $currentYear);
         // dd($dataReport);
         $listTotalImunisasiInReport = [];
         try{
@@ -110,13 +108,13 @@ class VisualisasiImunisasiBayi extends Component
         }
     }
 
-    public function getListSasaranSurvifingInfantAndBayi(){
+    public function getListSasaranSurvifingInfantAndBayi($currentMonth, $currentYear){
         $idDesa = $this->getListDesa()->pluck('id')->toArray();
         $listTotalSasaranSurvifingInfantAndBayi = [];
 
         try{
             foreach($idDesa as $desaId){
-                $dataDesaInReport = $this->getSasaranReport($desaId);
+                $dataDesaInReport = $this->getSasaranReport($desaId, $currentMonth, $currentYear);
                 if($dataDesaInReport != null){
                     $survifingInfantLaki = $dataDesaInReport->jumlah_surviving_infant_laki;
                     $survifingInfantPerempuan = $dataDesaInReport->jumlah_surviving_infant_perempuan;
@@ -140,8 +138,8 @@ class VisualisasiImunisasiBayi extends Component
 
     }
 
-    public function getListCapaianImunisasi(){
-        $dataReport = $this->sasaranDesaInReport();
+    public function getListCapaianImunisasi($currentMonth, $currentYear){
+        $dataReport = $this->sasaranDesaInReport($currentMonth, $currentYear);
         // dd($dataReport);
         $listTotalCapaianImunisasiPerDesa = [];
 
@@ -163,16 +161,6 @@ class VisualisasiImunisasiBayi extends Component
             return [];
         }
     }
-
-
-
-
-
-
-
-
-
-
 
     /**
      * Get the view / contents that represent the component.

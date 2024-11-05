@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ukm_p2;
 
+use App\helpers\MonthHelper;
 use App\Http\Controllers\Controller;
 use App\Models\CategoryP2;
 use Exception;
@@ -93,8 +94,20 @@ class CategoryP2Controller extends Controller
             $message = $e->getMessage();
         }
 
-        return redirect()->route('category-p2-index')->with($tag, $message);
+        return redirect()->route('category-p2-index')->with($tag, $message);        
+    }
 
+    public function toIndexAnalytics(){
+        $currentMonth = MonthHelper::logicGetMonth();
+        $currentYear = MonthHelper::checkYear();
+        return view('admin.ukm-essensial.pengendalian-penyakit.index_statistic', ['currentMonth' => $currentMonth, 'currentYear' => $currentYear]);
+    }
+
+    public function filterIndexStatistic(Request $request){
+        $currentMonth = $request->month;
+        $currentYear = $request->year;
+
+        return view('admin.ukm-essensial.pengendalian-penyakit.index_statistic', ['currentMonth' => $currentMonth, 'currentYear' => $currentYear]);
         
     }
 }
