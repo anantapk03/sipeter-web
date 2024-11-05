@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('idDesa')->references('id')->on('wilayah_kerja');
             $table->integer('jumlahSasaran');
+            $table->enum('bulan', ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']);
+            $table->integer('tahun');
             $table->timestamps();
         });
     }

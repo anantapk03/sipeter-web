@@ -2,12 +2,13 @@
 
 namespace App\View\Components;
 
-use App\Models\LaporanImunisasiWus;
-use App\Models\SasaranImunisasiWus;
 use Closure;
 use Exception;
-use Illuminate\Contracts\View\View;
+use Carbon\Carbon;
 use Illuminate\View\Component;
+use App\Models\LaporanImunisasiWus;
+use App\Models\SasaranImunisasiWus;
+use Illuminate\Contracts\View\View;
 
 class VisualisasiDataImunisasiWus extends Component
 {
@@ -19,13 +20,41 @@ class VisualisasiDataImunisasiWus extends Component
     public $listSasaran;
     public $targetSasaran;
     public $listCapaian;
+    public $monthNumber;
+    public $year;
 
+
+    public function getYear(){
+        $currentDay = date('j');   // Tanggal saat ini, misal: 1, 2, 3, ..., 31
+        $currentYear = date('Y');   // Tanggal saat ini, misal: 1, 2, 3, ..., 31
+        $year = $currentYear;
+        $currentMonth = Carbon::now()->month;
+
+        if($currentMonth==1){
+            if($currentDay>5){
+                $year = $currentYear ;
+            } else{
+                $year = $currentYear - 1;
+            }
+        }
+        return $year;
+    }
+
+    public function getMonth(){
+        $currentMonth = Carbon::now()->month;
+        $currentDay = date('j');
+
+        if($currentDay < 5){
+            $currentMonth = $currentMonth - 1;
+        }
+        return $currentMonth;
+    }
 
 
     // Mendapatkan data sasaran
-    public function getListSasaran(){
+    public function getListSasaran($monthNumber, $year){
         try{
-            $data = SasaranImunisasiWus::leftJoin('wilayah_kerja', function ($join) {
+            $data = SasaranImunisasiWus::where('bulan', $monthNumber)->where('tahun', $year)->leftJoin('wilayah_kerja', function ($join) {
                 $join->on('sasaran_imunisasi_wus.idDesa', '=', 'wilayah_kerja.id');
             })->get();
             // dd($data);
@@ -35,9 +64,9 @@ class VisualisasiDataImunisasiWus extends Component
         }
     }
 
-    public function getSasaran(){
+    public function getSasaran($monthNumber, $year){
         try{
-            $data = SasaranImunisasiWus::all();
+            $data = SasaranImunisasiWus::where('bulan', $monthNumber)->where('tahun', $year)->get();
             return $data;
         }catch(Exception $e){
             return $e;
@@ -46,7 +75,8 @@ class VisualisasiDataImunisasiWus extends Component
 
     // mendapatkan jumlah pencatatan yang telah dilakukan (Capaian)
     public function getCapaianKegiatan(){
-        $listIdSasaran = $this->getSasaran()->pluck('id')->toArray();
+        
+        $listIdSasaran = $this->getSasaran($this->monthNumber, $this->year)->pluck('id')->toArray();
        // dd($listIdSasaran);
         $listCapaianKegiatan = [];
         try{
@@ -63,10 +93,12 @@ class VisualisasiDataImunisasiWus extends Component
             return 0;
         }
     }
-    public function __construct()
+    public function __construct($monthNumber = null, $year = null)
     {
-        $this->listSasaran = $this->getListSasaran()->pluck('namaDesa')->toArray();
-        $this->targetSasaran = $this->getListSasaran()->pluck('jumlahSasaran')->toArray();
+        $this->monthNumber = $monthNumber ?? $this->getMonth();
+        $this->year = $year ?? $this->getYear();
+        $this->listSasaran = $this->getListSasaran($this->monthNumber, $this->year)->pluck('namaDesa')->toArray();
+        $this->targetSasaran = $this->getListSasaran($this->monthNumber, $this->year)->pluck('jumlahSasaran')->toArray();
         $this->listCapaian = $this->getCapaianKegiatan();
     }
 

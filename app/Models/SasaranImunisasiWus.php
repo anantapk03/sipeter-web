@@ -11,7 +11,9 @@ class SasaranImunisasiWus extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'idDesa',
-        'jumlahSasaran'
+        'jumlahSasaran',
+        'bulan',
+        'tahun'
     ];
     
     use HasFactory;

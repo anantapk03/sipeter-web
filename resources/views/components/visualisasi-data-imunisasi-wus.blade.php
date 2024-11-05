@@ -3,7 +3,7 @@
     <div>
         <div class="card">
             <div class="card-header">
-                <div class="card-title">Program Imunisasi Wus</div>
+                <div class="card-title">Program Imunisasi Wus - {{\App\Helpers\MonthHelper::getMonth($monthNumber)}} {{$year}}</div>
             </div>
             <div class="card-body">
                 <div class="chart-container">
