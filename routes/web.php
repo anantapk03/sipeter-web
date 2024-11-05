@@ -352,6 +352,11 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (
         Route::post('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/{idSasaran}/laporan/edit/{id}', [PencatatanWusController::class, 'update'])->name('imunisasi-wus.laporan.update');
         Route::get('/ukm-essensial/divisi/pengendalian-penyakit/imunisasi-wus/sasaran/{idSasaran}/laporan/delete/{id}', [PencatatanWusController::class, 'destroy'])->name('imunisasi-wus.laporan.delete');
 
+        // Analytics Data P2 Program 
+        Route::get('ukm-essensial/divisi/pengendalian-penyakit/analytics', [CategoryP2Controller::class, 'toIndexAnalytics'])->name('pengendalian-penyakit-analytics');
+        Route::get('ukm-essensial/divisi/pengendalian-penyakit/analytics/filter', [CategoryP2Controller::class, 'filterIndexStatistic'])->name('pengendalian-penyakit-analytics-filter');
+        
+
     });
     
 });

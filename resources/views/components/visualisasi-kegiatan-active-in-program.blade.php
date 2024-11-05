@@ -2,7 +2,7 @@
     <!-- The best way to take care of the future is to take care of the present moment. - Thich Nhat Hanh -->
     <div class="card">
         <div class="card-header">
-            <div class="card-title">Statistic Data Total Kegiatan Pada Setiap Program</div>
+            <div class="card-title">Statistic Data Total Kegiatan Pada Setiap Program KIA Gizi</div>
         </div>
         <div class="card-body">
             <div class="chart-container">

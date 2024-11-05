@@ -136,8 +136,11 @@
             <x-visualisasi-kia-gizi-2 />
         </div>
         
-        <div class="col">
+        <div class="col-md-6">
             <x-visualisasi-data-kia-gizi/>
+        </div>
+        <div class="col-md-6">
+            <x-radar-chart-kia-gizi/>
         </div>
     </div>
     @endif

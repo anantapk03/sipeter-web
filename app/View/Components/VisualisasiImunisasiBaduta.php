@@ -23,14 +23,14 @@ class VisualisasiImunisasiBaduta extends Component
      public $listTotalCapaianJumlahImunisasiBadutaLakiDanPerempuan;
      public $year;
      public $monthNumber;
-    public function __construct()
+    public function __construct($month = null, $year = null)
     {
-        $this->year = MonthHelper::checkYear();
-        $this->monthNumber = MonthHelper::logicGetMonth();
+        $this->year = $year ?? MonthHelper::checkYear();
+        $this->monthNumber = $month ?? MonthHelper::logicGetMonth();
         $this->listDesaImunisasiBaduta = $this->getListDesa()->pluck('namaDesa')->toArray();
-        $this->listTotalTargetJumlahImunisasiBadutaLakiDanPerempuan = $this->getListTotalSasaranByIdDesa();
-        $this->listTotalCapaianJumlahImunisasiBadutaLakiDanPerempuan = $this->getListCapaianReportImunisasiBaduta();
-        $this->listTotalTypeImunisasiBadutaInReport = $this->getListTotalTypeImunisasiBadutaInReport();
+        $this->listTotalTargetJumlahImunisasiBadutaLakiDanPerempuan = $this->getListTotalSasaranByIdDesa($this->monthNumber, $this->year);
+        $this->listTotalCapaianJumlahImunisasiBadutaLakiDanPerempuan = $this->getListCapaianReportImunisasiBaduta($this->monthNumber, $this->year);
+        $this->listTotalTypeImunisasiBadutaInReport = $this->getListTotalTypeImunisasiBadutaInReport($this->monthNumber, $this->year);
         
     }
 
@@ -43,9 +43,7 @@ class VisualisasiImunisasiBaduta extends Component
         }
     }
 
-    public function getSasaranReportByIdDesa($idDesa){
-        $currentMonth = MonthHelper::logicGetMonth();
-        $currentYear = MonthHelper::checkYear();
+    public function getSasaranReportByIdDesa($idDesa, $currentMonth, $currentYear){
         try{
             $data = SasaranImunisasiBaduta::where('idDesa',$idDesa)
             ->where('bulan', $currentMonth)
@@ -57,13 +55,13 @@ class VisualisasiImunisasiBaduta extends Component
         }
     }
 
-    public function getIdListSasaranBaduta(){
+    public function getIdListSasaranBaduta($currentMonth, $currentYear){
         $listIdDesa = $this->getListDesa()->pluck('id')->toArray();
         $listIdSasaranImunisasiBaduta = [];
 
         try{
             foreach($listIdDesa as $desaId){
-                $dataDesaInReport = $this->getSasaranReportByIdDesa($desaId);
+                $dataDesaInReport = $this->getSasaranReportByIdDesa($desaId, $currentMonth, $currentYear);
                 if($dataDesaInReport != null){
                     $listIdSasaranImunisasiBaduta[] = $dataDesaInReport->id;
                 } else{
@@ -77,13 +75,13 @@ class VisualisasiImunisasiBaduta extends Component
         }
     }
 
-    public function getListTotalSasaranByIdDesa(){
+    public function getListTotalSasaranByIdDesa($currentMonth, $currentYear){
         $listIdDesa = $this->getListDesa()->pluck('id')->toArray();
         $listTotalSasaranByIdDesa = [];
 
         try{
             foreach($listIdDesa as $idDesa){
-                $dataDesa = $this->getSasaranReportByIdDesa($idDesa);
+                $dataDesa = $this->getSasaranReportByIdDesa($idDesa, $currentMonth, $currentYear);
                 if($dataDesa != null){
                     $sasaranLaki = $dataDesa->sasaran_laki;
                     $sasaranPerempuan = $dataDesa->sasaran_perempuan;
@@ -108,8 +106,8 @@ class VisualisasiImunisasiBaduta extends Component
         }
     }
 
-    public function getListCapaianReportImunisasiBaduta(){
-        $listIdSasaran = $this->getIdListSasaranBaduta();
+    public function getListCapaianReportImunisasiBaduta( $currentMonth, $currentYear){
+        $listIdSasaran = $this->getIdListSasaranBaduta($currentMonth, $currentYear);
         $listCapaianByIdSasaran = [];
 
         try{
@@ -131,8 +129,8 @@ class VisualisasiImunisasiBaduta extends Component
         }
     }
 
-    public function getListTotalTypeImunisasiBadutaInReport(){
-        $listIdSasaran = $this->getIdListSasaranBaduta();
+    public function getListTotalTypeImunisasiBadutaInReport($currentMonth, $currentYear){
+        $listIdSasaran = $this->getIdListSasaranBaduta($currentMonth, $currentYear);
         $listTotalTypeImunisasiBadutaInReport = [];
 
         try{

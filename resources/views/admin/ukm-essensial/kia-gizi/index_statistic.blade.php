@@ -17,6 +17,9 @@
             <div class="col-md-6">
                 <x-visualisasi-data-kia-gizi :monthNumber="$currentMonth" :year="$currentYear" />
             </div>
+            <div class="col-md-6">
+                <x-radar-chart-kia-gizi :month="$currentMonth" :year="$currentYear"/>
+            </div>
         </div>
     </div>
     <div class="card-footer">

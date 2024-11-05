@@ -11,7 +11,8 @@
                     Menu
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a href="{{route('category-p2-index')}}" class="dropdown-item"><i class="flaticon-archive"></i>Kategori Program</a>
+                    <a href="{{route('category-p2-index')}}" class="dropdown-item"><i class="flaticon-archive"></i> Kategori Program</a>
+                    <a href="{{route('pengendalian-penyakit-analytics')}}" class="dropdown-item"><i class="flaticon-analytics"></i> Statistic Data</a>
                 </div>
             </div>
             @endif
