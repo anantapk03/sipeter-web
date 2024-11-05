@@ -10,9 +10,6 @@
                 <div class="col-md-12">
                     <x-visualisasi-data-kesling :monthNumber="$currentMonth" :year="$currentYear"/>
                 </div>
-                <div class="col-md-12">
-                    <x-visualisasi-data-imunisasi-wus :monthNumber="$currentMonth" :year="$currentYear"/>
-                </div>
             </div>
         </div>
         <div class="card-footer">
