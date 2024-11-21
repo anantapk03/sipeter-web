@@ -51,7 +51,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
-Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin']], function (){
+Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin,Kepala Puskesmas']], function (){
     Route::get('dashboard', [AdminController::class, 'index'])->name('admin-dashboard');
     Route::get('ukm-essensial/divisi', [UkmEssensialController::class, 'index'])->name('ukm-essensial.index');
 

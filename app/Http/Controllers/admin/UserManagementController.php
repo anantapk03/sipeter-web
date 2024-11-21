@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AccessFeature;
+use App\Models\Divisi;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -41,19 +43,38 @@ class UserManagementController extends Controller
         if($request->hasFile('imageUrl')){
             $file = $request->file('imageUrl');
             $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
-            $filePath = $file->storeAs('public/picture_profile', $fileName);
-            
             $user->imageUrl = $fileName;
         }
 
         // Save Data 
         try{
             $user->save();
+            $this->addFeaturesForAdminOrKepus($user);
             return redirect(route('admin-management-users', ['level'=>$level]))->with('success', 'Data berhasil ditambahkan');
         } catch(Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
         }
+    }
 
+    public function addFeaturesForAdminOrKepus(User $user){
+        if($user->level == "Admin" || $user->level == "Kepala Puskesmas"){
+            try{
+                $adminAccess = $this->getAdminFeatures();
+                $data = new AccessFeature();
+                $data->idDivisi = $adminAccess->id;
+                $data->idUser = $user->id;
+                $data->isLeader = false;
+
+                $data->save();
+            } catch(Exception $e){
+                return redirect()->route('admin-management-users', ['level'=>$user->level])->with('error', "Gagal menyimpan akses fitur");
+            }
+        }
+    }
+
+    public function getAdminFeatures(){
+        $adminAccessId = Divisi::where('namaDivisi', 'admin')->first();
+        return $adminAccessId;
     }
 
     public function edit($level, $id){

@@ -13,7 +13,7 @@
 @endsection
 @section('content')
 
-    @if (auth()->user()->level == "Admin")
+    @if (auth()->user()->level == "Admin" || auth()->user()->level == "Kepala Puskesmas")
     <div class="row mt--5">
         <div class="col-sm-6 col-md-6">
             <div class="card card-stats card-round">

@@ -50,7 +50,7 @@
                     </a>
                 </li>
                 {{-- Data Master --}}
-                @if (auth()->user()->level == 'Admin')
+                @if (auth()->user()->level == 'Admin' || auth()->user()->level == 'Kepala Puskesmas')
                     <li class="nav-section">
                         <span class="sidebar-mini-icon">
                             <i class="fa fa-ellipsis-h"></i>

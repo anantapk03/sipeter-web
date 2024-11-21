@@ -5,17 +5,17 @@
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <h3>Data Program Pencegahan dan Pengendalian Penyakit</h3>
-            @if (auth()->user()->level == 'Admin')
             <div class="dropdown show">
                 <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Menu
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    @if (auth()->user()->level == 'Admin')
                     <a href="{{route('category-p2-index')}}" class="dropdown-item"><i class="flaticon-archive"></i> Kategori Program</a>
+                    @endif
                     <a href="{{route('pengendalian-penyakit-analytics')}}" class="dropdown-item"><i class="flaticon-analytics"></i> Statistic Data</a>
                 </div>
             </div>
-            @endif
         </div>
     </div>
     <div class="card-body">
