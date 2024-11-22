@@ -33,9 +33,9 @@
                             <td>{{$user->nama}}</td>
                             <td>
                                 @if ($user->status == "active")
-                                <span class="badge badge-success">{{$user->status}}</span>
+                                <a href="{{route('admin-updateStatus-management-users', ['id'=>$user->id])}}" class="btn btn-success btn-sm {{$user->id==auth()->user()->id ? "disabled"  : ""}}">{{$user->status}}</a>
                                 @else
-                                <span class="badge badge-danger">{{$user->status}}</span>
+                                <a href="{{route('admin-updateStatus-management-users', ['id'=>$user->id])}}" class="btn btn-danger btn-sm {{$user->id==auth()->user()->id ? "disabled"  : ""}}">{{$user->status}}</a>
                                 @endif
                             </td>
                             <td>

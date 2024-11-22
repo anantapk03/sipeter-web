@@ -26,7 +26,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             if(auth()->user()->status == "inactive"){
                 Auth::logout();
-                return redirect()->back()->with('error', 'Data pengguna tidak ditemukan');
+                return redirect(route('loginPage'))->with('error', 'Gagal Login, Silahkan Hubungi Admin');
             }
             return redirect(route('admin-dashboard'));
         }

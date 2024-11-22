@@ -62,11 +62,8 @@ class UserManagementController extends Controller
 
     public function isKepusAxis(){
         $data = User::where('level', "Kepala Puskesmas")->where('status', 'active')->get();
-        $status = "active";
-        if($data != null){
-            $status = "inactive";
-        }
-
+        // dd($data);
+        $status = $data->isEmpty()? "active" : "inactive";
         return $status;
     }
 
@@ -130,6 +127,39 @@ class UserManagementController extends Controller
                 // 'imageUrl' => 'required|image|mimes:jpeg,png,jpg|max:2048', // max 2MB
                 'nip' => 'required|string|max:18'
             ]);
+        }
+    }
+
+    public function updateStatus($id){
+        try{
+            $user = User::findOrFail($id);
+
+            if($user->level == "Kepala Puskesmas"){
+                if($user->status == "active"){
+                    $user->status = "inactive";
+                } else {
+                    $isKepusAxis = $this->isKepusAxis();
+                    if($isKepusAxis == "inactive"){
+                        // Its mean, there are one kepus active in system, so this block will execute
+                        return redirect()->back()->with('error', 'There just only 1 Kepala Puskesmas for 1 system');
+                    } else{
+                        $user->status = 'active';   
+                    }
+                }
+
+            } else{
+                if($user->status == 'active'){
+                    $user->status = 'inactive';
+                } else{
+                    $user->status = 'active';
+                }
+            }
+
+            $user->update();
+
+            return redirect()->back()->with('success','Update status successfully');
+        } catch(Exception $e){
+            return redirect()->back()->with('error', 'Data status failed to be updated');
         }
     }
 

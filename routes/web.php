@@ -62,6 +62,7 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Petugas UKM,Admin,Kepala Puskesm
         Route::post('management-users/store/{level}', [UserManagementController::class, 'store'])->name('admin-store-management-users');
         Route::get('management-users/edit/{level}/{id}', [UserManagementController::class, 'edit'])->name('admin-edit-management-users');
         Route::post('management-users/update/{id}', [UserManagementController::class, 'update'])->name('admin-update-management-users');
+        Route::get('management-users/updateStatus/{id}', [UserManagementController::class, 'updateStatus'])->name('admin-updateStatus-management-users');
         Route::get('management-users/updatePassword/{id}', [UserManagementController::class, 'updatePassword'])->name('admin-updatePassword-management-users');
         Route::get('management-users/delete/{id}', [UserManagementController::class, 'delete'])->name('admin-delete-management-users');
 
