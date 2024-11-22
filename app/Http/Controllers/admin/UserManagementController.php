@@ -38,7 +38,11 @@ class UserManagementController extends Controller
         $user->password = bcrypt('developers');
         $user->level = $level;
         $user->nip = $request->nip;
-        $user->status = "active";
+        if($user->level == "Kepala Puskesmas"){
+            $user->status = $this->isKepusAxis();
+        } else{
+            $user->status = 'active';
+        }
 
         if($request->hasFile('imageUrl')){
             $file = $request->file('imageUrl');
@@ -54,6 +58,16 @@ class UserManagementController extends Controller
         } catch(Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
         }
+    }
+
+    public function isKepusAxis(){
+        $data = User::where('level', "Kepala Puskesmas")->where('status', 'active')->get();
+        $status = "active";
+        if($data != null){
+            $status = "inactive";
+        }
+
+        return $status;
     }
 
     public function addFeaturesForAdminOrKepus(User $user){
