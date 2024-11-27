@@ -27,7 +27,7 @@ class ProgramP2Controller extends Controller
         }
 
         try{
-            $data = ProgramPengendalianPenyakit::where('isActive', true)->where('idCategory', $id)->get();
+            $data = ProgramPengendalianPenyakit::where('idCategory', $id)->orderBy('isActive', 'desc')->get();
         } catch(Exception $e){
             return redirect()->back()->with('error', $e->getMessage()); 
         }

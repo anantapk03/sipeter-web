@@ -36,7 +36,7 @@ class KegiatanProgramP2Controller extends Controller
         }
 
         try{
-            $data = KegiatanProgramPengendalianPenyakit::where('idProgram', $id)->get();
+            $data = KegiatanProgramPengendalianPenyakit::where('idProgram', $id)->orderBy('isActive', 'desc')->get();
         } catch(Exception $e){
             return redirect()->back()->with('error', 'Something went wrong');
         }
