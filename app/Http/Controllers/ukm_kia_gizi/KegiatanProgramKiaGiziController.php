@@ -12,7 +12,7 @@ class KegiatanProgramKiaGiziController extends Controller
 {
     public function index($id){
         $dataProgram = ProgramKiaGizi::find($id);
-        $data = KegiatanProgramKiaGizi::where('idProgramKiaGizi', $id)->get();
+        $data = KegiatanProgramKiaGizi::where('idProgramKiaGizi', $id)->orderBy('isActive', 'desc')->get();
         return view('admin.ukm-essensial.kia-gizi.kegiatan.index', ['data' => $data, 'dataProgram'=>$dataProgram]);
     }
 

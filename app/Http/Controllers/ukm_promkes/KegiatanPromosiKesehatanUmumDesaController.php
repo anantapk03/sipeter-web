@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class KegiatanPromosiKesehatanUmumDesaController extends Controller
 {
     public function index(){
-        $data = SubKegiatanPromosiKesehatanDesa::where('isActive', true)->get();
+        $data = SubKegiatanPromosiKesehatanDesa::orderBy('isActive', 'desc')->get();
         return view('admin.ukm-essensial.promkes.promkes-umum.promkes-desa.index', ['data' => $data]);
     }
 
@@ -19,7 +19,7 @@ class KegiatanPromosiKesehatanUmumDesaController extends Controller
         return view('admin.ukm-essensial.promkes.promkes-umum.promkes-desa.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request) {
         $dataForm = new SubKegiatanPromosiKesehatanDesa();
         $dataForm->namaKegiatan = $request->namaKegiatan ;
         $dataForm->deskripsiKegiatan = $request->deskripsiKegiatan;

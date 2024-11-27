@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ProgramDivisiPromkesController extends Controller
 {
     public function index(){
-        $data = ProgramDivisiPromkes::where('isActive', true)->get();
+        $data = ProgramDivisiPromkes::orderBy('isActive', 'desc')->get();
         return view('admin.ukm-essensial.promkes.index', ['data' => $data]);
     }
 

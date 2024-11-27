@@ -12,7 +12,7 @@ class KegiatanProgramDivisiPromkesController extends Controller
 {
     public function index($id){
         $dataProgram = ProgramDivisiPromkes::find($id);
-        $data = KegiatanProgramPromkes::where('idProgram', $id)->get();
+        $data = KegiatanProgramPromkes::where('idProgram', $id)->orderBy('isActive', 'desc')->get();
         return view('admin.ukm-essensial.promkes.promkes-other.index', ['dataProgram' => $dataProgram, 'data' => $data]);
     }
 

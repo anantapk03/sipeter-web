@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ProgramKIAGiziController extends Controller
 {
     public function index(){
-        $data = ProgramKiaGizi::all();
+        $data = ProgramKiaGizi::orderBy('isActive', 'desc')->get();
         return view('admin.ukm-essensial.kia-gizi.index', ['data' => $data]);
     }
 

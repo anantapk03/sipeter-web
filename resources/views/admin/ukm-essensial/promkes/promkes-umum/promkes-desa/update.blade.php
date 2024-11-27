@@ -44,25 +44,16 @@
                 </div>
                 <div class="form-group">
                     <label for="inpukNama">Status</label>
-                    <select type="text" name="isActive" class="form-control" required placeholder="Status Kegiatan...">
-                        @if ($data->isActive)
-                        <option value="{{$data->status}}">
+                    <select name="isActive" class="form-control" required>
+                        <option value="1" {{ $data->isActive == 1 ? 'selected' : '' }}>
                             Active
                         </option>
-                        <option value="0">
+                        <option value="0" {{ $data->isActive == 0 ? 'selected' : '' }}>
                             Inactive
                         </option>
-                        @else 
-                            <option value="{{$data->status}}">
-                                Inactive
-                            </option>
-                            <option value="1">
-                                Active
-                            </option>
-                        @endif
-                        
                     </select>
                 </div>
+                
             </div>
             <div class="card-footer">
                 <button class="btn btn-success" type="submit">Simpan</button>
